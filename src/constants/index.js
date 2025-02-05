@@ -1,5 +1,5 @@
 import project1 from "../assets/Linklytics.avif";
-import project2 from "../assets/chatApplication.png";
+import project2 from "../assets/ChatApplication.png";
 import project3 from "../assets/Ecommerce.jpg";
 import project4 from "../assets/Real Estate.avif";
 
