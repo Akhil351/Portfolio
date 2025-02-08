@@ -39,7 +39,15 @@ const Projects = () => {
                 initial={{ opacity: 0, x: 100 }}
                 transition={{ duration: 1 }}
               >
-                <h3 className="mb-2 font-semibold text-2xl">{project.title}</h3>
+                <h3 className="mb-2 font-semibold text-2xl">
+                  <a
+                    href={project.link}
+                    className="text-blue-500"
+                  >
+                    {project.title}
+                  </a>
+                </h3>
+
                 <p className="mb-4 text-stone-400">{project.description}</p>
                 <div>
                   {project.technologies.map((tech, index) => {
