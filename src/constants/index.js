@@ -8,7 +8,7 @@ export const EXPERIENCES = [
     year: "2024 - Present",
     role: "Back End Developer",
     company: "Ideyalabs",
-    description: `Working as a Back End Developer in the BlockApi (Spring Boot) and Hyperledger (Go) BlockChain Network. Focused on designing and implementing robust backend systems using Spring Boot for RESTful APIs and Go for blockchain-based solutions with Hyperledger Fabric. Responsible for integrating backend services with databases like PostgreSQL and MongoDB, ensuring secure and efficient transactions on the blockchain.`,
+    description: `Working as a Backend Developer, specializing in Spring Boot for building RESTful APIs and Go for developing Hyperledger Fabric chaincode in a blockchain network. Responsible for integrating services with PostgreSQL and MongoDB while ensuring secure and efficient blockchain transactions .`,
     technologies: [
       "Spring Boot",
       "Go",
