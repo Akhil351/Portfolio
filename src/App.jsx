@@ -116,7 +116,7 @@ const technologies = [
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-stone-300 font-sans overflow-x-hidden antialiased">
+    <div className="min-h-screen bg-gray-900 text-stone-300 font-sans overflow-x-hidden antialiased">
       {/* NavBar */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-lg shadow-lg">
         <div className="container mx-auto flex items-center justify-between px-8 py-4">
