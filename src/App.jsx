@@ -11,7 +11,12 @@ import { BiLogoPostgresql } from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
 import { FaGolang } from "react-icons/fa6";
 import { RiReactjsLine } from "react-icons/ri";
-import { SiMongodb, SiSpringboot } from "react-icons/si";
+import {
+  SiMongodb,
+  SiSpringboot,
+  SiApachekafka,
+  SiRabbitmq,
+} from "react-icons/si";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 // Assets
@@ -21,8 +26,8 @@ import project1 from "./assets/Linklytics.avif";
 import project2 from "./assets/ChatApplication.png";
 import project3 from "./assets/Ecommerce.jpg";
 import project4 from "./assets/Real Estate.avif";
-import project5 from "./assets/project5.jpg";
-import project6 from "./assets/project6.jpg";
+import project5 from "./assets/researchAssistant.jpeg";
+import project6 from "./assets/fitness.jpg";
 
 // Data
 const EXPERIENCES = [
@@ -47,11 +52,12 @@ const PROJECTS = [
     image: project1,
     description:
       "Developed a URL shortening platform with an intuitive interface for creating, managing, and tracking shortened links. Integrated powerful analytics for performance tracking, enhanced security with encryption, and optimized for fast, reliable redirects to ensure a seamless user experience.",
-    technologies: ["Spring Boot", "React", "PostgreSQL", "JWT"],
+    technologies: ["Spring Boot", "React", "PostgreSQL", "JWT", "Redis"],
     link: "https://akhil-amber.vercel.app/",
+    github: "https://github.com/Akhil351/Linklytics",
   },
   {
-    title: "Chat Application",
+    title: "Real-time Chat Application",
     image: project2,
     description:
       "Developed a real-time chat application using Spring Boot, WebSocket, and MongoDB for seamless, scalable communication. Built a responsive React JSX frontend with Tailwind CSS, supporting one-on-one and group messaging with low-latency interactions.",
@@ -63,9 +69,10 @@ const PROJECTS = [
       "Tailwind CSS",
     ],
     link: "https://chat-app-six-sandy-60.vercel.app",
+    github: "https://github.com/Akhil351/chat-app",
   },
   {
-    title: "E-commerce Platform",
+    title: "E-commerce Microservices",
     image: project3,
     description:
       "Developed an e-commerce platform using Spring Boot and microservices architecture, enabling secure online transactions and order management. Integrated Spring Security, JWT authentication, Spring Data JPA, PostgreSQL, and MongoDB for a scalable and efficient shopping experience.",
@@ -76,32 +83,45 @@ const PROJECTS = [
       "PostgreSQL",
       "MongoDB",
       "Kafka",
+      "Redis",
     ],
     link: "https://github.com/Akhil351/Ecommerce",
+    github: "https://github.com/Akhil351/Ecommerce",
   },
   {
-    title: "Blockchain Real Estate System",
+    title: "Blockchain Real Estate Platform",
     image: project4,
     description:
       "Developed a blockchain-based real estate management platform using Hyperledger Fabric, enabling secure, transparent property transactions with end-to-end traceability. Implemented Go-based RESTful APIs, JWT authentication, PostgreSQL, and chaincode for ledger integrity.",
-    technologies: ["Go", "Hyperledger Fabric", "PostgreSQL", "JWT"],
+    technologies: ["Go", "Hyperledger Fabric", "PostgreSQL", "JWT", "Docker"],
     link: "https://github.com/Akhil351/Real-Estate-Management-System",
+    github: "https://github.com/Akhil351/Real-Estate-Management-System",
   },
   {
-    title: "Cricket Game App",
+    title: "AI Research Assistant",
     image: project5,
     description:
-      "Developed a Cricket-themed Rock Paper Scissors game using React.js and Tailwind CSS with real-time winner calculation and score tracking via local storage. Designed an intuitive, responsive UI with Indian flag-inspired gradients and smooth hover effects.",
-    technologies: ["ReactJsx", "Tailwind Css"],
-    link: "https://akhil10.vercel.app/",
+      "Research Assistant Extension: A Chrome extension powered by Spring AI that summarizes copied text and provides concise notes. Built with Manifest V3, it helps users quickly extract key insights from any content.",
+    technologies: ["Spring Ai", "Manifest V3", "Chrome APIs"],
+    link: "https://github.com/Akhil351/research-assistant",
+    github: "https://github.com/Akhil351/research-assistant",
   },
   {
-    title: "Productivity Application",
+    title: "Fitness AI Platform",
     image: project6,
     description:
-      "A simple Todo App that allows users to add, edit, and delete tasks while storing data in localStorage for persistence. Features a clean UI and real-time task management functionality with Spring Boot backend.",
-    technologies: ["Spring Boot", "Thymeleaf"],
-    link: "https://todoapp-latest-et7b.onrender.com/tasks",
+      "A full-stack fitness tracking application with a React frontend and Spring Boot microservices backend. Integrates AI to provide personalized activity insights, recommendations, and safety tips. Implements secure authentication and authorization using Keycloak. Designed for scalability, maintainability, and a seamless user experience.",
+    technologies: [
+      "Spring Boot Microservice",
+      "React",
+      "Postgres",
+      "Mongo DB",
+      "Rabbit MQ",
+      "KeyCloak",
+      "AWS",
+    ],
+    link: "https://github.com/Akhil351/fitness",
+    github: "https://github.com/Akhil351/fitness",
   },
 ];
 
@@ -118,7 +138,8 @@ const technologies = [
   { icon: BiLogoPostgresql, name: "PostgreSQL", color: "text-blue-600" },
   { icon: SiMongodb, name: "MongoDB", color: "text-green-500" },
   { icon: DiRedis, name: "Redis", color: "text-red-500" },
-  //{ icon: SiHyperledger, name: "Hyperledger", color: "text-purple-500" },
+  { icon: SiApachekafka, name: "Kafka", color: "text-purple-500" },
+  { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500" },
 ];
 
 const fadeIn = {
@@ -203,7 +224,7 @@ const App = () => {
             <div className="absolute inset-0 border-2 border-blue-500/30 rounded-full animate-spin-slow [animation-duration:20s]"></div>
             <img
               src={profilePic}
-              alt="Akhileswar"
+              alt="Akhileswar Vathaluru"
               className="relative w-full h-full rounded-full object-cover border-4 border-gray-700 z-10"
             />
           </motion.div>
@@ -214,7 +235,8 @@ const App = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <div className="inline-block px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700 mb-4">
+            <div className="inline-flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700 mb-4">
+              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
               <span className="text-sm font-medium text-blue-400">
                 Full Stack Developer
               </span>
@@ -223,15 +245,14 @@ const App = () => {
               Akhileswar <span className="text-blue-400">Vathaluru</span>
             </h1>
             <p className="text-lg text-gray-400 max-w-2xl mb-8 leading-relaxed">
-              Enterprise-grade software engineer specializing in distributed
-              systems, blockchain technology, and scalable backend architectures
-              with Spring Boot and Go.
+              👋 Hi, I’m Akhil — a full-stack developer with expertise in Spring
+              Boot and GoLang on the backend, and React (JSX) on the frontend. I
+              build scalable, efficient applications from end to end.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a
-                href="/akhil.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/Akhileswar_Vathaluru_Resume.pdf"
+                download="Akhileswar_Vathaluru_Resume.pdf"
                 className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all shadow-lg hover:shadow-blue-500/20 font-medium"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -251,7 +272,7 @@ const App = () => {
         </section>
 
         {/* Core Technologies Section */}
-        <section className="py-20">
+        <section id="skills" className="py-20">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -260,7 +281,7 @@ const App = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <h2 className="text-4xl font-bold text-white mb-4">
-              TECHNOLOGY STACK
+              TECHNICAL EXPERTISE
             </h2>
           </motion.div>
 
@@ -288,7 +309,7 @@ const App = () => {
         </section>
 
         {/* Professional Projects Section */}
-        <section className="py-20">
+        <section id="projects" className="py-20">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -296,7 +317,9 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Project</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              PROJECT SHOWCASE
+            </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -324,15 +347,28 @@ const App = () => {
                     <h3 className="text-xl font-bold text-white">
                       {project.title}
                     </h3>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
-                      aria-label="View project"
-                    >
-                      <FaExternalLinkAlt />
-                    </a>
+                    <div className="flex gap-3">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors"
+                        aria-label="GitHub"
+                        title="View code on GitHub"
+                      >
+                        <FaGithub className="text-lg" />
+                      </a>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-blue-400 transition-colors"
+                        aria-label="Live Demo"
+                        title="View live demo"
+                      >
+                        <FaExternalLinkAlt className="text-lg" />
+                      </a>
+                    </div>
                   </div>
                   <p className="text-gray-400 mb-5">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
@@ -352,7 +388,7 @@ const App = () => {
         </section>
 
         {/* Professional Experience Section */}
-        <section className="py-20">
+        <section id="experience" className="py-20">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -360,7 +396,9 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">CAREER</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              PROFESSIONAL JOURNEY
+            </h2>
           </motion.div>
 
           <div className="max-w-4xl mx-auto space-y-8">
@@ -390,6 +428,7 @@ const App = () => {
                 <p className="text-gray-300 mb-6 leading-relaxed">
                   {experience.description}
                 </p>
+
                 <div className="pt-4 border-t border-gray-800">
                   <h4 className="text-sm font-medium text-gray-400 mb-3">
                     TECHNOLOGIES USED
@@ -419,7 +458,12 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">CONTACT</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              LET'S CONNECT
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Interested in working together or have questions? Reach out below.
+            </p>
           </motion.div>
 
           <div className="max-w-4xl mx-auto bg-gray-900/50 rounded-xl border border-gray-800 overflow-hidden shadow-xl">
@@ -450,7 +494,12 @@ const App = () => {
                       <h4 className="text-sm font-medium text-gray-400 mb-1">
                         PHONE
                       </h4>
-                      <p className="text-gray-300">{CONTACT.phoneNo}</p>
+                      <a
+                        href={`tel:${CONTACT.phoneNo.replace(/\s+/g, "")}`}
+                        className="text-gray-300 hover:text-blue-400 transition-colors"
+                      >
+                        {CONTACT.phoneNo}
+                      </a>
                     </div>
                   </div>
 
@@ -477,7 +526,11 @@ const App = () => {
                 <h3 className="text-xl font-bold text-white mb-6">
                   Send a Message
                 </h3>
-                <form className="space-y-4">
+                <form
+                  className="space-y-4"
+                  action="https://formspree.io/f/mqkrnqkj"
+                  method="POST"
+                >
                   <div>
                     <label
                       htmlFor="name"
@@ -488,8 +541,10 @@ const App = () => {
                     <input
                       type="text"
                       id="name"
+                      name="name"
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Your name"
+                      required
                     />
                   </div>
                   <div>
@@ -502,8 +557,26 @@ const App = () => {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="your.email@example.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-400 mb-1"
+                    >
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      placeholder="Subject"
+                      required
                     />
                   </div>
                   <div>
@@ -515,9 +588,11 @@ const App = () => {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows="4"
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="Your message..."
+                      required
                     ></textarea>
                   </div>
                   <motion.button
