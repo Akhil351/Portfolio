@@ -41,6 +41,7 @@ const EXPERIENCES = [
       "Go",
       "PostgreSQL",
       "MongoDB",
+      "Redis",
       "Hyperledger Fabric",
     ],
   },
