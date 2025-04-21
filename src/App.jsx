@@ -47,6 +47,17 @@ const EXPERIENCES = [
   },
 ];
 
+const CERTIFICATIONS = [
+  {
+    title: "Red Hat Certified Enterprise Application Developer",
+    link: "https://rhtapps.redhat.com/verify?certId=230-171-886",
+    details: [
+      "Certification: EX183 - Red Hat Certified Enterprise Application Developer",
+      "Technologies: Red Hat JBoss Enterprise Application Platform 7.0"
+    ]
+  },
+];
+
 const PROJECTS = [
   {
     title: "Linklytics",
@@ -447,7 +458,7 @@ const App = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              👋 I’m Akhil — a full-stack developer proficient in Spring Boot,
+              👋 I'm Akhil — a full-stack developer proficient in Spring Boot,
               GoLang, and React. I design and develop scalable end-to-end
               solutions, combining robust backend architectures with seamless,
               responsive frontends.
@@ -686,6 +697,62 @@ const App = () => {
                       >
                         {tech}
                       </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Certifications Section */}
+        <section id="certifications" className="py-20">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <h2 className="text-4xl font-bold text-white mb-4">
+              CERTIFICATIONS
+            </h2>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {CERTIFICATIONS.map((certification, index) => (
+              <motion.div
+                key={index}
+                className="bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-blue-500/30 transition-all"
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="visible"
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -3 }}
+              >
+                <div className="flex flex-col">
+                  <motion.a
+                    href={certification.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xl font-bold text-white hover:text-blue-400 transition-colors mb-2"
+                    whileHover={{ x: 3 }}
+                  >
+                    {certification.title}
+                  </motion.a>
+                  <div className="space-y-2 mt-2">
+                    {certification.details.map((detail, i) => (
+                      <motion.p 
+                        key={i}
+                        className="text-gray-400 text-sm"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 + 0.2 }}
+                        viewport={{ once: true }}
+                      >
+                        • {detail}
+                      </motion.p>
                     ))}
                   </div>
                 </div>
