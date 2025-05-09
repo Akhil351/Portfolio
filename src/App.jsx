@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   FaGithub,
   FaInstagram,
@@ -7,6 +12,7 @@ import {
   FaExternalLinkAlt,
   FaSun,
   FaMoon,
+  FaArrowUp,
 } from "react-icons/fa";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
@@ -20,6 +26,9 @@ import {
 } from "react-icons/si";
 import { FiMail, FiPhone, FiMapPin, FiFileText } from "react-icons/fi";
 import { useForm, ValidationError } from "@formspree/react";
+import { Tilt } from "react-tilt";
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 
 // Assets
 import profilePic from "./assets/Akhil.jpeg";
@@ -362,12 +371,75 @@ const ContactForm = ({ darkMode }) => {
   );
 };
 
+const FloatingTechIcons = ({ darkMode }) => {
+  const icons = [
+    { icon: SiSpringboot, color: "#68D391" },
+    { icon: FaGolang, color: "#4299E1" },
+    { icon: RiReactjsLine, color: "#76E4F7" },
+    { icon: BiLogoPostgresql, color: "#3182CE" },
+    { icon: SiMongodb, color: "#68D391" },
+    { icon: DiRedis, color: "#F56565" },
+    { icon: SiApachekafka, color: "#9F7AEA" },
+    { icon: SiRabbitmq, color: "#ED8936" },
+  ];
+
+  return (
+    <div className="fixed inset-0 -z-40 overflow-hidden pointer-events-none">
+      {icons.map((tech, index) => {
+        const size = Math.random() * 40 + 20;
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const opacity = darkMode ? 0.1 : 0.05;
+        const duration = Math.random() * 20 + 20;
+
+        return (
+          <motion.div
+            key={index}
+            className={`absolute rounded-full flex items-center justify-center ${
+              darkMode ? "text-blue-500/20" : "text-blue-400/20"
+            }`}
+            style={{
+              width: `${size}px`,
+              height: `${size}px`,
+              left: `${left}%`,
+              top: `${top}%`,
+              color: tech.color,
+              opacity: opacity,
+            }}
+            animate={{
+              y: [0, (Math.random() - 0.5) * 100],
+              x: [0, (Math.random() - 0.5) * 100],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: duration,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear",
+            }}
+          >
+            <tech.icon className="w-full h-full" />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
 const App = () => {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("darkMode") === "true" ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches &&
         localStorage.getItem("darkMode") !== "false")
   );
+
+  const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    container: containerRef,
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
@@ -382,6 +454,55 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionId);
+      setMenuOpen(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handleScroll = () => {
+    const sections = [
+      "home",
+      "skills",
+      "projects",
+      "experience",
+      "certifications",
+      "contact",
+    ];
+    const scrollPosition = window.scrollY + 200;
+
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const offsetTop = element.offsetTop;
+        const offsetHeight = element.offsetHeight;
+
+        if (
+          scrollPosition >= offsetTop &&
+          scrollPosition < offsetTop + offsetHeight
+        ) {
+          setActiveSection(section);
+          break;
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
       className={`min-h-screen ${
@@ -389,35 +510,140 @@ const App = () => {
       } text-${
         darkMode ? "stone-200" : "gray-900"
       } font-sans overflow-x-hidden antialiased transition-colors duration-300`}
+      ref={containerRef}
     >
-      {/* Theme-aware background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div
-          className={`absolute inset-0 ${
-            darkMode
-              ? "bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
-              : "bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50"
-          }`}
-        ></div>
-        <div
-          className={`absolute inset-0 opacity-20 ${
-            darkMode
-              ? 'bg-[url("https://grainy-gradients.vercel.app/noise.svg")]'
-              : 'bg-[url("https://grainy-gradients.vercel.app/noise-light.svg")]'
-          }`}
-        ></div>
-        <div
-          className={`absolute inset-0 ${
-            darkMode
-              ? "bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.1)_0,_transparent_70%)]"
-              : "bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.05)_0,_transparent_70%)]"
-          }`}
-        ></div>
+      {/* 3D Background */}
+      <div className="fixed inset-0 -z-50">
+        <Canvas camera={{ position: [0, 0, 1] }}>
+          <ambientLight intensity={darkMode ? 0.3 : 0.5} />
+          <pointLight position={[10, 10, 10]} />
+          <Stars
+            radius={100}
+            depth={50}
+            count={5000}
+            factor={4}
+            saturation={0}
+            fade
+            speed={1}
+          />
+        </Canvas>
       </div>
 
-      {/* Enhanced NavBar with theme toggle */}
+      {/* Floating Tech Icons */}
+      <FloatingTechIcons darkMode={darkMode} />
+
+      {/* Gradient Mesh Background */}
+      <div className="fixed inset-0 -z-40 opacity-10 dark:opacity-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10"></div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="lg:hidden fixed top-6 right-6 z-50">
+        <motion.button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className={`p-2 rounded-full ${
+            darkMode ? "bg-gray-800/90" : "bg-white/90"
+          } shadow-lg`}
+          whileTap={{ scale: 0.9 }}
+        >
+          <div className="w-6 h-6 flex flex-col justify-between">
+            <motion.span
+              className={`block h-0.5 w-full ${
+                darkMode ? "bg-white" : "bg-gray-900"
+              } rounded-full`}
+              animate={{
+                rotate: menuOpen ? 45 : 0,
+                y: menuOpen ? 8 : 0,
+              }}
+            />
+            <motion.span
+              className={`block h-0.5 w-full ${
+                darkMode ? "bg-white" : "bg-gray-900"
+              } rounded-full`}
+              animate={{
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <motion.span
+              className={`block h-0.5 w-full ${
+                darkMode ? "bg-white" : "bg-gray-900"
+              } rounded-full`}
+              animate={{
+                rotate: menuOpen ? -45 : 0,
+                y: menuOpen ? -8 : 0,
+              }}
+            />
+          </div>
+        </motion.button>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            transition={{ type: "spring", damping: 25 }}
+            className={`fixed inset-y-0 right-0 w-64 ${
+              darkMode ? "bg-gray-900" : "bg-white"
+            } shadow-xl z-40 p-6`}
+          >
+            <div className="flex flex-col h-full">
+              <div className="flex-1 flex flex-col justify-center space-y-8">
+                {[
+                  { id: "home", label: "Home" },
+                  { id: "skills", label: "Skills" },
+                  { id: "projects", label: "Projects" },
+                  { id: "experience", label: "Experience" },
+                  { id: "certifications", label: "Certifications" },
+                  { id: "contact", label: "Contact" },
+                ].map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`text-left text-xl font-medium ${
+                      activeSection === item.id
+                        ? darkMode
+                          ? "text-blue-400"
+                          : "text-blue-600"
+                        : darkMode
+                        ? "text-gray-400"
+                        : "text-gray-600"
+                    }`}
+                    whileHover={{ x: 5 }}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+              </div>
+              <div className="flex justify-center pb-8">
+                <motion.button
+                  onClick={toggleTheme}
+                  className={`p-3 rounded-full ${
+                    darkMode
+                      ? "bg-gray-800 text-yellow-300"
+                      : "bg-gray-200 text-gray-700"
+                  }`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+                >
+                  {darkMode ? (
+                    <FaSun className="text-xl" />
+                  ) : (
+                    <FaMoon className="text-xl" />
+                  )}
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Navigation */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 ${
+        className={`hidden lg:flex fixed top-0 left-0 w-full z-50 ${
           darkMode ? "bg-gray-950/90" : "bg-white/90"
         } backdrop-blur-sm border-b ${
           darkMode ? "border-gray-800" : "border-gray-200"
@@ -454,81 +680,127 @@ const App = () => {
             </motion.div>
           </motion.a>
 
-          <div className="flex items-center gap-6">
-            <motion.button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full ${
-                darkMode
-                  ? "bg-gray-800 text-yellow-300"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
-            >
-              {darkMode ? (
-                <FaSun className="text-xl" />
-              ) : (
-                <FaMoon className="text-xl" />
-              )}
-            </motion.button>
+          <div className="flex items-center gap-10">
+            <div className="flex gap-8">
+              {[
+                { id: "home", label: "Home" },
+                { id: "skills", label: "Skills" },
+                { id: "projects", label: "Projects" },
+                { id: "experience", label: "Experience" },
+                { id: "certifications", label: "Certifications" },
+                { id: "contact", label: "Contact" },
+              ].map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative text-sm font-medium ${
+                    activeSection === item.id
+                      ? darkMode
+                        ? "text-blue-400"
+                        : "text-blue-600"
+                      : darkMode
+                      ? "text-gray-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
+                  } transition-colors`}
+                  whileHover={{ y: -2 }}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.span
+                      layoutId="navIndicator"
+                      className={`absolute -bottom-1 left-0 w-full h-0.5 ${
+                        darkMode ? "bg-blue-400" : "bg-blue-600"
+                      }`}
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.6,
+                      }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
 
-            <motion.div
-              className="flex gap-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <motion.a
-                href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${
+            <div className="flex items-center gap-6">
+              <motion.button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full ${
                   darkMode
-                    ? "text-gray-400 hover:text-blue-400"
-                    : "text-gray-600 hover:text-blue-600"
-                } transition-colors`}
-                aria-label="LinkedIn"
-                whileHover={{ y: -3 }}
+                    ? "bg-gray-800 text-yellow-300"
+                    : "bg-gray-200 text-gray-700"
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
               >
-                <FaLinkedin className="text-xl" />
-              </motion.a>
-              <motion.a
-                href="https://github.com/Akhil351"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${
-                  darkMode
-                    ? "text-gray-400 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
-                } transition-colors`}
-                aria-label="GitHub"
-                whileHover={{ y: -3 }}
+                {darkMode ? (
+                  <FaSun className="text-xl" />
+                ) : (
+                  <FaMoon className="text-xl" />
+                )}
+              </motion.button>
+
+              <motion.div
+                className="flex gap-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                <FaGithub className="text-xl" />
-              </motion.a>
-              <motion.a
-                href="https://www.instagram.com/Akhil___351/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${
-                  darkMode
-                    ? "text-gray-400 hover:text-pink-500"
-                    : "text-gray-600 hover:text-pink-600"
-                } transition-colors`}
-                aria-label="Instagram"
-                whileHover={{ y: -3 }}
-              >
-                <FaInstagram className="text-xl" />
-              </motion.a>
-            </motion.div>
+                <motion.a
+                  href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    darkMode
+                      ? "text-gray-400 hover:text-blue-400"
+                      : "text-gray-600 hover:text-blue-600"
+                  } transition-colors`}
+                  aria-label="LinkedIn"
+                  whileHover={{ y: -3, scale: 1.1 }}
+                >
+                  <FaLinkedin className="text-xl" />
+                </motion.a>
+                <motion.a
+                  href="https://github.com/Akhil351"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    darkMode
+                      ? "text-gray-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
+                  } transition-colors`}
+                  aria-label="GitHub"
+                  whileHover={{ y: -3, scale: 1.1 }}
+                >
+                  <FaGithub className="text-xl" />
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/Akhil___351/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    darkMode
+                      ? "text-gray-400 hover:text-pink-500"
+                      : "text-gray-600 hover:text-pink-600"
+                  } transition-colors`}
+                  aria-label="Instagram"
+                  whileHover={{ y: -3, scale: 1.1 }}
+                >
+                  <FaInstagram className="text-xl" />
+                </motion.a>
+              </motion.div>
+            </div>
           </div>
         </div>
       </nav>
 
       <main className="container mx-auto px-6 lg:px-20 mt-24">
         {/* Hero Section */}
-        <section className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16">
+        <section
+          id="home"
+          className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16 min-h-screen"
+        >
           <motion.div
             initial="hidden"
             animate="visible"
@@ -549,13 +821,23 @@ const App = () => {
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             />
-            <img
-              src={profilePic}
-              alt="Akhileswar Vathaluru"
-              className={`relative w-full h-full rounded-full object-cover border-4 ${
-                darkMode ? "border-gray-700" : "border-gray-300"
-              } z-10`}
-            />
+            <Tilt
+              options={{
+                max: 15,
+                scale: 1.05,
+                glare: true,
+                "max-glare": 0.2,
+              }}
+              className="relative w-full h-full rounded-full z-10"
+            >
+              <img
+                src={profilePic}
+                alt="Akhileswar Vathaluru"
+                className={`w-full h-full rounded-full object-cover border-4 ${
+                  darkMode ? "border-gray-700" : "border-gray-300"
+                }`}
+              />
+            </Tilt>
           </motion.div>
 
           <motion.div
@@ -658,7 +940,35 @@ const App = () => {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-20">
+        <section id="skills" className="py-20 relative">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden -z-10">
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className={`absolute rounded-full ${
+                  darkMode ? "bg-blue-500/10" : "bg-blue-400/10"
+                }`}
+                style={{
+                  width: `${Math.random() * 300 + 100}px`,
+                  height: `${Math.random() * 300 + 100}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  x: [0, (Math.random() - 0.5) * 100],
+                  y: [0, (Math.random() - 0.5) * 100],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: Math.random() * 20 + 10,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+            ))}
+          </div>
+
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -666,71 +976,86 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2
+            <motion.h2
               className={`text-4xl font-bold ${
                 darkMode ? "text-white" : "text-gray-900"
               } mb-4`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
               TECHNICAL EXPERTISE
-            </h2>
-            <p
+            </motion.h2>
+            <motion.p
               className={`${
                 darkMode ? "text-gray-500" : "text-gray-600"
               } max-w-2xl mx-auto`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
             >
               Technologies I've mastered to build robust, scalable applications
-            </p>
+            </motion.p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {technologies.map((tech, index) => (
-              <motion.div
+              <Tilt
                 key={index}
-                className={`flex flex-col items-center ${
-                  darkMode
-                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                    : "bg-white border-gray-200 hover:border-blue-400/50"
-                } p-6 rounded-xl border transition-all group`}
-                variants={fadeIn}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.03 }}
+                options={{
+                  max: 15,
+                  scale: 1.05,
+                  glare: true,
+                  "max-glare": 0.1,
+                }}
               >
                 <motion.div
-                  className={`p-4 rounded-lg ${
+                  className={`flex flex-col items-center ${
                     darkMode
-                      ? "bg-gray-800/50 group-hover:bg-gray-800"
-                      : "bg-gray-100 group-hover:bg-gray-200"
-                  } mb-4 ${tech.color} transition-all`}
-                  whileHover={{ rotate: 10 }}
-                >
-                  <tech.icon className="text-3xl" />
-                </motion.div>
-                <span
-                  className={`${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  } font-medium`}
-                >
-                  {tech.name}
-                </span>
-                <div
-                  className={`w-full ${
-                    darkMode ? "bg-gray-800" : "bg-gray-200"
-                  } rounded-full h-1.5 mt-2`}
+                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                      : "bg-white border-gray-200 hover:border-blue-400/50"
+                  } p-6 rounded-xl border transition-all group`}
+                  variants={fadeIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, scale: 1.03 }}
                 >
                   <motion.div
+                    className={`p-4 rounded-lg ${
+                      darkMode
+                        ? "bg-gray-800/50 group-hover:bg-gray-800"
+                        : "bg-gray-100 group-hover:bg-gray-200"
+                    } mb-4 ${tech.color} transition-all`}
+                    whileHover={{ rotate: 10 }}
+                  >
+                    <tech.icon className="text-3xl" />
+                  </motion.div>
+                  <span
                     className={`${
-                      darkMode ? "bg-blue-500" : "bg-blue-400"
-                    } h-1.5 rounded-full`}
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "80%" }}
-                    transition={{ delay: index * 0.1 + 0.3, duration: 0.8 }}
-                    viewport={{ once: true }}
-                  />
-                </div>
-              </motion.div>
+                      darkMode ? "text-gray-300" : "text-gray-700"
+                    } font-medium`}
+                  >
+                    {tech.name}
+                  </span>
+                  <div
+                    className={`w-full ${
+                      darkMode ? "bg-gray-800" : "bg-gray-200"
+                    } rounded-full h-1.5 mt-2`}
+                  >
+                    <motion.div
+                      className={`${
+                        darkMode ? "bg-blue-500" : "bg-blue-400"
+                      } h-1.5 rounded-full`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "80%" }}
+                      transition={{ delay: index * 0.1 + 0.3, duration: 0.8 }}
+                      viewport={{ once: true }}
+                    />
+                  </div>
+                </motion.div>
+              </Tilt>
             ))}
           </div>
         </section>
@@ -744,124 +1069,139 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2
+            <motion.h2
               className={`text-4xl font-bold ${
                 darkMode ? "text-white" : "text-gray-900"
               } mb-4`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
               PROJECT SHOWCASE
-            </h2>
-            <p
+            </motion.h2>
+            <motion.p
               className={`${
                 darkMode ? "text-gray-500" : "text-gray-600"
               } max-w-2xl mx-auto`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
             >
               Selected projects demonstrating my technical capabilities
-            </p>
+            </motion.p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {PROJECTS.map((project, index) => (
-              <motion.div
+              <Tilt
                 key={index}
-                className={`${
-                  darkMode
-                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                    : "bg-white border-gray-200 hover:border-blue-400/50"
-                } rounded-xl overflow-hidden border transition-all group`}
-                variants={fadeIn}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                options={{
+                  max: 5,
+                  scale: 1.01,
+                  glare: true,
+                  "max-glare": 0.1,
+                }}
               >
-                <div className="relative h-60 overflow-hidden">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.5 }}
-                  />
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-t ${
-                      darkMode
-                        ? "from-gray-900/90 via-gray-900/30"
-                        : "from-gray-900/70 via-gray-900/10"
-                    } to-transparent`}
-                  ></div>
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3
-                      className={`text-xl font-bold ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      }`}
+                <motion.div
+                  className={`${
+                    darkMode
+                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                      : "bg-white border-gray-200 hover:border-blue-400/50"
+                  } rounded-xl overflow-hidden border transition-all group`}
+                  variants={fadeIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="relative h-60 overflow-hidden">
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      initial={{ scale: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t ${
+                        darkMode
+                          ? "from-gray-900/90 via-gray-900/30"
+                          : "from-gray-900/70 via-gray-900/10"
+                      } to-transparent`}
+                    ></div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3
+                        className={`text-xl font-bold ${
+                          darkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {project.title}
+                      </h3>
+                      <div className="flex gap-3">
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${
+                            darkMode
+                              ? "text-gray-400 hover:text-white"
+                              : "text-gray-600 hover:text-gray-900"
+                          } transition-colors`}
+                          aria-label="GitHub"
+                          title="View code on GitHub"
+                          whileHover={{ y: -3, scale: 1.2 }}
+                        >
+                          <FaGithub className="text-lg" />
+                        </motion.a>
+                        <motion.a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${
+                            darkMode
+                              ? "text-gray-400 hover:text-blue-400"
+                              : "text-gray-600 hover:text-blue-600"
+                          } transition-colors`}
+                          aria-label="Live Demo"
+                          title="View live demo"
+                          whileHover={{ y: -3, scale: 1.2 }}
+                        >
+                          <FaExternalLinkAlt className="text-lg" />
+                        </motion.a>
+                      </div>
+                    </div>
+                    <p
+                      className={`${
+                        darkMode ? "text-gray-400" : "text-gray-600"
+                      } mb-5`}
                     >
-                      {project.title}
-                    </h3>
-                    <div className="flex gap-3">
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${
-                          darkMode
-                            ? "text-gray-400 hover:text-white"
-                            : "text-gray-600 hover:text-gray-900"
-                        } transition-colors`}
-                        aria-label="GitHub"
-                        title="View code on GitHub"
-                        whileHover={{ y: -3 }}
-                      >
-                        <FaGithub className="text-lg" />
-                      </motion.a>
-                      <motion.a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${
-                          darkMode
-                            ? "text-gray-400 hover:text-blue-400"
-                            : "text-gray-600 hover:text-blue-600"
-                        } transition-colors`}
-                        aria-label="Live Demo"
-                        title="View live demo"
-                        whileHover={{ y: -3 }}
-                      >
-                        <FaExternalLinkAlt className="text-lg" />
-                      </motion.a>
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, index) => (
+                        <motion.span
+                          key={index}
+                          className={`px-3 py-1 text-xs ${
+                            darkMode
+                              ? "bg-gray-800 text-blue-400 border-gray-700"
+                              : "bg-gray-100 text-blue-600 border-gray-300"
+                          } rounded-full border`}
+                          initial={{ scale: 0.9 }}
+                          whileInView={{ scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                          viewport={{ once: true }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
                     </div>
                   </div>
-                  <p
-                    className={`${
-                      darkMode ? "text-gray-400" : "text-gray-600"
-                    } mb-5`}
-                  >
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, index) => (
-                      <motion.span
-                        key={index}
-                        className={`px-3 py-1 text-xs ${
-                          darkMode
-                            ? "bg-gray-800 text-blue-400 border-gray-700"
-                            : "bg-gray-100 text-blue-600 border-gray-300"
-                        } rounded-full border`}
-                        initial={{ scale: 0.9 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ delay: index * 0.05 }}
-                        viewport={{ once: true }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Tilt>
             ))}
           </div>
         </section>
@@ -875,111 +1215,124 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2
+            <motion.h2
               className={`text-4xl font-bold ${
                 darkMode ? "text-white" : "text-gray-900"
               } mb-4`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
               PROFESSIONAL JOURNEY
-            </h2>
-            <p
+            </motion.h2>
+            <motion.p
               className={`${
                 darkMode ? "text-gray-500" : "text-gray-600"
               } max-w-2xl mx-auto`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
             >
               My career path and professional achievements
-            </p>
+            </motion.p>
           </motion.div>
 
           <div className="max-w-4xl mx-auto space-y-8">
             {EXPERIENCES.map((experience, index) => (
-              <motion.div
+              <Tilt
                 key={index}
-                className={`${
-                  darkMode
-                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                    : "bg-white border-gray-200 hover:border-blue-400/50"
-                } p-8 rounded-xl border transition-all`}
-                variants={fadeIn}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -3 }}
+                options={{
+                  max: 3,
+                  scale: 1.01,
+                }}
               >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <div>
-                    <h3
-                      className={`text-xl font-bold ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      }`}
-                    >
-                      {experience.role}
-                    </h3>
-                    <span
-                      className={`${
-                        darkMode ? "text-blue-400" : "text-blue-600"
-                      } font-medium`}
-                    >
-                      {experience.company}
-                    </span>
-                  </div>
-                  <motion.span
-                    className={`text-sm ${
-                      darkMode
-                        ? "text-gray-400 bg-gray-800"
-                        : "text-gray-600 bg-gray-100"
-                    } px-3 py-1 rounded-full`}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {experience.year}
-                  </motion.span>
-                </div>
-                <p
+                <motion.div
                   className={`${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  } mb-6 leading-relaxed`}
+                    darkMode
+                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                      : "bg-white border-gray-200 hover:border-blue-400/50"
+                  } p-8 rounded-xl border transition-all`}
+                  variants={fadeIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -3 }}
                 >
-                  {experience.description}
-                </p>
-
-                <div
-                  className={`pt-4 border-t ${
-                    darkMode ? "border-gray-800" : "border-gray-200"
-                  }`}
-                >
-                  <h4
-                    className={`text-sm font-medium ${
-                      darkMode ? "text-gray-400" : "text-gray-600"
-                    } mb-3`}
-                  >
-                    TECHNOLOGIES USED
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {experience.technologies.map((tech, index) => (
-                      <motion.span
-                        key={index}
-                        className={`px-3 py-1 text-xs ${
-                          darkMode
-                            ? "bg-gray-800 text-blue-400 border-gray-700"
-                            : "bg-gray-100 text-blue-600 border-gray-300"
-                        } rounded-full border`}
-                        initial={{ scale: 0.9 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ delay: index * 0.05 }}
-                        viewport={{ once: true }}
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <div>
+                      <h3
+                        className={`text-xl font-bold ${
+                          darkMode ? "text-white" : "text-gray-900"
+                        }`}
                       >
-                        {tech}
-                      </motion.span>
-                    ))}
+                        {experience.role}
+                      </h3>
+                      <span
+                        className={`${
+                          darkMode ? "text-blue-400" : "text-blue-600"
+                        } font-medium`}
+                      >
+                        {experience.company}
+                      </span>
+                    </div>
+                    <motion.span
+                      className={`text-sm ${
+                        darkMode
+                          ? "text-gray-400 bg-gray-800"
+                          : "text-gray-600 bg-gray-100"
+                      } px-3 py-1 rounded-full`}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {experience.year}
+                    </motion.span>
                   </div>
-                </div>
-              </motion.div>
+                  <p
+                    className={`${
+                      darkMode ? "text-gray-300" : "text-gray-700"
+                    } mb-6 leading-relaxed`}
+                  >
+                    {experience.description}
+                  </p>
+
+                  <div
+                    className={`pt-4 border-t ${
+                      darkMode ? "border-gray-800" : "border-gray-200"
+                    }`}
+                  >
+                    <h4
+                      className={`text-sm font-medium ${
+                        darkMode ? "text-gray-400" : "text-gray-600"
+                      } mb-3`}
+                    >
+                      TECHNOLOGIES USED
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {experience.technologies.map((tech, index) => (
+                        <motion.span
+                          key={index}
+                          className={`px-3 py-1 text-xs ${
+                            darkMode
+                              ? "bg-gray-800 text-blue-400 border-gray-700"
+                              : "bg-gray-100 text-blue-600 border-gray-300"
+                          } rounded-full border`}
+                          initial={{ scale: 0.9 }}
+                          whileInView={{ scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                          viewport={{ once: true }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </Tilt>
             ))}
           </div>
         </section>
 
-        {/* Certifications Section with Theme Support */}
+        {/* Certifications Section */}
         <section id="certifications" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -988,68 +1341,78 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2
+            <motion.h2
               className={`text-4xl font-bold ${
                 darkMode ? "text-white" : "text-gray-900"
               } mb-4`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
               CERTIFICATIONS
-            </h2>
+            </motion.h2>
           </motion.div>
 
           <div className="max-w-4xl mx-auto space-y-6">
             {CERTIFICATIONS.map((certification, index) => (
-              <motion.div
+              <Tilt
                 key={index}
-                className={`${
-                  darkMode
-                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                    : "bg-white border-gray-200 hover:border-blue-400/50"
-                } p-6 rounded-xl border transition-all`}
-                variants={fadeIn}
-                initial="hidden"
-                whileInView="visible"
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -3 }}
+                options={{
+                  max: 5,
+                  scale: 1.01,
+                }}
               >
-                <div className="flex flex-col">
-                  <motion.a
-                    href={certification.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`text-xl font-bold ${
-                      darkMode
-                        ? "text-white hover:text-blue-400"
-                        : "text-gray-900 hover:text-blue-600"
-                    } transition-colors mb-2`}
-                    whileHover={{ x: 3 }}
-                  >
-                    {certification.title}
-                  </motion.a>
-                  <div className="space-y-2 mt-2">
-                    {certification.details.map((detail, i) => (
-                      <motion.p
-                        key={i}
-                        className={`text-sm ${
-                          darkMode ? "text-gray-400" : "text-gray-600"
-                        }`}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 + 0.2 }}
-                        viewport={{ once: true }}
-                      >
-                        • {detail}
-                      </motion.p>
-                    ))}
+                <motion.div
+                  className={`${
+                    darkMode
+                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                      : "bg-white border-gray-200 hover:border-blue-400/50"
+                  } p-6 rounded-xl border transition-all`}
+                  variants={fadeIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="flex flex-col">
+                    <motion.a
+                      href={certification.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-xl font-bold ${
+                        darkMode
+                          ? "text-white hover:text-blue-400"
+                          : "text-gray-900 hover:text-blue-600"
+                      } transition-colors mb-2`}
+                      whileHover={{ x: 3 }}
+                    >
+                      {certification.title}
+                    </motion.a>
+                    <div className="space-y-2 mt-2">
+                      {certification.details.map((detail, i) => (
+                        <motion.p
+                          key={i}
+                          className={`text-sm ${
+                            darkMode ? "text-gray-400" : "text-gray-600"
+                          }`}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 + 0.2 }}
+                          viewport={{ once: true }}
+                        >
+                          • {detail}
+                        </motion.p>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Tilt>
             ))}
           </div>
         </section>
 
-        {/* Enhanced Contact Section with Theme Support */}
+        {/* Contact Section */}
         <section id="contact" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1058,164 +1421,181 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2
+            <motion.h2
               className={`text-4xl font-bold ${
                 darkMode ? "text-white" : "text-gray-900"
               } mb-4`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
             >
               LET'S CONNECT
-            </h2>
-            <p
+            </motion.h2>
+            <motion.p
               className={`${
                 darkMode ? "text-gray-500" : "text-gray-600"
               } max-w-2xl mx-auto`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
             >
               Interested in working together or have questions? Reach out below.
-            </p>
+            </motion.p>
           </motion.div>
 
-          <motion.div
-            className={`max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl ${
-              darkMode
-                ? "bg-gray-900/50 border-gray-800"
-                : "bg-white border-gray-200"
-            } border`}
-            variants={scaleUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+          <Tilt
+            options={{
+              max: 3,
+              scale: 1.01,
+              glare: true,
+              "max-glare": 0.1,
+            }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div
-                className={`p-8 md:p-10 ${
-                  darkMode
-                    ? "bg-gray-900/30 border-gray-800"
-                    : "bg-gray-50 border-gray-200"
-                } border-b md:border-b-0 md:border-r`}
-              >
-                <h3
-                  className={`text-xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  } mb-6`}
+            <motion.div
+              className={`max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl ${
+                darkMode
+                  ? "bg-gray-900/50 border-gray-800"
+                  : "bg-white border-gray-200"
+              } border`}
+              variants={scaleUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div
+                  className={`p-8 md:p-10 ${
+                    darkMode
+                      ? "bg-gray-900/30 border-gray-800"
+                      : "bg-gray-50 border-gray-200"
+                  } border-b md:border-b-0 md:border-r`}
                 >
-                  Contact Information
-                </h3>
-
-                <div className="space-y-6">
-                  <motion.div
-                    className="flex items-start gap-4"
-                    variants={fadeIn}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ delay: 0.1 }}
-                    viewport={{ once: true }}
+                  <h3
+                    className={`text-xl font-bold ${
+                      darkMode ? "text-white" : "text-gray-900"
+                    } mb-6`}
                   >
-                    <div
-                      className={`p-2 rounded-lg ${
-                        darkMode
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "bg-blue-100 text-blue-600"
-                      }`}
-                    >
-                      <FiMapPin className="text-xl" />
-                    </div>
-                    <div>
-                      <h4
-                        className={`text-sm font-medium ${
-                          darkMode ? "text-gray-400" : "text-gray-600"
-                        } mb-1`}
-                      >
-                        LOCATION
-                      </h4>
-                      <p
-                        className={darkMode ? "text-gray-300" : "text-gray-700"}
-                      >
-                        {CONTACT.address}
-                      </p>
-                    </div>
-                  </motion.div>
+                    Contact Information
+                  </h3>
 
-                  <motion.div
-                    className="flex items-start gap-4"
-                    variants={fadeIn}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    <div
-                      className={`p-2 rounded-lg ${
-                        darkMode
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "bg-blue-100 text-blue-600"
-                      }`}
+                  <div className="space-y-6">
+                    <motion.div
+                      className="flex items-start gap-4"
+                      variants={fadeIn}
+                      initial="hidden"
+                      whileInView="visible"
+                      transition={{ delay: 0.1 }}
+                      viewport={{ once: true }}
                     >
-                      <FiPhone className="text-xl" />
-                    </div>
-                    <div>
-                      <h4
-                        className={`text-sm font-medium ${
-                          darkMode ? "text-gray-400" : "text-gray-600"
-                        } mb-1`}
-                      >
-                        PHONE
-                      </h4>
-                      <a
-                        href={`tel:${CONTACT.phoneNo.replace(/\s+/g, "")}`}
-                        className={`${
+                      <div
+                        className={`p-2 rounded-lg ${
                           darkMode
-                            ? "text-gray-300 hover:text-blue-400"
-                            : "text-gray-700 hover:text-blue-600"
-                        } transition-colors`}
+                            ? "bg-blue-500/10 text-blue-400"
+                            : "bg-blue-100 text-blue-600"
+                        }`}
                       >
-                        {CONTACT.phoneNo}
-                      </a>
-                    </div>
-                  </motion.div>
+                        <FiMapPin className="text-xl" />
+                      </div>
+                      <div>
+                        <h4
+                          className={`text-sm font-medium ${
+                            darkMode ? "text-gray-400" : "text-gray-600"
+                          } mb-1`}
+                        >
+                          LOCATION
+                        </h4>
+                        <p
+                          className={
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }
+                        >
+                          {CONTACT.address}
+                        </p>
+                      </div>
+                    </motion.div>
 
-                  <motion.div
-                    className="flex items-start gap-4"
-                    variants={fadeIn}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ delay: 0.3 }}
-                    viewport={{ once: true }}
-                  >
-                    <div
-                      className={`p-2 rounded-lg ${
-                        darkMode
-                          ? "bg-blue-500/10 text-blue-400"
-                          : "bg-blue-100 text-blue-600"
-                      }`}
+                    <motion.div
+                      className="flex items-start gap-4"
+                      variants={fadeIn}
+                      initial="hidden"
+                      whileInView="visible"
+                      transition={{ delay: 0.2 }}
+                      viewport={{ once: true }}
                     >
-                      <FiMail className="text-xl" />
-                    </div>
-                    <div>
-                      <h4
-                        className={`text-sm font-medium ${
-                          darkMode ? "text-gray-400" : "text-gray-600"
-                        } mb-1`}
+                      <div
+                        className={`p-2 rounded-lg ${
+                          darkMode
+                            ? "bg-blue-500/10 text-blue-400"
+                            : "bg-blue-100 text-blue-600"
+                        }`}
                       >
-                        EMAIL
-                      </h4>
-                      <a
-                        href={`mailto:${CONTACT.email}`}
-                        className={`${
-                          darkMode ? "text-blue-400" : "text-blue-600"
-                        } hover:underline`}
+                        <FiPhone className="text-xl" />
+                      </div>
+                      <div>
+                        <h4
+                          className={`text-sm font-medium ${
+                            darkMode ? "text-gray-400" : "text-gray-600"
+                          } mb-1`}
+                        >
+                          PHONE
+                        </h4>
+                        <a
+                          href={`tel:${CONTACT.phoneNo.replace(/\s+/g, "")}`}
+                          className={`${
+                            darkMode
+                              ? "text-gray-300 hover:text-blue-400"
+                              : "text-gray-700 hover:text-blue-600"
+                          } transition-colors`}
+                        >
+                          {CONTACT.phoneNo}
+                        </a>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className="flex items-start gap-4"
+                      variants={fadeIn}
+                      initial="hidden"
+                      whileInView="visible"
+                      transition={{ delay: 0.3 }}
+                      viewport={{ once: true }}
+                    >
+                      <div
+                        className={`p-2 rounded-lg ${
+                          darkMode
+                            ? "bg-blue-500/10 text-blue-400"
+                            : "bg-blue-100 text-blue-600"
+                        }`}
                       >
-                        {CONTACT.email}
-                      </a>
-                    </div>
-                  </motion.div>
+                        <FiMail className="text-xl" />
+                      </div>
+                      <div>
+                        <h4
+                          className={`text-sm font-medium ${
+                            darkMode ? "text-gray-400" : "text-gray-600"
+                          } mb-1`}
+                        >
+                          EMAIL
+                        </h4>
+                        <a
+                          href={`mailto:${CONTACT.email}`}
+                          className={`${
+                            darkMode ? "text-blue-400" : "text-blue-600"
+                          } hover:underline`}
+                        >
+                          {CONTACT.email}
+                        </a>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+
+                <div className="p-8 md:p-10">
+                  <ContactForm darkMode={darkMode} />
                 </div>
               </div>
-
-              <div className="p-8 md:p-10">
-                <ContactForm darkMode={darkMode} />
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </Tilt>
         </section>
       </main>
 
@@ -1289,32 +1669,30 @@ const App = () => {
         </div>
       </footer>
 
-      {/* Enhanced Back to Top Button with Theme Support */}
-      <motion.a
-        href="#"
-        className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all z-50 ${
-          darkMode
-            ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700"
-            : "bg-white/80 border-gray-300 hover:bg-white"
-        }`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        whileHover={{ y: -3 }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`h-5 w-5 ${darkMode ? "text-blue-400" : "text-blue-500"}`}
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </motion.a>
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {activeSection !== "home" && (
+          <motion.button
+            onClick={scrollToTop}
+            className={`fixed bottom-6 right-6 p-4 rounded-full shadow-lg transition-all z-50 ${
+              darkMode
+                ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700"
+                : "bg-white/80 border-gray-300 hover:bg-white"
+            }`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            whileHover={{ y: -3, scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaArrowUp
+              className={`text-lg ${
+                darkMode ? "text-blue-400" : "text-blue-500"
+              }`}
+            />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
