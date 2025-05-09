@@ -1,10 +1,12 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaGithub,
   FaInstagram,
   FaLinkedin,
   FaExternalLinkAlt,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
@@ -53,8 +55,8 @@ const CERTIFICATIONS = [
     link: "https://rhtapps.redhat.com/verify?certId=230-171-886",
     details: [
       "Certification: EX183 - Red Hat Certified Enterprise Application Developer",
-      "Technologies: Red Hat JBoss Enterprise Application Platform 7.0"
-    ]
+      "Technologies: Red Hat JBoss Enterprise Application Platform 7.0",
+    ],
   },
 ];
 
@@ -168,7 +170,7 @@ const scaleUp = {
   },
 };
 
-const ContactForm = () => {
+const ContactForm = ({ darkMode }) => {
   const [state, handleSubmit] = useForm("myzerepa");
 
   if (state.succeeded) {
@@ -182,11 +184,13 @@ const ContactForm = () => {
         <motion.div
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
-          className="text-green-400 text-xl font-medium mb-2"
+          className={`text-${
+            darkMode ? "green-400" : "green-600"
+          } text-xl font-medium mb-2`}
         >
           Message sent successfully!
         </motion.div>
-        <p className="text-gray-400">
+        <p className={`text-${darkMode ? "gray-400" : "gray-600"}`}>
           Thank you for reaching out. I'll get back to you within 24 hours.
         </p>
       </motion.div>
@@ -198,7 +202,9 @@ const ContactForm = () => {
       <motion.div variants={fadeIn}>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-gray-400 mb-1"
+          className={`block text-sm font-medium ${
+            darkMode ? "text-gray-400" : "text-gray-600"
+          } mb-1`}
         >
           Name
         </label>
@@ -206,7 +212,11 @@ const ContactForm = () => {
           type="text"
           id="name"
           name="name"
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className={`w-full ${
+            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
+          } border ${
+            darkMode ? "border-gray-700" : "border-gray-300"
+          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
           placeholder="Your name"
           required
         />
@@ -221,7 +231,9 @@ const ContactForm = () => {
       <motion.div variants={fadeIn} transition={{ delay: 0.1 }}>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-400 mb-1"
+          className={`block text-sm font-medium ${
+            darkMode ? "text-gray-400" : "text-gray-600"
+          } mb-1`}
         >
           Email
         </label>
@@ -229,7 +241,11 @@ const ContactForm = () => {
           type="email"
           id="email"
           name="email"
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className={`w-full ${
+            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
+          } border ${
+            darkMode ? "border-gray-700" : "border-gray-300"
+          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
           placeholder="your.email@example.com"
           required
         />
@@ -244,7 +260,9 @@ const ContactForm = () => {
       <motion.div variants={fadeIn} transition={{ delay: 0.2 }}>
         <label
           htmlFor="subject"
-          className="block text-sm font-medium text-gray-400 mb-1"
+          className={`block text-sm font-medium ${
+            darkMode ? "text-gray-400" : "text-gray-600"
+          } mb-1`}
         >
           Subject
         </label>
@@ -252,7 +270,11 @@ const ContactForm = () => {
           type="text"
           id="subject"
           name="subject"
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className={`w-full ${
+            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
+          } border ${
+            darkMode ? "border-gray-700" : "border-gray-300"
+          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
           placeholder="Subject"
           required
         />
@@ -267,7 +289,9 @@ const ContactForm = () => {
       <motion.div variants={fadeIn} transition={{ delay: 0.3 }}>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-gray-400 mb-1"
+          className={`block text-sm font-medium ${
+            darkMode ? "text-gray-400" : "text-gray-600"
+          } mb-1`}
         >
           Message
         </label>
@@ -275,7 +299,11 @@ const ContactForm = () => {
           id="message"
           name="message"
           rows="4"
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className={`w-full ${
+            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
+          } border ${
+            darkMode ? "border-gray-700" : "border-gray-300"
+          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
           placeholder="Your message..."
           required
         ></textarea>
@@ -290,7 +318,13 @@ const ContactForm = () => {
       <motion.button
         type="submit"
         disabled={state.submitting}
-        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-medium mt-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/20 transition-all"
+        className={`w-full bg-gradient-to-r ${
+          darkMode
+            ? "from-blue-600 to-purple-600"
+            : "from-blue-500 to-purple-500"
+        } text-white px-6 py-3 rounded-lg font-medium mt-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${
+          darkMode ? "hover:shadow-blue-500/20" : "hover:shadow-blue-500/30"
+        } transition-all`}
         whileHover={{ y: -2, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         variants={fadeIn}
@@ -329,17 +363,66 @@ const ContactForm = () => {
 };
 
 const App = () => {
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true" ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches &&
+        localStorage.getItem("darkMode") !== "false")
+  );
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-950 text-stone-200 font-sans overflow-x-hidden antialiased">
-      {/* Premium Background */}
+    <div
+      className={`min-h-screen ${
+        darkMode ? "dark bg-gray-950" : "bg-gray-50"
+      } text-${
+        darkMode ? "stone-200" : "gray-900"
+      } font-sans overflow-x-hidden antialiased transition-colors duration-300`}
+    >
+      {/* Theme-aware background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
-        <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.1)_0,_transparent_70%)]"></div>
+        <div
+          className={`absolute inset-0 ${
+            darkMode
+              ? "bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
+              : "bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50"
+          }`}
+        ></div>
+        <div
+          className={`absolute inset-0 opacity-20 ${
+            darkMode
+              ? 'bg-[url("https://grainy-gradients.vercel.app/noise.svg")]'
+              : 'bg-[url("https://grainy-gradients.vercel.app/noise-light.svg")]'
+          }`}
+        ></div>
+        <div
+          className={`absolute inset-0 ${
+            darkMode
+              ? "bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.1)_0,_transparent_70%)]"
+              : "bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.05)_0,_transparent_70%)]"
+          }`}
+        ></div>
       </div>
 
-      {/* Executive NavBar */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800">
+      {/* Enhanced NavBar with theme toggle */}
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 ${
+          darkMode ? "bg-gray-950/90" : "bg-white/90"
+        } backdrop-blur-sm border-b ${
+          darkMode ? "border-gray-800" : "border-gray-200"
+        }`}
+      >
         <div className="container mx-auto flex items-center justify-between px-8 py-5">
           <motion.a
             href="/"
@@ -352,10 +435,14 @@ const App = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="h-10 w-auto rounded-full border border-blue-500/30"
+                className={`h-10 w-auto rounded-full border ${
+                  darkMode ? "border-blue-500/30" : "border-blue-500/50"
+                }`}
               />
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-blue-500 opacity-0 group-hover:opacity-100"
+                className={`absolute inset-0 rounded-full border-2 ${
+                  darkMode ? "border-blue-500" : "border-blue-400"
+                } opacity-0 group-hover:opacity-100`}
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1.2 }}
                 transition={{
@@ -367,48 +454,80 @@ const App = () => {
             </motion.div>
           </motion.a>
 
-          <motion.div
-            className="flex gap-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.a
-              href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors"
-              aria-label="LinkedIn"
-              whileHover={{ y: -3 }}
+          <div className="flex items-center gap-6">
+            <motion.button
+              onClick={toggleTheme}
+              className={`p-2 rounded-full ${
+                darkMode
+                  ? "bg-gray-800 text-yellow-300"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
             >
-              <FaLinkedin className="text-xl" />
-            </motion.a>
-            <motion.a
-              href="https://github.com/Akhil351"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="GitHub"
-              whileHover={{ y: -3 }}
+              {darkMode ? (
+                <FaSun className="text-xl" />
+              ) : (
+                <FaMoon className="text-xl" />
+              )}
+            </motion.button>
+
+            <motion.div
+              className="flex gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              <FaGithub className="text-xl" />
-            </motion.a>
-            <motion.a
-              href="https://www.instagram.com/Akhil___351/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-pink-500 transition-colors"
-              aria-label="Instagram"
-              whileHover={{ y: -3 }}
-            >
-              <FaInstagram className="text-xl" />
-            </motion.a>
-          </motion.div>
+              <motion.a
+                href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  darkMode
+                    ? "text-gray-400 hover:text-blue-400"
+                    : "text-gray-600 hover:text-blue-600"
+                } transition-colors`}
+                aria-label="LinkedIn"
+                whileHover={{ y: -3 }}
+              >
+                <FaLinkedin className="text-xl" />
+              </motion.a>
+              <motion.a
+                href="https://github.com/Akhil351"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  darkMode
+                    ? "text-gray-400 hover:text-white"
+                    : "text-gray-600 hover:text-gray-900"
+                } transition-colors`}
+                aria-label="GitHub"
+                whileHover={{ y: -3 }}
+              >
+                <FaGithub className="text-xl" />
+              </motion.a>
+              <motion.a
+                href="https://www.instagram.com/Akhil___351/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  darkMode
+                    ? "text-gray-400 hover:text-pink-500"
+                    : "text-gray-600 hover:text-pink-600"
+                } transition-colors`}
+                aria-label="Instagram"
+                whileHover={{ y: -3 }}
+              >
+                <FaInstagram className="text-xl" />
+              </motion.a>
+            </motion.div>
+          </div>
         </div>
       </nav>
 
       <main className="container mx-auto px-6 lg:px-20 mt-24">
-        {/* Executive Hero Section */}
+        {/* Hero Section */}
         <section className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16">
           <motion.div
             initial="hidden"
@@ -416,16 +535,26 @@ const App = () => {
             variants={scaleUp}
             className="relative w-64 h-64 lg:w-80 lg:h-80"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full opacity-20 blur-xl animate-pulse"></div>
+            <div
+              className={`absolute inset-0 ${
+                darkMode
+                  ? "bg-gradient-to-br from-blue-600 to-purple-600"
+                  : "bg-gradient-to-br from-blue-400 to-purple-400"
+              } rounded-full opacity-20 blur-xl animate-pulse`}
+            ></div>
             <motion.div
-              className="absolute inset-0 border-2 border-blue-500/30 rounded-full"
+              className={`absolute inset-0 border-2 ${
+                darkMode ? "border-blue-500/30" : "border-blue-400/30"
+              } rounded-full`}
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             />
             <img
               src={profilePic}
               alt="Akhileswar Vathaluru"
-              className="relative w-full h-full rounded-full object-cover border-4 border-gray-700 z-10"
+              className={`relative w-full h-full rounded-full object-cover border-4 ${
+                darkMode ? "border-gray-700" : "border-gray-300"
+              } z-10`}
             />
           </motion.div>
 
@@ -436,24 +565,47 @@ const App = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700 mb-4"
+              className={`inline-flex items-center px-4 py-2 ${
+                darkMode
+                  ? "bg-gray-800/50 border-gray-700"
+                  : "bg-gray-100 border-gray-200"
+              } rounded-full border mb-4`}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
-              <span className="text-sm font-medium text-blue-400">
+              <div
+                className={`w-2 h-2 ${
+                  darkMode ? "bg-blue-400" : "bg-blue-500"
+                } rounded-full mr-2 animate-pulse`}
+              ></div>
+              <span
+                className={`text-sm font-medium ${
+                  darkMode ? "text-blue-400" : "text-blue-600"
+                }`}
+              >
                 Full-Stack Developer
               </span>
             </motion.div>
+
             <motion.h1
-              className="text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight"
+              className={`text-5xl lg:text-6xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4 leading-tight`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Akhileswar <span className="text-blue-400">Vathaluru</span>
+              Akhileswar{" "}
+              <span
+                className={`${darkMode ? "text-blue-400" : "text-blue-600"}`}
+              >
+                Vathaluru
+              </span>
             </motion.h1>
+
             <motion.p
-              className="text-lg text-gray-400 max-w-2xl mb-8 leading-relaxed"
+              className={`text-lg ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              } max-w-2xl mb-8 leading-relaxed`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -463,6 +615,7 @@ const App = () => {
               solutions, combining robust backend architectures with seamless,
               responsive frontends.
             </motion.p>
+
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0 }}
@@ -473,15 +626,28 @@ const App = () => {
                 href="https://github.com/Akhil351/Resume/blob/master/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all shadow-lg hover:shadow-blue-500/20 font-medium"
+                className={`flex items-center justify-center gap-2 ${
+                  darkMode
+                    ? "bg-blue-600 hover:bg-blue-700 text-white"
+                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                } px-6 py-3 rounded-lg transition-all shadow-lg ${
+                  darkMode
+                    ? "hover:shadow-blue-500/20"
+                    : "hover:shadow-blue-500/30"
+                } font-medium`}
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <FiFileText /> View Resume
               </motion.a>
+
               <motion.a
                 href="#contact"
-                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white px-6 py-3 rounded-lg transition-all border border-gray-700 hover:border-blue-400 font-medium"
+                className={`flex items-center justify-center gap-2 bg-transparent ${
+                  darkMode
+                    ? "text-blue-400 hover:text-white border-gray-700 hover:border-blue-400"
+                    : "text-blue-500 hover:text-blue-700 border-gray-300 hover:border-blue-500"
+                } px-6 py-3 rounded-lg transition-all border font-medium`}
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -491,7 +657,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Core Technologies Section */}
+        {/* Skills Section */}
         <section id="skills" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -500,10 +666,18 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2
+              className={`text-4xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4`}
+            >
               TECHNICAL EXPERTISE
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p
+              className={`${
+                darkMode ? "text-gray-500" : "text-gray-600"
+              } max-w-2xl mx-auto`}
+            >
               Technologies I've mastered to build robust, scalable applications
             </p>
           </motion.div>
@@ -512,7 +686,11 @@ const App = () => {
             {technologies.map((tech, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col items-center bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-blue-500/30 transition-all group"
+                className={`flex flex-col items-center ${
+                  darkMode
+                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                    : "bg-white border-gray-200 hover:border-blue-400/50"
+                } p-6 rounded-xl border transition-all group`}
                 variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
@@ -521,15 +699,31 @@ const App = () => {
                 whileHover={{ y: -5, scale: 1.03 }}
               >
                 <motion.div
-                  className={`p-4 rounded-lg bg-gray-800/50 mb-4 ${tech.color} group-hover:bg-gray-800 transition-all`}
+                  className={`p-4 rounded-lg ${
+                    darkMode
+                      ? "bg-gray-800/50 group-hover:bg-gray-800"
+                      : "bg-gray-100 group-hover:bg-gray-200"
+                  } mb-4 ${tech.color} transition-all`}
                   whileHover={{ rotate: 10 }}
                 >
                   <tech.icon className="text-3xl" />
                 </motion.div>
-                <span className="text-gray-300 font-medium">{tech.name}</span>
-                <div className="w-full bg-gray-800 rounded-full h-1.5 mt-2">
+                <span
+                  className={`${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  } font-medium`}
+                >
+                  {tech.name}
+                </span>
+                <div
+                  className={`w-full ${
+                    darkMode ? "bg-gray-800" : "bg-gray-200"
+                  } rounded-full h-1.5 mt-2`}
+                >
                   <motion.div
-                    className="bg-blue-500 h-1.5 rounded-full"
+                    className={`${
+                      darkMode ? "bg-blue-500" : "bg-blue-400"
+                    } h-1.5 rounded-full`}
                     initial={{ width: 0 }}
                     whileInView={{ width: "80%" }}
                     transition={{ delay: index * 0.1 + 0.3, duration: 0.8 }}
@@ -541,7 +735,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Professional Projects Section */}
+        {/* Projects Section */}
         <section id="projects" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -550,10 +744,18 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2
+              className={`text-4xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4`}
+            >
               PROJECT SHOWCASE
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p
+              className={`${
+                darkMode ? "text-gray-500" : "text-gray-600"
+              } max-w-2xl mx-auto`}
+            >
               Selected projects demonstrating my technical capabilities
             </p>
           </motion.div>
@@ -562,7 +764,11 @@ const App = () => {
             {PROJECTS.map((project, index) => (
               <motion.div
                 key={index}
-                className="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800 hover:border-blue-500/30 transition-all group"
+                className={`${
+                  darkMode
+                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                    : "bg-white border-gray-200 hover:border-blue-400/50"
+                } rounded-xl overflow-hidden border transition-all group`}
                 variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
@@ -579,11 +785,21 @@ const App = () => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent"></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${
+                      darkMode
+                        ? "from-gray-900/90 via-gray-900/30"
+                        : "from-gray-900/70 via-gray-900/10"
+                    } to-transparent`}
+                  ></div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-white">
+                    <h3
+                      className={`text-xl font-bold ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
                       {project.title}
                     </h3>
                     <div className="flex gap-3">
@@ -591,7 +807,11 @@ const App = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className={`${
+                          darkMode
+                            ? "text-gray-400 hover:text-white"
+                            : "text-gray-600 hover:text-gray-900"
+                        } transition-colors`}
                         aria-label="GitHub"
                         title="View code on GitHub"
                         whileHover={{ y: -3 }}
@@ -602,7 +822,11 @@ const App = () => {
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-blue-400 transition-colors"
+                        className={`${
+                          darkMode
+                            ? "text-gray-400 hover:text-blue-400"
+                            : "text-gray-600 hover:text-blue-600"
+                        } transition-colors`}
                         aria-label="Live Demo"
                         title="View live demo"
                         whileHover={{ y: -3 }}
@@ -611,12 +835,22 @@ const App = () => {
                       </motion.a>
                     </div>
                   </div>
-                  <p className="text-gray-400 mb-5">{project.description}</p>
+                  <p
+                    className={`${
+                      darkMode ? "text-gray-400" : "text-gray-600"
+                    } mb-5`}
+                  >
+                    {project.description}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech, index) => (
                       <motion.span
                         key={index}
-                        className="px-3 py-1 text-xs bg-gray-800 text-blue-400 rounded-full border border-gray-700"
+                        className={`px-3 py-1 text-xs ${
+                          darkMode
+                            ? "bg-gray-800 text-blue-400 border-gray-700"
+                            : "bg-gray-100 text-blue-600 border-gray-300"
+                        } rounded-full border`}
                         initial={{ scale: 0.9 }}
                         whileInView={{ scale: 1 }}
                         transition={{ delay: index * 0.05 }}
@@ -632,7 +866,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Professional Experience Section */}
+        {/* Experience Section */}
         <section id="experience" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -641,10 +875,18 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2
+              className={`text-4xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4`}
+            >
               PROFESSIONAL JOURNEY
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p
+              className={`${
+                darkMode ? "text-gray-500" : "text-gray-600"
+              } max-w-2xl mx-auto`}
+            >
               My career path and professional achievements
             </p>
           </motion.div>
@@ -653,7 +895,11 @@ const App = () => {
             {EXPERIENCES.map((experience, index) => (
               <motion.div
                 key={index}
-                className="bg-gray-900/50 p-8 rounded-xl border border-gray-800 hover:border-blue-500/30 transition-all"
+                className={`${
+                  darkMode
+                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                    : "bg-white border-gray-200 hover:border-blue-400/50"
+                } p-8 rounded-xl border transition-all`}
                 variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
@@ -663,33 +909,61 @@ const App = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-white">
+                    <h3
+                      className={`text-xl font-bold ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
                       {experience.role}
                     </h3>
-                    <span className="text-blue-400 font-medium">
+                    <span
+                      className={`${
+                        darkMode ? "text-blue-400" : "text-blue-600"
+                      } font-medium`}
+                    >
                       {experience.company}
                     </span>
                   </div>
                   <motion.span
-                    className="text-sm text-gray-400 mt-1 md:mt-0 bg-gray-800 px-3 py-1 rounded-full"
+                    className={`text-sm ${
+                      darkMode
+                        ? "text-gray-400 bg-gray-800"
+                        : "text-gray-600 bg-gray-100"
+                    } px-3 py-1 rounded-full`}
                     whileHover={{ scale: 1.05 }}
                   >
                     {experience.year}
                   </motion.span>
                 </div>
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                <p
+                  className={`${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  } mb-6 leading-relaxed`}
+                >
                   {experience.description}
                 </p>
 
-                <div className="pt-4 border-t border-gray-800">
-                  <h4 className="text-sm font-medium text-gray-400 mb-3">
+                <div
+                  className={`pt-4 border-t ${
+                    darkMode ? "border-gray-800" : "border-gray-200"
+                  }`}
+                >
+                  <h4
+                    className={`text-sm font-medium ${
+                      darkMode ? "text-gray-400" : "text-gray-600"
+                    } mb-3`}
+                  >
                     TECHNOLOGIES USED
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {experience.technologies.map((tech, index) => (
                       <motion.span
                         key={index}
-                        className="px-3 py-1 text-xs bg-gray-800 text-blue-400 rounded-full border border-gray-700"
+                        className={`px-3 py-1 text-xs ${
+                          darkMode
+                            ? "bg-gray-800 text-blue-400 border-gray-700"
+                            : "bg-gray-100 text-blue-600 border-gray-300"
+                        } rounded-full border`}
                         initial={{ scale: 0.9 }}
                         whileInView={{ scale: 1 }}
                         transition={{ delay: index * 0.05 }}
@@ -705,7 +979,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Certifications Section */}
+        {/* Certifications Section with Theme Support */}
         <section id="certifications" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -714,7 +988,11 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2
+              className={`text-4xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4`}
+            >
               CERTIFICATIONS
             </h2>
           </motion.div>
@@ -723,7 +1001,11 @@ const App = () => {
             {CERTIFICATIONS.map((certification, index) => (
               <motion.div
                 key={index}
-                className="bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-blue-500/30 transition-all"
+                className={`${
+                  darkMode
+                    ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
+                    : "bg-white border-gray-200 hover:border-blue-400/50"
+                } p-6 rounded-xl border transition-all`}
                 variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
@@ -736,16 +1018,22 @@ const App = () => {
                     href={certification.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xl font-bold text-white hover:text-blue-400 transition-colors mb-2"
+                    className={`text-xl font-bold ${
+                      darkMode
+                        ? "text-white hover:text-blue-400"
+                        : "text-gray-900 hover:text-blue-600"
+                    } transition-colors mb-2`}
                     whileHover={{ x: 3 }}
                   >
                     {certification.title}
                   </motion.a>
                   <div className="space-y-2 mt-2">
                     {certification.details.map((detail, i) => (
-                      <motion.p 
+                      <motion.p
                         key={i}
-                        className="text-gray-400 text-sm"
+                        className={`text-sm ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        }`}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 + 0.2 }}
@@ -761,7 +1049,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Executive Contact Section */}
+        {/* Enhanced Contact Section with Theme Support */}
         <section id="contact" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -770,24 +1058,46 @@ const App = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2
+              className={`text-4xl font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              } mb-4`}
+            >
               LET'S CONNECT
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p
+              className={`${
+                darkMode ? "text-gray-500" : "text-gray-600"
+              } max-w-2xl mx-auto`}
+            >
               Interested in working together or have questions? Reach out below.
             </p>
           </motion.div>
 
           <motion.div
-            className="max-w-4xl mx-auto bg-gray-900/50 rounded-xl border border-gray-800 overflow-hidden shadow-xl"
+            className={`max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl ${
+              darkMode
+                ? "bg-gray-900/50 border-gray-800"
+                : "bg-white border-gray-200"
+            } border`}
             variants={scaleUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="p-8 md:p-10 bg-gray-900/30 border-b md:border-b-0 md:border-r border-gray-800">
-                <h3 className="text-xl font-bold text-white mb-6">
+              <div
+                className={`p-8 md:p-10 ${
+                  darkMode
+                    ? "bg-gray-900/30 border-gray-800"
+                    : "bg-gray-50 border-gray-200"
+                } border-b md:border-b-0 md:border-r`}
+              >
+                <h3
+                  className={`text-xl font-bold ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  } mb-6`}
+                >
                   Contact Information
                 </h3>
 
@@ -800,14 +1110,28 @@ const App = () => {
                     transition={{ delay: 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+                    <div
+                      className={`p-2 rounded-lg ${
+                        darkMode
+                          ? "bg-blue-500/10 text-blue-400"
+                          : "bg-blue-100 text-blue-600"
+                      }`}
+                    >
                       <FiMapPin className="text-xl" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-gray-400 mb-1">
+                      <h4
+                        className={`text-sm font-medium ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        } mb-1`}
+                      >
                         LOCATION
                       </h4>
-                      <p className="text-gray-300">{CONTACT.address}</p>
+                      <p
+                        className={darkMode ? "text-gray-300" : "text-gray-700"}
+                      >
+                        {CONTACT.address}
+                      </p>
                     </div>
                   </motion.div>
 
@@ -819,16 +1143,30 @@ const App = () => {
                     transition={{ delay: 0.2 }}
                     viewport={{ once: true }}
                   >
-                    <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+                    <div
+                      className={`p-2 rounded-lg ${
+                        darkMode
+                          ? "bg-blue-500/10 text-blue-400"
+                          : "bg-blue-100 text-blue-600"
+                      }`}
+                    >
                       <FiPhone className="text-xl" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-gray-400 mb-1">
+                      <h4
+                        className={`text-sm font-medium ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        } mb-1`}
+                      >
                         PHONE
                       </h4>
                       <a
                         href={`tel:${CONTACT.phoneNo.replace(/\s+/g, "")}`}
-                        className="text-gray-300 hover:text-blue-400 transition-colors"
+                        className={`${
+                          darkMode
+                            ? "text-gray-300 hover:text-blue-400"
+                            : "text-gray-700 hover:text-blue-600"
+                        } transition-colors`}
                       >
                         {CONTACT.phoneNo}
                       </a>
@@ -843,16 +1181,28 @@ const App = () => {
                     transition={{ delay: 0.3 }}
                     viewport={{ once: true }}
                   >
-                    <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+                    <div
+                      className={`p-2 rounded-lg ${
+                        darkMode
+                          ? "bg-blue-500/10 text-blue-400"
+                          : "bg-blue-100 text-blue-600"
+                      }`}
+                    >
                       <FiMail className="text-xl" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-gray-400 mb-1">
+                      <h4
+                        className={`text-sm font-medium ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        } mb-1`}
+                      >
                         EMAIL
                       </h4>
                       <a
                         href={`mailto:${CONTACT.email}`}
-                        className="text-blue-400 hover:underline"
+                        className={`${
+                          darkMode ? "text-blue-400" : "text-blue-600"
+                        } hover:underline`}
                       >
                         {CONTACT.email}
                       </a>
@@ -862,18 +1212,26 @@ const App = () => {
               </div>
 
               <div className="p-8 md:p-10">
-                <ContactForm />
+                <ContactForm darkMode={darkMode} />
               </div>
             </div>
           </motion.div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-gray-800 bg-gray-900/50">
+      {/* Enhanced Footer with Theme Support */}
+      <footer
+        className={`py-8 border-t ${
+          darkMode
+            ? "border-gray-800 bg-gray-900/50"
+            : "border-gray-200 bg-white/50"
+        } backdrop-blur-sm`}
+      >
         <div className="container mx-auto px-6 text-center">
           <motion.p
-            className="text-gray-500 text-sm"
+            className={`${
+              darkMode ? "text-gray-500" : "text-gray-600"
+            } text-sm`}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -892,7 +1250,11 @@ const App = () => {
               href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-blue-400 transition-colors"
+              className={`${
+                darkMode
+                  ? "text-gray-500 hover:text-blue-400"
+                  : "text-gray-600 hover:text-blue-600"
+              } transition-colors`}
               whileHover={{ y: -2 }}
             >
               <FaLinkedin className="text-xl" />
@@ -901,7 +1263,11 @@ const App = () => {
               href="https://github.com/Akhil351"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-white transition-colors"
+              className={`${
+                darkMode
+                  ? "text-gray-500 hover:text-white"
+                  : "text-gray-600 hover:text-gray-900"
+              } transition-colors`}
               whileHover={{ y: -2 }}
             >
               <FaGithub className="text-xl" />
@@ -910,7 +1276,11 @@ const App = () => {
               href="https://www.instagram.com/Akhil___351/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-pink-500 transition-colors"
+              className={`${
+                darkMode
+                  ? "text-gray-500 hover:text-pink-500"
+                  : "text-gray-600 hover:text-pink-600"
+              } transition-colors`}
               whileHover={{ y: -2 }}
             >
               <FaInstagram className="text-xl" />
@@ -919,10 +1289,14 @@ const App = () => {
         </div>
       </footer>
 
-      {/* Back to Top Button */}
+      {/* Enhanced Back to Top Button with Theme Support */}
       <motion.a
         href="#"
-        className="fixed bottom-6 right-6 bg-gray-800/50 p-3 rounded-full border border-gray-700 shadow-lg hover:bg-gray-700 transition-all z-50"
+        className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-all z-50 ${
+          darkMode
+            ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700"
+            : "bg-white/80 border-gray-300 hover:bg-white"
+        }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
@@ -930,7 +1304,7 @@ const App = () => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-blue-400"
+          className={`h-5 w-5 ${darkMode ? "text-blue-400" : "text-blue-500"}`}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
