@@ -10,8 +10,6 @@ import {
   FaInstagram,
   FaLinkedin,
   FaExternalLinkAlt,
-  FaSun,
-  FaMoon,
   FaArrowUp,
 } from "react-icons/fa";
 import { BiLogoPostgresql } from "react-icons/bi";
@@ -46,7 +44,9 @@ const EXPERIENCES = [
     year: "2024 - Present",
     role: "Associate Software Engineer",
     company: "Ideyalabs",
-    description: `I am currently working as a Backend Developer, building RESTful APIs using Go to enable secure and efficient communication with a Hyperledger Fabric blockchain network. In addition to developing the API layer, I have authored and deployed smart contract functions (chaincode) within the Hyperledger Fabric network to support custom business logic and secure transaction workflows. I have also successfully migrated blockchain transactions from a Corda network to Hyperledger Fabric using Go, ensuring seamless integration and improved system performance.`,
+    description: `I am currently working as a Backend Developer, specializing in building RESTful APIs using Go to facilitate secure and efficient communication with a Hyperledger Fabric blockchain network. My responsibilities include designing and implementing the API layer as well as authoring and deploying smart contract functions (chaincode) within the Hyperledger Fabric ecosystem to support complex business logic and secure transaction workflows.
+
+In addition, I have successfully led the migration of blockchain transactions from a Corda network to Hyperledger Fabric, utilizing Go to ensure seamless integration and enhanced system performance. Alongside my blockchain-related work, I am also actively involved in developing RESTful APIs using Spring Boot as part of a microservices architecture, contributing to scalable and maintainable backend systems.`,
     technologies: [
       "Spring Boot",
       "Go",
@@ -165,21 +165,55 @@ const technologies = [
   { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500" },
 ];
 
-const fadeIn = {
+// Enhanced animations
+const smoothFadeIn = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1], // Custom easing for smoother motion
+    },
+  },
 };
 
-const scaleUp = {
+const smoothScaleUp = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: "backOut" },
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
 };
 
-const ContactForm = ({ darkMode }) => {
+const smoothCardHover = {
+  scale: 1.02,
+  y: -5,
+  transition: {
+    type: "spring",
+    stiffness: 200,
+    damping: 15,
+    mass: 0.5,
+  },
+};
+
+const smoothGradientAnimation = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: [0.2, 0.4, 0.2],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const ContactForm = () => {
   const [state, handleSubmit] = useForm("myzerepa");
 
   if (state.succeeded) {
@@ -193,13 +227,11 @@ const ContactForm = ({ darkMode }) => {
         <motion.div
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
-          className={`text-${
-            darkMode ? "green-400" : "green-600"
-          } text-xl font-medium mb-2`}
+          className="text-green-400 text-xl font-medium mb-2"
         >
           Message sent successfully!
         </motion.div>
-        <p className={`text-${darkMode ? "gray-400" : "gray-600"}`}>
+        <p className="text-gray-400">
           Thank you for reaching out. I'll get back to you within 24 hours.
         </p>
       </motion.div>
@@ -208,12 +240,10 @@ const ContactForm = ({ darkMode }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <motion.div variants={fadeIn}>
+      <motion.div variants={smoothFadeIn}>
         <label
           htmlFor="name"
-          className={`block text-sm font-medium ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          } mb-1`}
+          className="block text-sm font-medium text-gray-400 mb-1"
         >
           Name
         </label>
@@ -221,11 +251,7 @@ const ContactForm = ({ darkMode }) => {
           type="text"
           id="name"
           name="name"
-          className={`w-full ${
-            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-          } border ${
-            darkMode ? "border-gray-700" : "border-gray-300"
-          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
+          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Your name"
           required
         />
@@ -237,12 +263,10 @@ const ContactForm = ({ darkMode }) => {
         />
       </motion.div>
 
-      <motion.div variants={fadeIn} transition={{ delay: 0.1 }}>
+      <motion.div variants={smoothFadeIn} transition={{ delay: 0.1 }}>
         <label
           htmlFor="email"
-          className={`block text-sm font-medium ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          } mb-1`}
+          className="block text-sm font-medium text-gray-400 mb-1"
         >
           Email
         </label>
@@ -250,11 +274,7 @@ const ContactForm = ({ darkMode }) => {
           type="email"
           id="email"
           name="email"
-          className={`w-full ${
-            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-          } border ${
-            darkMode ? "border-gray-700" : "border-gray-300"
-          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
+          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="your.email@example.com"
           required
         />
@@ -266,12 +286,10 @@ const ContactForm = ({ darkMode }) => {
         />
       </motion.div>
 
-      <motion.div variants={fadeIn} transition={{ delay: 0.2 }}>
+      <motion.div variants={smoothFadeIn} transition={{ delay: 0.2 }}>
         <label
           htmlFor="subject"
-          className={`block text-sm font-medium ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          } mb-1`}
+          className="block text-sm font-medium text-gray-400 mb-1"
         >
           Subject
         </label>
@@ -279,11 +297,7 @@ const ContactForm = ({ darkMode }) => {
           type="text"
           id="subject"
           name="subject"
-          className={`w-full ${
-            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-          } border ${
-            darkMode ? "border-gray-700" : "border-gray-300"
-          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
+          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Subject"
           required
         />
@@ -295,12 +309,10 @@ const ContactForm = ({ darkMode }) => {
         />
       </motion.div>
 
-      <motion.div variants={fadeIn} transition={{ delay: 0.3 }}>
+      <motion.div variants={smoothFadeIn} transition={{ delay: 0.3 }}>
         <label
           htmlFor="message"
-          className={`block text-sm font-medium ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          } mb-1`}
+          className="block text-sm font-medium text-gray-400 mb-1"
         >
           Message
         </label>
@@ -308,11 +320,7 @@ const ContactForm = ({ darkMode }) => {
           id="message"
           name="message"
           rows="4"
-          className={`w-full ${
-            darkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-          } border ${
-            darkMode ? "border-gray-700" : "border-gray-300"
-          } rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
+          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Your message..."
           required
         ></textarea>
@@ -327,16 +335,10 @@ const ContactForm = ({ darkMode }) => {
       <motion.button
         type="submit"
         disabled={state.submitting}
-        className={`w-full bg-gradient-to-r ${
-          darkMode
-            ? "from-blue-600 to-purple-600"
-            : "from-blue-500 to-purple-500"
-        } text-white px-6 py-3 rounded-lg font-medium mt-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${
-          darkMode ? "hover:shadow-blue-500/20" : "hover:shadow-blue-500/30"
-        } transition-all`}
+        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-medium mt-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/20 transition-all"
         whileHover={{ y: -2, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        variants={fadeIn}
+        variants={smoothFadeIn}
         transition={{ delay: 0.4 }}
       >
         {state.submitting ? (
@@ -371,7 +373,7 @@ const ContactForm = ({ darkMode }) => {
   );
 };
 
-const FloatingTechIcons = ({ darkMode }) => {
+const FloatingTechIcons = () => {
   const icons = [
     { icon: SiSpringboot, color: "#68D391" },
     { icon: FaGolang, color: "#4299E1" },
@@ -389,15 +391,13 @@ const FloatingTechIcons = ({ darkMode }) => {
         const size = Math.random() * 40 + 20;
         const left = Math.random() * 100;
         const top = Math.random() * 100;
-        const opacity = darkMode ? 0.1 : 0.05;
+        const opacity = 0.1;
         const duration = Math.random() * 20 + 20;
 
         return (
           <motion.div
             key={index}
-            className={`absolute rounded-full flex items-center justify-center ${
-              darkMode ? "text-blue-500/20" : "text-blue-400/20"
-            }`}
+            className="absolute rounded-full flex items-center justify-center text-blue-500/20"
             style={{
               width: `${size}px`,
               height: `${size}px`,
@@ -427,12 +427,6 @@ const FloatingTechIcons = ({ darkMode }) => {
 };
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true" ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches &&
-        localStorage.getItem("darkMode") !== "false")
-  );
-
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const containerRef = useRef(null);
@@ -440,19 +434,6 @@ const App = () => {
     container: containerRef,
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
-
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -505,17 +486,13 @@ const App = () => {
 
   return (
     <div
-      className={`min-h-screen ${
-        darkMode ? "dark bg-gray-950" : "bg-gray-50"
-      } text-${
-        darkMode ? "stone-200" : "gray-900"
-      } font-sans overflow-x-hidden antialiased transition-colors duration-300`}
+      className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-stone-200 font-sans overflow-x-hidden antialiased transition-all duration-500"
       ref={containerRef}
     >
-      {/* 3D Background */}
+      {/* Enhanced 3D Background */}
       <div className="fixed inset-0 -z-50">
         <Canvas camera={{ position: [0, 0, 1] }}>
-          <ambientLight intensity={darkMode ? 0.3 : 0.5} />
+          <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} />
           <Stars
             radius={100}
@@ -524,50 +501,53 @@ const App = () => {
             factor={4}
             saturation={0}
             fade
-            speed={1}
+            speed={0.8}
           />
         </Canvas>
       </div>
 
-      {/* Floating Tech Icons */}
-      <FloatingTechIcons darkMode={darkMode} />
-
-      {/* Gradient Mesh Background */}
-      <div className="fixed inset-0 -z-40 opacity-10 dark:opacity-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10"></div>
+      {/* Enhanced Gradient Mesh Background */}
+      <div className="fixed inset-0 -z-40">
+        <motion.div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-purple-500/10 to-transparent"
+          variants={smoothGradientAnimation}
+          initial="initial"
+          animate="animate"
+        />
+        <motion.div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"
+          variants={smoothGradientAnimation}
+          initial="initial"
+          animate="animate"
+        />
       </div>
+
+      {/* Floating Tech Icons */}
+      <FloatingTechIcons />
 
       {/* Mobile Navigation */}
       <div className="lg:hidden fixed top-6 right-6 z-50">
         <motion.button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`p-2 rounded-full ${
-            darkMode ? "bg-gray-800/90" : "bg-white/90"
-          } shadow-lg`}
+          className="p-2 rounded-full bg-gray-800/90 shadow-lg"
           whileTap={{ scale: 0.9 }}
         >
           <div className="w-6 h-6 flex flex-col justify-between">
             <motion.span
-              className={`block h-0.5 w-full ${
-                darkMode ? "bg-white" : "bg-gray-900"
-              } rounded-full`}
+              className="block h-0.5 w-full bg-white rounded-full"
               animate={{
                 rotate: menuOpen ? 45 : 0,
                 y: menuOpen ? 8 : 0,
               }}
             />
             <motion.span
-              className={`block h-0.5 w-full ${
-                darkMode ? "bg-white" : "bg-gray-900"
-              } rounded-full`}
+              className="block h-0.5 w-full bg-white rounded-full"
               animate={{
                 opacity: menuOpen ? 0 : 1,
               }}
             />
             <motion.span
-              className={`block h-0.5 w-full ${
-                darkMode ? "bg-white" : "bg-gray-900"
-              } rounded-full`}
+              className="block h-0.5 w-full bg-white rounded-full"
               animate={{
                 rotate: menuOpen ? -45 : 0,
                 y: menuOpen ? -8 : 0,
@@ -585,9 +565,7 @@ const App = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25 }}
-            className={`fixed inset-y-0 right-0 w-64 ${
-              darkMode ? "bg-gray-900" : "bg-white"
-            } shadow-xl z-40 p-6`}
+            className="fixed inset-y-0 right-0 w-64 bg-gray-900 shadow-xl z-40 p-6"
           >
             <div className="flex flex-col h-full">
               <div className="flex-1 flex flex-col justify-center space-y-8">
@@ -604,12 +582,8 @@ const App = () => {
                     onClick={() => scrollToSection(item.id)}
                     className={`text-left text-xl font-medium ${
                       activeSection === item.id
-                        ? darkMode
-                          ? "text-blue-400"
-                          : "text-blue-600"
-                        : darkMode
-                        ? "text-gray-400"
-                        : "text-gray-600"
+                        ? "text-blue-400"
+                        : "text-gray-400"
                     }`}
                     whileHover={{ x: 5 }}
                   >
@@ -617,64 +591,40 @@ const App = () => {
                   </motion.button>
                 ))}
               </div>
-              <div className="flex justify-center pb-8">
-                <motion.button
-                  onClick={toggleTheme}
-                  className={`p-3 rounded-full ${
-                    darkMode
-                      ? "bg-gray-800 text-yellow-300"
-                      : "bg-gray-200 text-gray-700"
-                  }`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
-                >
-                  {darkMode ? (
-                    <FaSun className="text-xl" />
-                  ) : (
-                    <FaMoon className="text-xl" />
-                  )}
-                </motion.button>
-              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Desktop Navigation */}
-      <nav
-        className={`hidden lg:flex fixed top-0 left-0 w-full z-50 ${
-          darkMode ? "bg-gray-950/90" : "bg-white/90"
-        } backdrop-blur-sm border-b ${
-          darkMode ? "border-gray-800" : "border-gray-200"
-        }`}
-      >
+      {/* Enhanced Navigation */}
+      <nav className="hidden lg:flex fixed top-0 left-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50 transition-all duration-300">
         <div className="container mx-auto flex items-center justify-between px-8 py-5">
           <motion.a
             href="/"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center gap-2 group"
           >
-            <motion.div whileHover={{ rotate: 10 }} className="relative">
+            <motion.div
+              whileHover={{ rotate: 10 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative"
+            >
               <img
                 src={logo}
                 alt="Logo"
-                className={`h-10 w-auto rounded-full border ${
-                  darkMode ? "border-blue-500/30" : "border-blue-500/50"
-                }`}
+                className="h-10 w-auto rounded-full border border-blue-500/30 shadow-lg shadow-blue-500/20 transition-all duration-300"
               />
               <motion.div
-                className={`absolute inset-0 rounded-full border-2 ${
-                  darkMode ? "border-blue-500" : "border-blue-400"
-                } opacity-0 group-hover:opacity-100`}
+                className="absolute inset-0 rounded-full border-2 border-blue-500 opacity-0 group-hover:opacity-100"
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1.2 }}
                 transition={{
                   repeat: Infinity,
                   repeatType: "reverse",
-                  duration: 1.5,
+                  duration: 2,
+                  ease: "easeInOut",
                 }}
               />
             </motion.div>
@@ -695,12 +645,8 @@ const App = () => {
                   onClick={() => scrollToSection(item.id)}
                   className={`relative text-sm font-medium ${
                     activeSection === item.id
-                      ? darkMode
-                        ? "text-blue-400"
-                        : "text-blue-600"
-                      : darkMode
-                      ? "text-gray-400 hover:text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      ? "text-blue-400"
+                      : "text-gray-400 hover:text-white"
                   } transition-colors`}
                   whileHover={{ y: -2 }}
                 >
@@ -708,9 +654,7 @@ const App = () => {
                   {activeSection === item.id && (
                     <motion.span
                       layoutId="navIndicator"
-                      className={`absolute -bottom-1 left-0 w-full h-0.5 ${
-                        darkMode ? "bg-blue-400" : "bg-blue-600"
-                      }`}
+                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400"
                       transition={{
                         type: "spring",
                         bounce: 0.2,
@@ -722,81 +666,49 @@ const App = () => {
               ))}
             </div>
 
-            <div className="flex items-center gap-6">
-              <motion.button
-                onClick={toggleTheme}
-                className={`p-2 rounded-full ${
-                  darkMode
-                    ? "bg-gray-800 text-yellow-300"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+            <motion.div
+              className="flex gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.a
+                href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-400 transition-colors"
+                aria-label="LinkedIn"
+                whileHover={{ y: -3, scale: 1.1 }}
               >
-                {darkMode ? (
-                  <FaSun className="text-xl" />
-                ) : (
-                  <FaMoon className="text-xl" />
-                )}
-              </motion.button>
-
-              <motion.div
-                className="flex gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                <FaLinkedin className="text-xl" />
+              </motion.a>
+              <motion.a
+                href="https://github.com/Akhil351"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="GitHub"
+                whileHover={{ y: -3, scale: 1.1 }}
               >
-                <motion.a
-                  href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${
-                    darkMode
-                      ? "text-gray-400 hover:text-blue-400"
-                      : "text-gray-600 hover:text-blue-600"
-                  } transition-colors`}
-                  aria-label="LinkedIn"
-                  whileHover={{ y: -3, scale: 1.1 }}
-                >
-                  <FaLinkedin className="text-xl" />
-                </motion.a>
-                <motion.a
-                  href="https://github.com/Akhil351"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${
-                    darkMode
-                      ? "text-gray-400 hover:text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  } transition-colors`}
-                  aria-label="GitHub"
-                  whileHover={{ y: -3, scale: 1.1 }}
-                >
-                  <FaGithub className="text-xl" />
-                </motion.a>
-                <motion.a
-                  href="https://www.instagram.com/Akhil___351/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${
-                    darkMode
-                      ? "text-gray-400 hover:text-pink-500"
-                      : "text-gray-600 hover:text-pink-600"
-                  } transition-colors`}
-                  aria-label="Instagram"
-                  whileHover={{ y: -3, scale: 1.1 }}
-                >
-                  <FaInstagram className="text-xl" />
-                </motion.a>
-              </motion.div>
-            </div>
+                <FaGithub className="text-xl" />
+              </motion.a>
+              <motion.a
+                href="https://www.instagram.com/Akhil___351/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-pink-500 transition-colors"
+                aria-label="Instagram"
+                whileHover={{ y: -3, scale: 1.1 }}
+              >
+                <FaInstagram className="text-xl" />
+              </motion.a>
+            </motion.div>
           </div>
         </div>
       </nav>
 
       <main className="container mx-auto px-6 lg:px-20 mt-24">
-        {/* Hero Section */}
+        {/* Enhanced Hero Section */}
         <section
           id="home"
           className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16 min-h-screen"
@@ -804,20 +716,12 @@ const App = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={scaleUp}
+            variants={smoothScaleUp}
             className="relative w-64 h-64 lg:w-80 lg:h-80"
           >
-            <div
-              className={`absolute inset-0 ${
-                darkMode
-                  ? "bg-gradient-to-br from-blue-600 to-purple-600"
-                  : "bg-gradient-to-br from-blue-400 to-purple-400"
-              } rounded-full opacity-20 blur-xl animate-pulse`}
-            ></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600 rounded-full opacity-20 blur-xl animate-pulse transition-all duration-500"></div>
             <motion.div
-              className={`absolute inset-0 border-2 ${
-                darkMode ? "border-blue-500/30" : "border-blue-400/30"
-              } rounded-full`}
+              className="absolute inset-0 border-2 border-blue-500/30 rounded-full"
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             />
@@ -827,15 +731,15 @@ const App = () => {
                 scale: 1.05,
                 glare: true,
                 "max-glare": 0.2,
+                speed: 1000,
+                transition: true,
               }}
               className="relative w-full h-full rounded-full z-10"
             >
               <img
                 src={profilePic}
                 alt="Akhileswar Vathaluru"
-                className={`w-full h-full rounded-full object-cover border-4 ${
-                  darkMode ? "border-gray-700" : "border-gray-300"
-                }`}
+                className="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-xl shadow-blue-500/20 transition-all duration-500"
               />
             </Tilt>
           </motion.div>
@@ -844,56 +748,47 @@ const App = () => {
             className="flex-1 text-center lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              className={`inline-flex items-center px-4 py-2 ${
-                darkMode
-                  ? "bg-gray-800/50 border-gray-700"
-                  : "bg-gray-100 border-gray-200"
-              } rounded-full border mb-4`}
+              className="inline-flex items-center px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-full mb-4 backdrop-blur-sm transition-all duration-300"
               whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div
-                className={`w-2 h-2 ${
-                  darkMode ? "bg-blue-400" : "bg-blue-500"
-                } rounded-full mr-2 animate-pulse`}
-              ></div>
-              <span
-                className={`text-sm font-medium ${
-                  darkMode ? "text-blue-400" : "text-blue-600"
-                }`}
-              >
+              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
+              <span className="text-sm font-medium text-blue-400">
                 Full-Stack Developer
               </span>
             </motion.div>
 
             <motion.h1
-              className={`text-5xl lg:text-6xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4 leading-tight`}
+              className="text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{
+                delay: 0.3,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               Akhileswar{" "}
-              <span
-                className={`${darkMode ? "text-blue-400" : "text-blue-600"}`}
-              >
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Vathaluru
               </span>
             </motion.h1>
 
             <motion.p
-              className={`text-lg ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              } max-w-2xl mb-8 leading-relaxed`}
+              className="text-lg text-gray-400 max-w-2xl mb-8 leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{
+                delay: 0.4,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              👋 I'm Akhil — a full-stack developer proficient in Spring Boot,
-              GoLang, and React. I design and develop scalable end-to-end
+              👋 I&apos;m Akhil — a full-stack developer proficient in Spring
+              Boot, GoLang, and React. I design and develop scalable end-to-end
               solutions, combining robust backend architectures with seamless,
               responsive frontends.
             </motion.p>
@@ -902,36 +797,30 @@ const App = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{
+                delay: 0.5,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <motion.a
                 href="https://github.com/Akhil351/Resume/blob/master/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-center gap-2 ${
-                  darkMode
-                    ? "bg-blue-600 hover:bg-blue-700 text-white"
-                    : "bg-blue-500 hover:bg-blue-600 text-white"
-                } px-6 py-3 rounded-lg transition-all shadow-lg ${
-                  darkMode
-                    ? "hover:shadow-blue-500/20"
-                    : "hover:shadow-blue-500/30"
-                } font-medium`}
+                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/20 font-medium"
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <FiFileText /> View Resume
               </motion.a>
 
               <motion.a
                 href="#contact"
-                className={`flex items-center justify-center gap-2 bg-transparent ${
-                  darkMode
-                    ? "text-blue-400 hover:text-white border-gray-700 hover:border-blue-400"
-                    : "text-blue-500 hover:text-blue-700 border-gray-300 hover:border-blue-500"
-                } px-6 py-3 rounded-lg transition-all border font-medium`}
+                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg transition-all duration-300 font-medium"
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 Contact Me
               </motion.a>
@@ -939,62 +828,39 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Skills Section */}
+        {/* Enhanced Skills Section */}
         <section id="skills" className="py-20 relative">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden -z-10">
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className={`absolute rounded-full ${
-                  darkMode ? "bg-blue-500/10" : "bg-blue-400/10"
-                }`}
-                style={{
-                  width: `${Math.random() * 300 + 100}px`,
-                  height: `${Math.random() * 300 + 100}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  x: [0, (Math.random() - 0.5) * 100],
-                  y: [0, (Math.random() - 0.5) * 100],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: Math.random() * 20 + 10,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-            ))}
-          </div>
-
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className={`text-4xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4`}
+              className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               TECHNICAL EXPERTISE
             </motion.h2>
             <motion.p
-              className={`${
-                darkMode ? "text-gray-500" : "text-gray-600"
-              } max-w-2xl mx-auto`}
+              className="text-gray-500 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{
+                delay: 0.4,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              Technologies I've mastered to build robust, scalable applications
+              Technologies I&apos;ve mastered to build robust, scalable
+              applications
             </motion.p>
           </motion.div>
 
@@ -1007,50 +873,41 @@ const App = () => {
                   scale: 1.05,
                   glare: true,
                   "max-glare": 0.1,
+                  speed: 1000,
+                  transition: true,
                 }}
               >
                 <motion.div
-                  className={`flex flex-col items-center ${
-                    darkMode
-                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                      : "bg-white border-gray-200 hover:border-blue-400/50"
-                  } p-6 rounded-xl border transition-all group`}
-                  variants={fadeIn}
+                  className="flex flex-col items-center bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 p-6 rounded-xl backdrop-blur-sm transition-all duration-300 group"
+                  variants={smoothFadeIn}
                   initial="hidden"
                   whileInView="visible"
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  transition={{
+                    delay: index * 0.1,
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -5, scale: 1.03 }}
+                  whileHover={smoothCardHover}
                 >
                   <motion.div
-                    className={`p-4 rounded-lg ${
-                      darkMode
-                        ? "bg-gray-800/50 group-hover:bg-gray-800"
-                        : "bg-gray-100 group-hover:bg-gray-200"
-                    } mb-4 ${tech.color} transition-all`}
+                    className="p-4 rounded-lg bg-gray-800/50 group-hover:bg-gray-800 mb-4 transition-all duration-300"
                     whileHover={{ rotate: 10 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <tech.icon className="text-3xl" />
+                    <tech.icon className={`text-3xl ${tech.color}`} />
                   </motion.div>
-                  <span
-                    className={`${
-                      darkMode ? "text-gray-300" : "text-gray-700"
-                    } font-medium`}
-                  >
-                    {tech.name}
-                  </span>
-                  <div
-                    className={`w-full ${
-                      darkMode ? "bg-gray-800" : "bg-gray-200"
-                    } rounded-full h-1.5 mt-2`}
-                  >
+                  <span className="text-gray-300 font-medium">{tech.name}</span>
+                  <div className="w-full bg-gray-800 rounded-full h-1.5 mt-2">
                     <motion.div
-                      className={`${
-                        darkMode ? "bg-blue-500" : "bg-blue-400"
-                      } h-1.5 rounded-full`}
+                      className={`${tech.color} h-1.5 rounded-full`}
                       initial={{ width: 0 }}
                       whileInView={{ width: "80%" }}
-                      transition={{ delay: index * 0.1 + 0.3, duration: 0.8 }}
+                      transition={{
+                        delay: index * 0.1 + 0.3,
+                        duration: 1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
                       viewport={{ once: true }}
                     />
                   </div>
@@ -1060,7 +917,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Projects Section */}
+        {/* Enhanced Projects Section */}
         <section id="projects" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1070,9 +927,7 @@ const App = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className={`text-4xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4`}
+              className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -1080,9 +935,7 @@ const App = () => {
               PROJECT SHOWCASE
             </motion.h2>
             <motion.p
-              className={`${
-                darkMode ? "text-gray-500" : "text-gray-600"
-              } max-w-2xl mx-auto`}
+              className="text-gray-500 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -1103,17 +956,13 @@ const App = () => {
                 }}
               >
                 <motion.div
-                  className={`${
-                    darkMode
-                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                      : "bg-white border-gray-200 hover:border-blue-400/50"
-                  } rounded-xl overflow-hidden border transition-all group`}
-                  variants={fadeIn}
+                  className="bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 rounded-xl overflow-hidden backdrop-blur-sm transition-all group"
+                  variants={smoothFadeIn}
                   initial="hidden"
                   whileInView="visible"
                   transition={{ delay: index * 0.1, duration: 0.6 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -5 }}
+                  whileHover={smoothCardHover}
                 >
                   <div className="relative h-60 overflow-hidden">
                     <motion.img
@@ -1124,21 +973,11 @@ const App = () => {
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t ${
-                        darkMode
-                          ? "from-gray-900/90 via-gray-900/30"
-                          : "from-gray-900/70 via-gray-900/10"
-                      } to-transparent`}
-                    ></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent"></div>
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-4">
-                      <h3
-                        className={`text-xl font-bold ${
-                          darkMode ? "text-white" : "text-gray-900"
-                        }`}
-                      >
+                      <h3 className="text-xl font-bold text-white">
                         {project.title}
                       </h3>
                       <div className="flex gap-3">
@@ -1146,11 +985,7 @@ const App = () => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${
-                            darkMode
-                              ? "text-gray-400 hover:text-white"
-                              : "text-gray-600 hover:text-gray-900"
-                          } transition-colors`}
+                          className="text-gray-400 hover:text-white transition-colors"
                           aria-label="GitHub"
                           title="View code on GitHub"
                           whileHover={{ y: -3, scale: 1.2 }}
@@ -1161,11 +996,7 @@ const App = () => {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${
-                            darkMode
-                              ? "text-gray-400 hover:text-blue-400"
-                              : "text-gray-600 hover:text-blue-600"
-                          } transition-colors`}
+                          className="text-gray-400 hover:text-blue-400 transition-colors"
                           aria-label="Live Demo"
                           title="View live demo"
                           whileHover={{ y: -3, scale: 1.2 }}
@@ -1174,22 +1005,12 @@ const App = () => {
                         </motion.a>
                       </div>
                     </div>
-                    <p
-                      className={`${
-                        darkMode ? "text-gray-400" : "text-gray-600"
-                      } mb-5`}
-                    >
-                      {project.description}
-                    </p>
+                    <p className="text-gray-400 mb-5">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech, index) => (
                         <motion.span
                           key={index}
-                          className={`px-3 py-1 text-xs ${
-                            darkMode
-                              ? "bg-gray-800 text-blue-400 border-gray-700"
-                              : "bg-gray-100 text-blue-600 border-gray-300"
-                          } rounded-full border`}
+                          className="px-4 py-1.5 text-sm bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
                           initial={{ scale: 0.9 }}
                           whileInView={{ scale: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -1206,7 +1027,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Experience Section */}
+        {/* Enhanced Experience Section */}
         <section id="experience" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1216,9 +1037,7 @@ const App = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className={`text-4xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4`}
+              className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -1226,9 +1045,7 @@ const App = () => {
               PROFESSIONAL JOURNEY
             </motion.h2>
             <motion.p
-              className={`${
-                darkMode ? "text-gray-500" : "text-gray-600"
-              } max-w-2xl mx-auto`}
+              className="text-gray-500 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -1247,75 +1064,43 @@ const App = () => {
                 }}
               >
                 <motion.div
-                  className={`${
-                    darkMode
-                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                      : "bg-white border-gray-200 hover:border-blue-400/50"
-                  } p-8 rounded-xl border transition-all`}
-                  variants={fadeIn}
+                  className="bg-gray-900/50 border-gray-800 hover:border-blue-500/30 p-8 rounded-xl border transition-all"
+                  variants={smoothFadeIn}
                   initial="hidden"
                   whileInView="visible"
                   transition={{ delay: index * 0.2, duration: 0.6 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -3 }}
+                  whileHover={smoothCardHover}
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>
-                      <h3
-                        className={`text-xl font-bold ${
-                          darkMode ? "text-white" : "text-gray-900"
-                        }`}
-                      >
+                      <h3 className="text-xl font-bold text-white">
                         {experience.role}
                       </h3>
-                      <span
-                        className={`${
-                          darkMode ? "text-blue-400" : "text-blue-600"
-                        } font-medium`}
-                      >
+                      <span className="text-blue-400 font-medium">
                         {experience.company}
                       </span>
                     </div>
                     <motion.span
-                      className={`text-sm ${
-                        darkMode
-                          ? "text-gray-400 bg-gray-800"
-                          : "text-gray-600 bg-gray-100"
-                      } px-3 py-1 rounded-full`}
+                      className="text-sm bg-gray-800 px-3 py-1 rounded-full"
                       whileHover={{ scale: 1.05 }}
                     >
                       {experience.year}
                     </motion.span>
                   </div>
-                  <p
-                    className={`${
-                      darkMode ? "text-gray-300" : "text-gray-700"
-                    } mb-6 leading-relaxed`}
-                  >
+                  <p className="text-gray-300 mb-6 leading-relaxed">
                     {experience.description}
                   </p>
 
-                  <div
-                    className={`pt-4 border-t ${
-                      darkMode ? "border-gray-800" : "border-gray-200"
-                    }`}
-                  >
-                    <h4
-                      className={`text-sm font-medium ${
-                        darkMode ? "text-gray-400" : "text-gray-600"
-                      } mb-3`}
-                    >
+                  <div className="pt-4 border-t border-gray-800">
+                    <h4 className="text-sm font-medium text-gray-400 mb-3">
                       TECHNOLOGIES USED
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {experience.technologies.map((tech, index) => (
                         <motion.span
                           key={index}
-                          className={`px-3 py-1 text-xs ${
-                            darkMode
-                              ? "bg-gray-800 text-blue-400 border-gray-700"
-                              : "bg-gray-100 text-blue-600 border-gray-300"
-                          } rounded-full border`}
+                          className="px-4 py-1.5 text-sm bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
                           initial={{ scale: 0.9 }}
                           whileInView={{ scale: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -1332,7 +1117,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Certifications Section */}
+        {/* Enhanced Certifications Section */}
         <section id="certifications" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1342,9 +1127,7 @@ const App = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className={`text-4xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4`}
+              className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -1363,12 +1146,8 @@ const App = () => {
                 }}
               >
                 <motion.div
-                  className={`${
-                    darkMode
-                      ? "bg-gray-900/50 border-gray-800 hover:border-blue-500/30"
-                      : "bg-white border-gray-200 hover:border-blue-400/50"
-                  } p-6 rounded-xl border transition-all`}
-                  variants={fadeIn}
+                  className="bg-gray-900/50 border-gray-800 hover:border-blue-500/30 p-6 rounded-xl border transition-all"
+                  variants={smoothFadeIn}
                   initial="hidden"
                   whileInView="visible"
                   transition={{ delay: index * 0.2, duration: 0.6 }}
@@ -1380,11 +1159,7 @@ const App = () => {
                       href={certification.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`text-xl font-bold ${
-                        darkMode
-                          ? "text-white hover:text-blue-400"
-                          : "text-gray-900 hover:text-blue-600"
-                      } transition-colors mb-2`}
+                      className="text-xl font-bold text-white hover:text-blue-400 mb-2"
                       whileHover={{ x: 3 }}
                     >
                       {certification.title}
@@ -1393,9 +1168,7 @@ const App = () => {
                       {certification.details.map((detail, i) => (
                         <motion.p
                           key={i}
-                          className={`text-sm ${
-                            darkMode ? "text-gray-400" : "text-gray-600"
-                          }`}
+                          className="text-sm text-gray-400"
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 + 0.2 }}
@@ -1412,7 +1185,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* Enhanced Contact Section */}
         <section id="contact" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1422,19 +1195,15 @@ const App = () => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className={`text-4xl font-bold ${
-                darkMode ? "text-white" : "text-gray-900"
-              } mb-4`}
+              className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              LET'S CONNECT
+              LET&apos;S CONNECT
             </motion.h2>
             <motion.p
-              className={`${
-                darkMode ? "text-gray-500" : "text-gray-600"
-              } max-w-2xl mx-auto`}
+              className="text-gray-500 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -1452,100 +1221,56 @@ const App = () => {
             }}
           >
             <motion.div
-              className={`max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl ${
-                darkMode
-                  ? "bg-gray-900/50 border-gray-800"
-                  : "bg-white border-gray-200"
-              } border`}
-              variants={scaleUp}
+              className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl bg-gray-900/50 border border-gray-800/50 backdrop-blur-sm"
+              variants={smoothScaleUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2">
-                <div
-                  className={`p-8 md:p-10 ${
-                    darkMode
-                      ? "bg-gray-900/30 border-gray-800"
-                      : "bg-gray-50 border-gray-200"
-                  } border-b md:border-b-0 md:border-r`}
-                >
-                  <h3
-                    className={`text-xl font-bold ${
-                      darkMode ? "text-white" : "text-gray-900"
-                    } mb-6`}
-                  >
+                <div className="p-8 md:p-10 bg-gray-900/30 border-b md:border-b-0 md:border-r border-gray-800/50">
+                  <h3 className="text-xl font-bold text-white mb-6">
                     Contact Information
                   </h3>
 
                   <div className="space-y-6">
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={fadeIn}
+                      variants={smoothFadeIn}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <div
-                        className={`p-2 rounded-lg ${
-                          darkMode
-                            ? "bg-blue-500/10 text-blue-400"
-                            : "bg-blue-100 text-blue-600"
-                        }`}
-                      >
+                      <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400">
                         <FiMapPin className="text-xl" />
                       </div>
                       <div>
-                        <h4
-                          className={`text-sm font-medium ${
-                            darkMode ? "text-gray-400" : "text-gray-600"
-                          } mb-1`}
-                        >
+                        <h4 className="text-sm font-medium text-gray-400 mb-1">
                           LOCATION
                         </h4>
-                        <p
-                          className={
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }
-                        >
-                          {CONTACT.address}
-                        </p>
+                        <p className="text-gray-300">{CONTACT.address}</p>
                       </div>
                     </motion.div>
 
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={fadeIn}
+                      variants={smoothFadeIn}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.2 }}
                       viewport={{ once: true }}
                     >
-                      <div
-                        className={`p-2 rounded-lg ${
-                          darkMode
-                            ? "bg-blue-500/10 text-blue-400"
-                            : "bg-blue-100 text-blue-600"
-                        }`}
-                      >
+                      <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400">
                         <FiPhone className="text-xl" />
                       </div>
                       <div>
-                        <h4
-                          className={`text-sm font-medium ${
-                            darkMode ? "text-gray-400" : "text-gray-600"
-                          } mb-1`}
-                        >
+                        <h4 className="text-sm font-medium text-gray-400 mb-1">
                           PHONE
                         </h4>
                         <a
                           href={`tel:${CONTACT.phoneNo.replace(/\s+/g, "")}`}
-                          className={`${
-                            darkMode
-                              ? "text-gray-300 hover:text-blue-400"
-                              : "text-gray-700 hover:text-blue-600"
-                          } transition-colors`}
+                          className="text-gray-300 hover:text-blue-400 transition-colors"
                         >
                           {CONTACT.phoneNo}
                         </a>
@@ -1554,34 +1279,22 @@ const App = () => {
 
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={fadeIn}
+                      variants={smoothFadeIn}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.3 }}
                       viewport={{ once: true }}
                     >
-                      <div
-                        className={`p-2 rounded-lg ${
-                          darkMode
-                            ? "bg-blue-500/10 text-blue-400"
-                            : "bg-blue-100 text-blue-600"
-                        }`}
-                      >
+                      <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400">
                         <FiMail className="text-xl" />
                       </div>
                       <div>
-                        <h4
-                          className={`text-sm font-medium ${
-                            darkMode ? "text-gray-400" : "text-gray-600"
-                          } mb-1`}
-                        >
+                        <h4 className="text-sm font-medium text-gray-400 mb-1">
                           EMAIL
                         </h4>
                         <a
                           href={`mailto:${CONTACT.email}`}
-                          className={`${
-                            darkMode ? "text-blue-400" : "text-blue-600"
-                          } hover:underline`}
+                          className="text-blue-400 hover:underline"
                         >
                           {CONTACT.email}
                         </a>
@@ -1591,7 +1304,7 @@ const App = () => {
                 </div>
 
                 <div className="p-8 md:p-10">
-                  <ContactForm darkMode={darkMode} />
+                  <ContactForm />
                 </div>
               </div>
             </motion.div>
@@ -1599,22 +1312,14 @@ const App = () => {
         </section>
       </main>
 
-      {/* Enhanced Footer with Theme Support */}
-      <footer
-        className={`py-8 border-t ${
-          darkMode
-            ? "border-gray-800 bg-gray-900/50"
-            : "border-gray-200 bg-white/50"
-        } backdrop-blur-sm`}
-      >
+      {/* Enhanced Footer */}
+      <footer className="py-8 border-t border-gray-800/50 bg-gray-900/50 backdrop-blur-sm transition-all duration-300">
         <div className="container mx-auto px-6 text-center">
           <motion.p
-            className={`${
-              darkMode ? "text-gray-500" : "text-gray-600"
-            } text-sm`}
+            className="text-gray-500 text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
           >
             &copy; {new Date().getFullYear()} Akhileswar. All rights reserved.
@@ -1623,19 +1328,16 @@ const App = () => {
             className="mt-4 flex justify-center gap-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
           >
             <motion.a
               href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`${
-                darkMode
-                  ? "text-gray-500 hover:text-blue-400"
-                  : "text-gray-600 hover:text-blue-600"
-              } transition-colors`}
+              className="text-gray-500 hover:text-blue-400 transition-colors duration-300"
               whileHover={{ y: -2 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaLinkedin className="text-xl" />
             </motion.a>
@@ -1643,12 +1345,9 @@ const App = () => {
               href="https://github.com/Akhil351"
               target="_blank"
               rel="noopener noreferrer"
-              className={`${
-                darkMode
-                  ? "text-gray-500 hover:text-white"
-                  : "text-gray-600 hover:text-gray-900"
-              } transition-colors`}
+              className="text-gray-500 hover:text-white transition-colors duration-300"
               whileHover={{ y: -2 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaGithub className="text-xl" />
             </motion.a>
@@ -1656,12 +1355,9 @@ const App = () => {
               href="https://www.instagram.com/Akhil___351/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`${
-                darkMode
-                  ? "text-gray-500 hover:text-pink-500"
-                  : "text-gray-600 hover:text-pink-600"
-              } transition-colors`}
+              className="text-gray-500 hover:text-pink-500 transition-colors duration-300"
               whileHover={{ y: -2 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaInstagram className="text-xl" />
             </motion.a>
@@ -1669,27 +1365,20 @@ const App = () => {
         </div>
       </footer>
 
-      {/* Back to Top Button */}
+      {/* Enhanced Back to Top Button */}
       <AnimatePresence>
         {activeSection !== "home" && (
           <motion.button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 p-4 rounded-full shadow-lg transition-all z-50 ${
-              darkMode
-                ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700"
-                : "bg-white/80 border-gray-300 hover:bg-white"
-            }`}
+            className="fixed bottom-6 right-6 p-4 rounded-full shadow-lg transition-all duration-300 z-50 bg-gray-800/50 border border-gray-700/50 hover:bg-gray-700 backdrop-blur-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <FaArrowUp
-              className={`text-lg ${
-                darkMode ? "text-blue-400" : "text-blue-500"
-              }`}
-            />
+            <FaArrowUp className="text-lg text-blue-400" />
           </motion.button>
         )}
       </AnimatePresence>
