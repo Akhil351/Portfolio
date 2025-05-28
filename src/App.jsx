@@ -33,7 +33,7 @@ import profilePic from "./assets/Akhil.jpeg";
 import logo from "./assets/AK.jpg";
 import project1 from "./assets/Linklytics.avif";
 import project2 from "./assets/ChatApplication.png";
-import project3 from "./assets/remove-bg.jpg";
+import project3 from "./assets/clearbg.png";
 import project4 from "./assets/Real Estate.avif";
 import project5 from "./assets/researchAssistant.jpeg";
 import project6 from "./assets/fitness.jpg";
@@ -75,7 +75,14 @@ const PROJECTS = [
     image: project1,
     description:
       "Developed a URL shortening platform with a sleek UI for managing and tracking links. Integrated analytics, encryption, and optimized redirects to ensure performance, reliability, and security. Built using Spring Boot, React, PostgreSQL, and Redis. Seamless UX was a priority throughout.",
-    technologies: ["Spring Boot", "React", "PostgreSQL", "JWT", "React","TailwindCss"],
+    technologies: [
+      "Spring Boot",
+      "React",
+      "PostgreSQL",
+      "JWT",
+      "React",
+      "TailwindCss",
+    ],
     link: "https://akhil-amber.vercel.app/",
     github: "https://github.com/Akhil351/Linklytics",
   },
@@ -99,7 +106,14 @@ const PROJECTS = [
     image: project4,
     description:
       "Created a secure, transparent blockchain-based platform using Hyperledger Fabric and Go. Supports property registration, transfers, and verification with full audit trails. Used JWT, PostgreSQL, Docker, and MongoDB. RESTful APIs ensure smooth interaction between clients and the ledger.",
-    technologies: ["Go", "Hyperledger Fabric", "PostgreSQL", "JWT", "Docker", "MongoDB"],
+    technologies: [
+      "Go",
+      "Hyperledger Fabric",
+      "PostgreSQL",
+      "JWT",
+      "Docker",
+      "MongoDB",
+    ],
     link: "https://github.com/Akhil351/Real-Estate-Management-System",
     github: "https://github.com/Akhil351/Real-Estate-Management-System",
   },
@@ -125,7 +139,13 @@ const PROJECTS = [
     image: project5,
     description:
       "A Chrome extension built with Spring AI and Manifest V3 to summarize copied content and generate concise notes. Helps researchers extract insights quickly. Uses Chrome APIs for DOM interaction. Intuitive UX for students, developers, and professionals looking to save time while reading.",
-    technologies: ["Spring Ai", "Manifest V3", "Chrome APIs","Spring Boot","Java"],
+    technologies: [
+      "Spring Ai",
+      "Manifest V3",
+      "Chrome APIs",
+      "Spring Boot",
+      "Java",
+    ],
     link: "https://github.com/Akhil351/research-assistant",
     github: "https://github.com/Akhil351/research-assistant",
   },
@@ -142,13 +162,12 @@ const PROJECTS = [
       "TailwindCSS",
       "Razorpay Integration",
       "WebFlux",
-      "Vite"
+      "Vite",
     ],
     link: "https://github.com/Akhil351/ClearBG",
-    github: "https://github.com/Akhil351/ClearBG"
-  }
+    github: "https://github.com/Akhil351/ClearBG",
+  },
 ];
-
 
 const CONTACT = {
   address: "Kondapur, Hyderabad, Telangana, 500084, India",
@@ -966,11 +985,11 @@ const App = () => {
                   viewport={{ once: true }}
                   whileHover={smoothCardHover}
                 >
-                  <div className="relative h-60 overflow-hidden">
+                  <div className="relative h-48 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
                     <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                       initial={{ scale: 1 }}
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
