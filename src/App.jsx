@@ -33,7 +33,7 @@ import profilePic from "./assets/Akhil.jpeg";
 import logo from "./assets/AK.jpg";
 import project1 from "./assets/Linklytics.avif";
 import project2 from "./assets/ChatApplication.png";
-import project3 from "./assets/Ecommerce.jpg";
+import project3 from "./assets/remove-bg.jpg";
 import project4 from "./assets/Real Estate.avif";
 import project5 from "./assets/researchAssistant.jpeg";
 import project6 from "./assets/fitness.jpg";
@@ -130,22 +130,23 @@ const PROJECTS = [
     github: "https://github.com/Akhil351/research-assistant",
   },
   {
-    title: "E-commerce Microservices",
+    title: "ClearBG - AI-Powered Background Removal Platform",
     image: project3,
     description:
-      "Developed an e-commerce platform using Spring Boot and microservices architecture, enabling secure online transactions and order management. Integrated Spring Security, JWT authentication, Spring Data JPA, PostgreSQL, and MongoDB for a scalable and efficient shopping experience.",
+      "A modern full-stack application that provides automated background removal services. Features a responsive React frontend with real-time processing capabilities and a robust Spring Boot backend. Implements secure authentication using Clerk, payment processing with Razorpay, and efficient image processing. Built with scalability and user experience in mind.",
     technologies: [
+      "React",
       "Spring Boot",
-      "Microservices",
-      "JWT",
       "PostgreSQL",
-      "MongoDB",
-      "Kafka",
-      "Redis",
+      "JWT Authentication",
+      "TailwindCSS",
+      "Razorpay Integration",
+      "WebFlux",
+      "Vite"
     ],
-    link: "https://github.com/Akhil351/Ecommerce",
-    github: "https://github.com/Akhil351/Ecommerce",
-  },
+    link: "https://github.com/Akhil351/ClearBG",
+    github: "https://github.com/Akhil351/ClearBG"
+}
 ];
 
 const CONTACT = {
