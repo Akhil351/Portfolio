@@ -74,8 +74,8 @@ const PROJECTS = [
     title: "Linklytics",
     image: project1,
     description:
-      "Developed a URL shortening platform with an intuitive interface for creating, managing, and tracking shortened links. Integrated powerful analytics for performance tracking, enhanced security with encryption, and optimized for fast, reliable redirects to ensure a seamless user experience.",
-    technologies: ["Spring Boot", "React", "PostgreSQL", "JWT", "Redis"],
+      "Developed a URL shortening platform with a sleek UI for managing and tracking links. Integrated analytics, encryption, and optimized redirects to ensure performance, reliability, and security. Built using Spring Boot, React, PostgreSQL, and Redis. Seamless UX was a priority throughout.",
+    technologies: ["Spring Boot", "React", "PostgreSQL", "JWT", "React","TailwindCss"],
     link: "https://akhil-amber.vercel.app/",
     github: "https://github.com/Akhil351/Linklytics",
   },
@@ -83,7 +83,7 @@ const PROJECTS = [
     title: "Real-time Chat Application",
     image: project2,
     description:
-      "Developed a real-time chat application using Spring Boot, WebSocket, and MongoDB for seamless, scalable communication. Built a responsive React JSX frontend with Tailwind CSS, supporting one-on-one and group messaging with low-latency interactions.",
+      "Built a real-time chat app with Spring Boot, WebSocket, and MongoDB for fast, scalable communication. UI is responsive using React JSX and Tailwind CSS. Supports group and private messaging with smooth low-latency interactions. Backend ensures data persistence and session safety.",
     technologies: [
       "Spring Boot",
       "WebSocket",
@@ -98,8 +98,8 @@ const PROJECTS = [
     title: "Blockchain Real Estate Platform",
     image: project4,
     description:
-      "Developed a blockchain-based real estate management platform using Hyperledger Fabric, enabling secure, transparent property transactions with end-to-end traceability. Implemented Go-based RESTful APIs, JWT authentication, PostgreSQL, and chaincode for ledger integrity.",
-    technologies: ["Go", "Hyperledger Fabric", "PostgreSQL", "JWT", "Docker"],
+      "Created a secure, transparent blockchain-based platform using Hyperledger Fabric and Go. Supports property registration, transfers, and verification with full audit trails. Used JWT, PostgreSQL, Docker, and MongoDB. RESTful APIs ensure smooth interaction between clients and the ledger.",
+    technologies: ["Go", "Hyperledger Fabric", "PostgreSQL", "JWT", "Docker", "MongoDB"],
     link: "https://github.com/Akhil351/Real-Estate-Management-System",
     github: "https://github.com/Akhil351/Real-Estate-Management-System",
   },
@@ -107,7 +107,7 @@ const PROJECTS = [
     title: "Fitness AI Platform",
     image: project6,
     description:
-      "A full-stack fitness tracking application with a React frontend and Spring Boot microservices backend. Integrates AI to provide personalized activity insights, recommendations, and safety tips. Implements secure authentication and authorization using Keycloak. Designed for scalability, maintainability, and a seamless user experience.",
+      "A scalable fitness tracking app with Spring Boot microservices and React frontend. Integrates AI for activity suggestions and safety tips. Auth via Keycloak. Message-driven architecture using RabbitMQ. Stores data in Postgres and MongoDB. Deployed on AWS with robust CI/CD pipeline setup.",
     technologies: [
       "Spring Boot Microservice",
       "React",
@@ -124,8 +124,8 @@ const PROJECTS = [
     title: "AI Research Assistant",
     image: project5,
     description:
-      "Research Assistant Extension: A Chrome extension powered by Spring AI that summarizes copied text and provides concise notes. Built with Manifest V3, it helps users quickly extract key insights from any content.",
-    technologies: ["Spring Ai", "Manifest V3", "Chrome APIs"],
+      "A Chrome extension built with Spring AI and Manifest V3 to summarize copied content and generate concise notes. Helps researchers extract insights quickly. Uses Chrome APIs for DOM interaction. Intuitive UX for students, developers, and professionals looking to save time while reading.",
+    technologies: ["Spring Ai", "Manifest V3", "Chrome APIs","Spring Boot","Java"],
     link: "https://github.com/Akhil351/research-assistant",
     github: "https://github.com/Akhil351/research-assistant",
   },
@@ -133,7 +133,7 @@ const PROJECTS = [
     title: "ClearBG - AI-Powered Background Removal Platform",
     image: project3,
     description:
-      "A modern full-stack application that provides automated background removal services. Features a responsive React frontend with real-time processing capabilities and a robust Spring Boot backend. Implements secure authentication using Clerk, payment processing with Razorpay, and efficient image processing. Built with scalability and user experience in mind.",
+      "Full-stack app offering background removal with React frontend and Spring Boot backend. Razorpay enables payments, Clerk handles auth. Images are processed in real time with WebFlux. Uses PostgreSQL and TailwindCSS. Scalable design ensures performance even under high user load.",
     technologies: [
       "React",
       "Spring Boot",
@@ -146,8 +146,9 @@ const PROJECTS = [
     ],
     link: "https://github.com/Akhil351/ClearBG",
     github: "https://github.com/Akhil351/ClearBG"
-}
+  }
 ];
+
 
 const CONTACT = {
   address: "Kondapur, Hyderabad, Telangana, 500084, India",
