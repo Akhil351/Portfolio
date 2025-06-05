@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import React from "react";
 import {
   motion,
   AnimatePresence,
@@ -186,15 +187,15 @@ const technologies = [
   { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500" },
 ];
 
-// Enhanced animations
+// Enhanced animations with more dynamic effects
 const smoothFadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1], // Custom easing for smoother motion
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
@@ -205,7 +206,7 @@ const smoothScaleUp = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.7,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -216,20 +217,31 @@ const smoothCardHover = {
   y: -5,
   transition: {
     type: "spring",
-    stiffness: 200,
-    damping: 15,
+    stiffness: 300,
+    damping: 20,
     mass: 0.5,
   },
 };
 
-const smoothGradientAnimation = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: [0.2, 0.4, 0.2],
+// New animation variants
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
     transition: {
-      duration: 6,
-      repeat: Infinity,
-      ease: "easeInOut",
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
@@ -253,7 +265,7 @@ const ContactForm = () => {
           Message sent successfully!
         </motion.div>
         <p className="text-gray-400">
-          Thank you for reaching out. I'll get back to you within 24 hours.
+          Thank you for reaching out. I&apos;ll get back to you within 24 hours.
         </p>
       </motion.div>
     );
@@ -450,11 +462,14 @@ const FloatingTechIcons = () => {
 const App = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    container: containerRef,
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const { scrollYProgress } = useScroll();
+  const progressBarWidth = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "100%"]
+  );
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -505,11 +520,64 @@ const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Simulate loading time for assets
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [menuOpen]);
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-gray-950 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full mb-4"
+          />
+          <p className="text-blue-400 font-medium">Loading</p>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-stone-200 font-sans overflow-x-hidden antialiased transition-all duration-500"
       ref={containerRef}
     >
+      {/* Scroll Progress Bar with enhanced design */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-50"
+        style={{ width: progressBarWidth }}
+      />
+
       {/* Enhanced 3D Background */}
       <div className="fixed inset-0 -z-50">
         <Canvas camera={{ position: [0, 0, 1] }}>
@@ -518,7 +586,7 @@ const App = () => {
           <Stars
             radius={100}
             depth={50}
-            count={5000}
+            count={3000}
             factor={4}
             saturation={0}
             fade
@@ -531,15 +599,15 @@ const App = () => {
       <div className="fixed inset-0 -z-40">
         <motion.div
           className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-purple-500/10 to-transparent"
-          variants={smoothGradientAnimation}
-          initial="initial"
-          animate="animate"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
         />
         <motion.div
           className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"
-          variants={smoothGradientAnimation}
-          initial="initial"
-          animate="animate"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
         />
       </div>
 
@@ -587,6 +655,9 @@ const App = () => {
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25 }}
             className="fixed inset-y-0 right-0 w-64 bg-gray-900 shadow-xl z-40 p-6"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             <div className="flex flex-col h-full">
               <div className="flex-1 flex flex-col justify-center space-y-8">
@@ -607,6 +678,9 @@ const App = () => {
                         : "text-gray-400"
                     }`}
                     whileHover={{ x: 5 }}
+                    aria-current={
+                      activeSection === item.id ? "page" : undefined
+                    }
                   >
                     {item.label}
                   </motion.button>
@@ -675,7 +749,7 @@ const App = () => {
                   {activeSection === item.id && (
                     <motion.span
                       layoutId="navIndicator"
-                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400"
+                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"
                       transition={{
                         type: "spring",
                         bounce: 0.2,
@@ -885,7 +959,13 @@ const App = () => {
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          >
             {technologies.map((tech, index) => (
               <Tilt
                 key={index}
@@ -899,16 +979,8 @@ const App = () => {
                 }}
               >
                 <motion.div
+                  variants={fadeInUp}
                   className="flex flex-col items-center bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 p-6 rounded-xl backdrop-blur-sm transition-all duration-300 group"
-                  variants={smoothFadeIn}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{
-                    delay: index * 0.1,
-                    duration: 0.8,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  viewport={{ once: true }}
                   whileHover={smoothCardHover}
                 >
                   <motion.div
@@ -935,7 +1007,7 @@ const App = () => {
                 </motion.div>
               </Tilt>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Enhanced Projects Section */}
@@ -965,7 +1037,13 @@ const App = () => {
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
+          >
             {PROJECTS.map((project, index) => (
               <Tilt
                 key={index}
@@ -977,12 +1055,8 @@ const App = () => {
                 }}
               >
                 <motion.div
+                  variants={fadeInUp}
                   className="bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 rounded-xl overflow-hidden backdrop-blur-sm transition-all group"
-                  variants={smoothFadeIn}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
                   whileHover={smoothCardHover}
                 >
                   <div className="relative h-48 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
@@ -1045,7 +1119,7 @@ const App = () => {
                 </motion.div>
               </Tilt>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Enhanced Experience Section */}
@@ -1075,7 +1149,13 @@ const App = () => {
             </motion.p>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto space-y-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto space-y-8"
+          >
             {EXPERIENCES.map((experience, index) => (
               <Tilt
                 key={index}
@@ -1085,12 +1165,8 @@ const App = () => {
                 }}
               >
                 <motion.div
+                  variants={fadeInUp}
                   className="bg-gray-900/50 border-gray-800 hover:border-blue-500/30 p-8 rounded-xl border transition-all"
-                  variants={smoothFadeIn}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
                   whileHover={smoothCardHover}
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
@@ -1135,7 +1211,7 @@ const App = () => {
                 </motion.div>
               </Tilt>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Enhanced Certifications Section */}
@@ -1157,7 +1233,13 @@ const App = () => {
             </motion.h2>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto space-y-6">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto space-y-6"
+          >
             {CERTIFICATIONS.map((certification, index) => (
               <Tilt
                 key={index}
@@ -1167,12 +1249,8 @@ const App = () => {
                 }}
               >
                 <motion.div
+                  variants={fadeInUp}
                   className="bg-gray-900/50 border-gray-800 hover:border-blue-500/30 p-6 rounded-xl border transition-all"
-                  variants={smoothFadeIn}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
                   whileHover={{ y: -3 }}
                 >
                   <div className="flex flex-col">
@@ -1203,7 +1281,7 @@ const App = () => {
                 </motion.div>
               </Tilt>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Enhanced Contact Section */}
@@ -1242,11 +1320,11 @@ const App = () => {
             }}
           >
             <motion.div
-              className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl bg-gray-900/50 border border-gray-800/50 backdrop-blur-sm"
               variants={smoothScaleUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl bg-gray-900/50 border border-gray-800/50 backdrop-blur-sm"
             >
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-8 md:p-10 bg-gray-900/30 border-b md:border-b-0 md:border-r border-gray-800/50">
@@ -1257,7 +1335,7 @@ const App = () => {
                   <div className="space-y-6">
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={smoothFadeIn}
+                      variants={fadeInUp}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.1 }}
@@ -1276,7 +1354,7 @@ const App = () => {
 
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={smoothFadeIn}
+                      variants={fadeInUp}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.2 }}
@@ -1300,7 +1378,7 @@ const App = () => {
 
                     <motion.div
                       className="flex items-start gap-4"
-                      variants={smoothFadeIn}
+                      variants={fadeInUp}
                       initial="hidden"
                       whileInView="visible"
                       transition={{ delay: 0.3 }}
@@ -1398,6 +1476,7 @@ const App = () => {
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
+            aria-label="Scroll to top"
           >
             <FaArrowUp className="text-lg text-blue-400" />
           </motion.button>
