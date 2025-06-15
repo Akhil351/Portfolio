@@ -187,8 +187,8 @@ const technologies = [
   { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500" },
 ];
 
-// Enhanced animations with more dynamic effects
-const smoothFadeIn = {
+// Animation variants
+const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -200,14 +200,12 @@ const smoothFadeIn = {
   },
 };
 
-const smoothScaleUp = {
-  hidden: { opacity: 0, scale: 0.95 },
+const staggerContainer = {
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.1,
     },
   },
 };
@@ -223,24 +221,13 @@ const smoothCardHover = {
   },
 };
 
-// New animation variants
-const staggerContainer = {
-  hidden: { opacity: 0 },
+const smoothScaleUp = {
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
+    scale: 1,
     transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -265,7 +252,7 @@ const ContactForm = () => {
           Message sent successfully!
         </motion.div>
         <p className="text-gray-400">
-          Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+          Thank you for reaching out. I'll get back to you within 24 hours.
         </p>
       </motion.div>
     );
@@ -273,7 +260,7 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <motion.div variants={smoothFadeIn}>
+      <motion.div variants={fadeInUp}>
         <label
           htmlFor="name"
           className="block text-sm font-medium text-gray-400 mb-1"
@@ -284,7 +271,7 @@ const ContactForm = () => {
           type="text"
           id="name"
           name="name"
-          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full bg-gray-800/50 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Your name"
           required
         />
@@ -296,7 +283,7 @@ const ContactForm = () => {
         />
       </motion.div>
 
-      <motion.div variants={smoothFadeIn} transition={{ delay: 0.1 }}>
+      <motion.div variants={fadeInUp} transition={{ delay: 0.1 }}>
         <label
           htmlFor="email"
           className="block text-sm font-medium text-gray-400 mb-1"
@@ -307,7 +294,7 @@ const ContactForm = () => {
           type="email"
           id="email"
           name="email"
-          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full bg-gray-800/50 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="your.email@example.com"
           required
         />
@@ -319,7 +306,7 @@ const ContactForm = () => {
         />
       </motion.div>
 
-      <motion.div variants={smoothFadeIn} transition={{ delay: 0.2 }}>
+      <motion.div variants={fadeInUp} transition={{ delay: 0.2 }}>
         <label
           htmlFor="subject"
           className="block text-sm font-medium text-gray-400 mb-1"
@@ -330,7 +317,7 @@ const ContactForm = () => {
           type="text"
           id="subject"
           name="subject"
-          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full bg-gray-800/50 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Subject"
           required
         />
@@ -342,7 +329,7 @@ const ContactForm = () => {
         />
       </motion.div>
 
-      <motion.div variants={smoothFadeIn} transition={{ delay: 0.3 }}>
+      <motion.div variants={fadeInUp} transition={{ delay: 0.3 }}>
         <label
           htmlFor="message"
           className="block text-sm font-medium text-gray-400 mb-1"
@@ -353,7 +340,7 @@ const ContactForm = () => {
           id="message"
           name="message"
           rows="4"
-          className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full bg-gray-800/50 text-white border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Your message..."
           required
         ></textarea>
@@ -371,36 +358,10 @@ const ContactForm = () => {
         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-medium mt-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/20 transition-all"
         whileHover={{ y: -2, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        variants={smoothFadeIn}
+        variants={fadeInUp}
         transition={{ delay: 0.4 }}
       >
-        {state.submitting ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg
-              className="animate-spin h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            Sending...
-          </span>
-        ) : (
-          "Send Message"
-        )}
+        {state.submitting ? "Sending..." : "Send Message"}
       </motion.button>
     </form>
   );
@@ -430,7 +391,7 @@ const FloatingTechIcons = () => {
         return (
           <motion.div
             key={index}
-            className="absolute rounded-full flex items-center justify-center text-blue-500/20"
+            className="absolute rounded-full flex items-center justify-center"
             style={{
               width: `${size}px`,
               height: `${size}px`,
@@ -521,7 +482,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Simulate loading time for assets
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -529,7 +489,6 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === "Escape" && menuOpen) {
@@ -543,7 +502,7 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-gray-950 flex items-center justify-center">
+      <div className="fixed inset-0 bg-gray-950 flex items-center justify-center z-50">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -551,9 +510,7 @@ const App = () => {
           className="text-center"
         >
           <motion.div
-            animate={{
-              rotate: 360,
-            }}
+            animate={{ rotate: 360 }}
             transition={{
               duration: 2,
               repeat: Infinity,
@@ -569,16 +526,16 @@ const App = () => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-stone-200 font-sans overflow-x-hidden antialiased transition-all duration-500"
+      className="min-h-screen bg-gray-950 text-gray-200 font-sans overflow-x-hidden antialiased"
       ref={containerRef}
     >
-      {/* Scroll Progress Bar with enhanced design */}
+      {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-50"
         style={{ width: progressBarWidth }}
       />
 
-      {/* Enhanced 3D Background */}
+      {/* 3D Background */}
       <div className="fixed inset-0 -z-50">
         <Canvas camera={{ position: [0, 0, 1] }}>
           <ambientLight intensity={0.3} />
@@ -595,16 +552,10 @@ const App = () => {
         </Canvas>
       </div>
 
-      {/* Enhanced Gradient Mesh Background */}
+      {/* Gradient Mesh Background */}
       <div className="fixed inset-0 -z-40">
         <motion.div
           className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-purple-500/10 to-transparent"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
@@ -620,6 +571,7 @@ const App = () => {
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-2 rounded-full bg-gray-800/90 shadow-lg"
           whileTap={{ scale: 0.9 }}
+          aria-label="Menu"
         >
           <div className="w-6 h-6 flex flex-col justify-between">
             <motion.span
@@ -654,10 +606,7 @@ const App = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed inset-y-0 right-0 w-64 bg-gray-900 shadow-xl z-40 p-6"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
+            className="fixed inset-y-0 right-0 w-64 bg-gray-900/95 shadow-xl z-40 p-6 backdrop-blur-sm"
           >
             <div className="flex flex-col h-full">
               <div className="flex-1 flex flex-col justify-center space-y-8">
@@ -675,12 +624,9 @@ const App = () => {
                     className={`text-left text-xl font-medium ${
                       activeSection === item.id
                         ? "text-blue-400"
-                        : "text-gray-400"
-                    }`}
+                        : "text-gray-400 hover:text-white"
+                    } transition-colors`}
                     whileHover={{ x: 5 }}
-                    aria-current={
-                      activeSection === item.id ? "page" : undefined
-                    }
                   >
                     {item.label}
                   </motion.button>
@@ -691,36 +637,25 @@ const App = () => {
         )}
       </AnimatePresence>
 
-      {/* Enhanced Navigation */}
-      <nav className="hidden lg:flex fixed top-0 left-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50 transition-all duration-300">
+      {/* Desktop Navigation */}
+      <nav className="hidden lg:flex fixed top-0 left-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50">
         <div className="container mx-auto flex items-center justify-between px-8 py-5">
           <motion.a
             href="/"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8 }}
             className="flex items-center gap-2 group"
           >
             <motion.div
               whileHover={{ rotate: 10 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.3 }}
               className="relative"
             >
               <img
                 src={logo}
                 alt="Logo"
-                className="h-10 w-auto rounded-full border border-blue-500/30 shadow-lg shadow-blue-500/20 transition-all duration-300"
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-blue-500 opacity-0 group-hover:opacity-100"
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1.2 }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  duration: 2,
-                  ease: "easeInOut",
-                }}
+                className="h-10 w-auto rounded-full border border-blue-500/30 shadow-lg"
               />
             </motion.div>
           </motion.a>
@@ -803,7 +738,7 @@ const App = () => {
       </nav>
 
       <main className="container mx-auto px-6 lg:px-20 mt-24">
-        {/* Enhanced Hero Section */}
+        {/* Hero Section */}
         <section
           id="home"
           className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16 min-h-screen"
@@ -811,10 +746,10 @@ const App = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={smoothScaleUp}
+            variants={fadeInUp}
             className="relative w-64 h-64 lg:w-80 lg:h-80"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600 rounded-full opacity-20 blur-xl animate-pulse transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600 rounded-full opacity-20 blur-xl animate-pulse" />
             <motion.div
               className="absolute inset-0 border-2 border-blue-500/30 rounded-full"
               animate={{ rotate: 360 }}
@@ -826,15 +761,13 @@ const App = () => {
                 scale: 1.05,
                 glare: true,
                 "max-glare": 0.2,
-                speed: 1000,
-                transition: true,
               }}
               className="relative w-full h-full rounded-full z-10"
             >
               <img
                 src={profilePic}
                 alt="Akhileswar Vathaluru"
-                className="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-xl shadow-blue-500/20 transition-all duration-500"
+                className="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-xl"
               />
             </Tilt>
           </motion.div>
@@ -843,14 +776,13 @@ const App = () => {
             className="flex-1 text-center lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           >
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-full mb-4 backdrop-blur-sm transition-all duration-300"
+              className="inline-flex items-center px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-full mb-4 backdrop-blur-sm"
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
               <span className="text-sm font-medium text-blue-400">
                 Full-Stack Developer
               </span>
@@ -860,11 +792,7 @@ const App = () => {
               className="text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ delay: 0.3 }}
             >
               Akhileswar{" "}
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -876,14 +804,10 @@ const App = () => {
               className="text-lg text-gray-400 max-w-2xl mb-8 leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{
-                delay: 0.4,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ delay: 0.4 }}
             >
-              👋 I&apos;m Akhil — a full-stack developer proficient in Spring
-              Boot, GoLang, and React. I design and develop scalable end-to-end
+              I'm Akhil — a full-stack developer proficient in Spring Boot,
+              GoLang, and React. I design and develop scalable end-to-end
               solutions, combining robust backend architectures with seamless,
               responsive frontends.
             </motion.p>
@@ -892,30 +816,24 @@ const App = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ delay: 0.5 }}
             >
               <motion.a
                 href="https://github.com/Akhil351/Resume/blob/master/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/20 font-medium"
+                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-blue-500/20 font-medium"
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <FiFileText /> View Resume
               </motion.a>
 
               <motion.a
                 href="#contact"
-                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg transition-all duration-300 font-medium"
+                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg font-medium"
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 Contact Me
               </motion.a>
@@ -923,24 +841,20 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Enhanced Skills Section */}
+        {/* Skills Section */}
         <section id="skills" className="py-20 relative">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
               className="text-4xl font-bold text-white mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ delay: 0.2 }}
             >
               TECHNICAL EXPERTISE
             </motion.h2>
@@ -948,14 +862,9 @@ const App = () => {
               className="text-gray-500 max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{
-                delay: 0.4,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ delay: 0.4 }}
             >
-              Technologies I&apos;ve mastered to build robust, scalable
-              applications
+              Technologies I've mastered to build robust, scalable applications
             </motion.p>
           </motion.div>
 
@@ -974,8 +883,6 @@ const App = () => {
                   scale: 1.05,
                   glare: true,
                   "max-glare": 0.1,
-                  speed: 1000,
-                  transition: true,
                 }}
               >
                 <motion.div
@@ -984,9 +891,8 @@ const App = () => {
                   whileHover={smoothCardHover}
                 >
                   <motion.div
-                    className="p-4 rounded-lg bg-gray-800/50 group-hover:bg-gray-800 mb-4 transition-all duration-300"
+                    className="p-4 rounded-lg bg-gray-800/50 group-hover:bg-gray-800 mb-4"
                     whileHover={{ rotate: 10 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
                     <tech.icon className={`text-3xl ${tech.color}`} />
                   </motion.div>
@@ -999,7 +905,6 @@ const App = () => {
                       transition={{
                         delay: index * 0.1 + 0.3,
                         duration: 1,
-                        ease: [0.22, 1, 0.36, 1],
                       }}
                       viewport={{ once: true }}
                     />
@@ -1010,7 +915,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Enhanced Projects Section */}
+        {/* Projects Section */}
         <section id="projects" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1068,7 +973,7 @@ const App = () => {
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent" />
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-4">
@@ -1105,7 +1010,7 @@ const App = () => {
                       {project.technologies.map((tech, index) => (
                         <motion.span
                           key={index}
-                          className="px-4 py-1.5 text-sm bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
+                          className="px-3 py-1 text-xs bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
                           initial={{ scale: 0.9 }}
                           whileInView={{ scale: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -1122,7 +1027,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Enhanced Experience Section */}
+        {/* Experience Section */}
         <section id="experience" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1197,7 +1102,7 @@ const App = () => {
                       {experience.technologies.map((tech, index) => (
                         <motion.span
                           key={index}
-                          className="px-4 py-1.5 text-sm bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
+                          className="px-3 py-1 text-xs bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
                           initial={{ scale: 0.9 }}
                           whileInView={{ scale: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -1214,7 +1119,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Enhanced Certifications Section */}
+        {/* Certifications Section */}
         <section id="certifications" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1284,7 +1189,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Enhanced Contact Section */}
+        {/* Contact Section */}
         <section id="contact" className="py-20">
           <motion.div
             className="text-center mb-16"
@@ -1299,7 +1204,7 @@ const App = () => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              LET&apos;S CONNECT
+              LET'S CONNECT
             </motion.h2>
             <motion.p
               className="text-gray-500 max-w-2xl mx-auto"
@@ -1411,14 +1316,14 @@ const App = () => {
         </section>
       </main>
 
-      {/* Enhanced Footer */}
-      <footer className="py-8 border-t border-gray-800/50 bg-gray-900/50 backdrop-blur-sm transition-all duration-300">
+      {/* Footer */}
+      <footer className="py-8 border-t border-gray-800/50 bg-gray-900/50 backdrop-blur-sm">
         <div className="container mx-auto px-6 text-center">
           <motion.p
             className="text-gray-500 text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             &copy; {new Date().getFullYear()} Akhileswar. All rights reserved.
@@ -1427,7 +1332,7 @@ const App = () => {
             className="mt-4 flex justify-center gap-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             <motion.a
@@ -1436,7 +1341,6 @@ const App = () => {
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-blue-400 transition-colors duration-300"
               whileHover={{ y: -2 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaLinkedin className="text-xl" />
             </motion.a>
@@ -1446,7 +1350,6 @@ const App = () => {
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-white transition-colors duration-300"
               whileHover={{ y: -2 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaGithub className="text-xl" />
             </motion.a>
@@ -1456,7 +1359,6 @@ const App = () => {
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-pink-500 transition-colors duration-300"
               whileHover={{ y: -2 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <FaInstagram className="text-xl" />
             </motion.a>
@@ -1464,7 +1366,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* Enhanced Back to Top Button */}
+      {/* Back to Top Button */}
       <AnimatePresence>
         {activeSection !== "home" && (
           <motion.button
@@ -1475,7 +1377,6 @@ const App = () => {
             exit={{ opacity: 0, y: 20 }}
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
             aria-label="Scroll to top"
           >
             <FaArrowUp className="text-lg text-blue-400" />
@@ -1485,5 +1386,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
