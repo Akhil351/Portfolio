@@ -829,6 +829,18 @@ const App = () => {
                 <FiFileText /> View Resume
               </motion.a>
 
+              {/* View Projects button */}
+              <motion.a
+                href="https://github.com/Akhil351"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg font-medium"
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FaGithub /> View Projects
+              </motion.a>
+
               <motion.a
                 href="#contact"
                 className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg font-medium"
@@ -933,13 +945,24 @@ const App = () => {
               PROJECT SHOWCASE
             </motion.h2>
             <motion.p
-              className="text-gray-500 max-w-2xl mx-auto"
+              className="text-gray-500 max-w-2xl mx-auto mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
               Selected projects demonstrating my technical capabilities
             </motion.p>
+            {/* Prominent View All Projects button */}
+            <motion.a
+              href="https://github.com/Akhil351"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium bg-gray-800 hover:bg-gray-700 text-white"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FaGithub /> View All Projects on GitHub
+            </motion.a>
           </motion.div>
 
           <motion.div
