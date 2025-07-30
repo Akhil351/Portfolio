@@ -85,8 +85,8 @@ const PROJECTS = [
       "OpenAI",
       "PostgreSQL",
     ],
-    link: "https://chat-app-six-sandy-60.vercel.app",
-    github: "https://github.com/Akhil351/chat-app",
+    link: "https://github.com/Akhil351/langgraph-chatbot",
+    github: "https://github.com/Akhil351/langgraph-chatbot",
   },
   {
     title: "Budget Buddy",
@@ -101,8 +101,8 @@ const PROJECTS = [
       "Tavily",
       "CLI",
     ],
-    link: "https://github.com/Akhil351/budget-buddy",
-    github: "https://github.com/Akhil351/budget-buddy",
+    link: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
+    github: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
   },
   {
     title: "Fitness AI Platform",
