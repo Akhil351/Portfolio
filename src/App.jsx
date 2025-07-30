@@ -33,11 +33,13 @@ import { Stars } from "@react-three/drei";
 import profilePic from "./assets/Akhil.jpeg";
 import logo from "./assets/AK.jpg";
 import project1 from "./assets/Linklytics.avif";
-import project2 from "./assets/ChatApplication.png";
 import project3 from "./assets/clearbg.png";
 import project4 from "./assets/Real Estate.avif";
-import project5 from "./assets/researchAssistant.jpeg";
+import project5 from "./assets/buget_buddy.jpeg";
 import project6 from "./assets/fitness.jpg";
+import FastapiIcon from "./FastapiIcon";
+import langgraphImg from "./assets/langgraph.jpg";
+import chatbotImg from "./assets/chatbot.avif";
 
 // Data
 const EXPERIENCES = [
@@ -45,9 +47,7 @@ const EXPERIENCES = [
     year: "2024 - Present",
     role: "Associate Software Engineer",
     company: "Ideyalabs",
-    description: `I am currently working as a Backend Developer, specializing in building RESTful APIs using Go to facilitate secure and efficient communication with a Hyperledger Fabric blockchain network. My responsibilities include designing and implementing the API layer as well as authoring and deploying smart contract functions (chaincode) within the Hyperledger Fabric ecosystem to support complex business logic and secure transaction workflows.
-
-In addition, I have successfully led the migration of blockchain transactions from a Corda network to Hyperledger Fabric, utilizing Go to ensure seamless integration and enhanced system performance. Alongside my blockchain-related work, I am also actively involved in developing RESTful APIs using Spring Boot as part of a microservices architecture, contributing to scalable and maintainable backend systems.`,
+    description: `Working as a Backend Developer, building scalable microservices using FastAPI and Spring Boot. Developed secure RESTful APIs in Go for integration with the Hyperledger Fabric blockchain. Designed and deployed smart contracts (chaincode) in Go to enforce complex business logic on-chain. Led migration from a Corda-based blockchain system to Hyperledger, improving performance and interoperability.`,
     technologies: [
       "Spring Boot",
       "Go",
@@ -55,6 +55,7 @@ In addition, I have successfully led the migration of blockchain transactions fr
       "MongoDB",
       "Redis",
       "Hyperledger Fabric",
+      "FastAPI",
     ],
   },
 ];
@@ -72,101 +73,102 @@ const CERTIFICATIONS = [
 
 const PROJECTS = [
   {
-    title: "Linklytics",
-    image: project1,
+    title: "Chat Bot",
+    image: chatbotImg,
     description:
-      "Developed a URL shortening platform with a sleek UI for managing and tracking links. Integrated analytics, encryption, and optimized redirects to ensure performance, reliability, and security. Built using Spring Boot, React, PostgreSQL, and Redis. Seamless UX was a priority throughout.",
+      "Developed a full-stack AI chat platform using React, Tailwind CSS, FastAPI, and LangGraph with OpenAI integration. Implemented persistent chat history, multi-threaded conversations, and modular backend architecture.",
     technologies: [
-      "Spring Boot",
-      "React",
-      "PostgreSQL",
-      "JWT",
-      "React",
-      "TailwindCss",
-    ],
-    link: "https://akhil-amber.vercel.app/",
-    github: "https://github.com/Akhil351/Linklytics",
-  },
-  {
-    title: "Real-time Chat Application",
-    image: project2,
-    description:
-      "Built a real-time chat app with Spring Boot, WebSocket, and MongoDB for fast, scalable communication. UI is responsive using React JSX and Tailwind CSS. Supports group and private messaging with smooth low-latency interactions. Backend ensures data persistence and session safety.",
-    technologies: [
-      "Spring Boot",
-      "WebSocket",
-      "MongoDB",
       "React",
       "Tailwind CSS",
+      "FastAPI",
+      "LangGraph",
+      "OpenAI",
+      "PostgreSQL",
     ],
     link: "https://chat-app-six-sandy-60.vercel.app",
     github: "https://github.com/Akhil351/chat-app",
   },
   {
-    title: "Blockchain Real Estate Platform",
+    title: "Budget Buddy",
+    image: project5,
+    description:
+      "Designed a CLI-based finance assistant using LangGraph, GPT-4o, and SQLAlchemy. Enabled expense tracking, Tavily web search, and persistent memory via PostgreSQL.",
+    technologies: [
+      "LangGraph",
+      "GPT-4o",
+      "SQLAlchemy",
+      "PostgreSQL",
+      "Tavily",
+      "CLI",
+    ],
+    link: "https://github.com/Akhil351/budget-buddy",
+    github: "https://github.com/Akhil351/budget-buddy",
+  },
+  {
+    title: "Fitness AI Platform",
+    image: project6,
+    description:
+      "Created a full-stack fitness tracking platform with AI-driven insights and analytics. Implemented user authentication and role management using Keycloak.",
+    technologies: [
+      "Spring Boot",
+      "React",
+      "Keycloak",
+      "PostgreSQL",
+      "MongoDB",
+      "RabbitMQ",
+      "AI/ML",
+    ],
+    link: "https://github.com/Akhil351/fitness",
+    github: "https://github.com/Akhil351/fitness",
+  },
+  {
+    title: "ClearBG",
+    image: project3,
+    description:
+      "Developed an AI-powered image processing tool with real-time background removal. Integrated Clerk authentication, Razorpay payments, and a microservice-based backend architecture.",
+    technologies: [
+      "React",
+      "Spring Boot",
+      "PostgreSQL",
+      "Clerk",
+      "Razorpay",
+      "AI/ML",
+      "Microservices",
+    ],
+    link: "https://github.com/Akhil351/ClearBG",
+    github: "https://github.com/Akhil351/ClearBG",
+  },
+  {
+    title: "Linklytics",
+    image: project1,
+    description:
+      "Engineered a secure, scalable URL shortening platform with real-time analytics and encryption. Optimized for performance and user experience using a modern tech stack.",
+    technologies: [
+      "Spring Boot",
+      "React",
+      "PostgreSQL",
+      "Redis",
+      "JWT",
+      "TailwindCSS",
+    ],
+    link: "https://akhil-amber.vercel.app/",
+    github: "https://github.com/Akhil351/Linklytics",
+  },
+  {
+    title: "Real Estate Management System",
     image: project4,
     description:
-      "Created a secure, transparent blockchain-based platform using Hyperledger Fabric and Go. Supports property registration, transfers, and verification with full audit trails. Used JWT, PostgreSQL, Docker, and MongoDB. RESTful APIs ensure smooth interaction between clients and the ledger.",
+      "Built a blockchain-based property management system using Hyperledger Fabric and Go. Implemented smart contracts, JWT authentication, and PostgreSQL-backed ledger storage.",
     technologies: [
       "Go",
       "Hyperledger Fabric",
       "PostgreSQL",
       "JWT",
       "Docker",
-      "MongoDB",
+      "Blockchain",
     ],
     link: "https://github.com/Akhil351/Real-Estate-Management-System",
     github: "https://github.com/Akhil351/Real-Estate-Management-System",
-  },
-  {
-    title: "Fitness AI Platform",
-    image: project6,
-    description:
-      "A scalable fitness tracking app with Spring Boot microservices and React frontend. Integrates AI for activity suggestions and safety tips. Auth via Keycloak. Message-driven architecture using RabbitMQ. Stores data in Postgres and MongoDB. Deployed on AWS with robust CI/CD pipeline setup.",
-    technologies: [
-      "Spring Boot Microservice",
-      "React",
-      "Postgres",
-      "Mongo DB",
-      "Rabbit MQ",
-      "KeyCloak",
-      "AWS",
-    ],
-    link: "https://github.com/Akhil351/fitness",
-    github: "https://github.com/Akhil351/fitness",
-  },
-  {
-    title: "AI Research Assistant",
-    image: project5,
-    description:
-      "A Chrome extension built with Spring AI and Manifest V3 to summarize copied content and generate concise notes. Helps researchers extract insights quickly. Uses Chrome APIs for DOM interaction. Intuitive UX for students, developers, and professionals looking to save time while reading.",
-    technologies: [
-      "Spring Ai",
-      "Manifest V3",
-      "Chrome APIs",
-      "Spring Boot",
-      "Java",
-    ],
-    link: "https://github.com/Akhil351/research-assistant",
-    github: "https://github.com/Akhil351/research-assistant",
-  },
-  {
-    title: "ClearBG - AI-Powered Background Removal Platform",
-    image: project3,
-    description:
-      "Full-stack app offering background removal with React frontend and Spring Boot backend. Razorpay enables payments, Clerk handles auth. Images are processed in real time with WebFlux. Uses PostgreSQL and TailwindCSS. Scalable design ensures performance even under high user load.",
-    technologies: [
-      "React",
-      "Spring Boot",
-      "PostgreSQL",
-      "JWT Authentication",
-      "TailwindCSS",
-      "Razorpay Integration",
-      "WebFlux",
-      "Vite",
-    ],
-    link: "https://github.com/Akhil351/ClearBG",
-    github: "https://github.com/Akhil351/ClearBG",
   },
 ];
 
@@ -176,25 +178,40 @@ const CONTACT = {
   email: "akhil.vathaluru@gmail.com",
 };
 
+// FastAPI SVG Icon
+const FastApiIcon = (props) => (
+  <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <circle cx="128" cy="128" r="128" fill="#009688"/>
+    <path d="M128 48c44.183 0 80 35.817 80 80s-35.817 80-80 80-80-35.817-80-80 35.817-80 80-80zm0 16c-35.346 0-64 28.654-64 64s28.654 64 64 64 64-28.654 64-64-28.654-64-64-64zm0 24a40 40 0 110 80 40 40 0 010-80z" fill="#fff"/>
+  </svg>
+);
+
+// LangGraph SVG Icon (placeholder, stylized graph)
+const LangGraphIcon = (props) => (
+  <img src={langgraphImg} alt="LangGraph" style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} {...props} />
+);
+
 const technologies = [
-  { icon: SiSpringboot, name: "Spring Boot", color: "text-green-500" },
-  { icon: FaGolang, name: "Go", color: "text-blue-500" },
-  { icon: RiReactjsLine, name: "React", color: "text-cyan-400" },
-  { icon: BiLogoPostgresql, name: "PostgreSQL", color: "text-blue-600" },
-  { icon: SiMongodb, name: "MongoDB", color: "text-green-500" },
-  { icon: DiRedis, name: "Redis", color: "text-red-500" },
-  { icon: SiApachekafka, name: "Kafka", color: "text-purple-500" },
-  { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500" },
+  { icon: SiSpringboot, name: "Spring Boot", color: "text-green-500", rating: 95, progressColor: "bg-gradient-to-r from-green-400 to-green-600" },
+  { icon: FaGolang, name: "Go", color: "text-blue-500", rating: 90, progressColor: "bg-gradient-to-r from-blue-400 to-blue-600" },
+  { icon: RiReactjsLine, name: "React", color: "text-cyan-400", rating: 92, progressColor: "bg-gradient-to-r from-cyan-400 to-blue-500" },
+  { icon: BiLogoPostgresql, name: "PostgreSQL", color: "text-blue-600", rating: 88, progressColor: "bg-gradient-to-r from-blue-500 to-indigo-600" },
+  { icon: SiMongodb, name: "MongoDB", color: "text-green-500", rating: 85, progressColor: "bg-gradient-to-r from-green-500 to-emerald-600" },
+  { icon: DiRedis, name: "Redis", color: "text-red-500", rating: 87, progressColor: "bg-gradient-to-r from-red-400 to-red-600" },
+  { icon: SiApachekafka, name: "Kafka", color: "text-purple-500", rating: 82, progressColor: "bg-gradient-to-r from-purple-400 to-purple-600" },
+  { icon: SiRabbitmq, name: "RabbitMQ", color: "text-orange-500", rating: 80, progressColor: "bg-gradient-to-r from-orange-400 to-orange-600" },
+  { icon: FastapiIcon, name: "FastAPI", color: "text-teal-400", rating: 88, progressColor: "bg-gradient-to-r from-teal-400 to-teal-600" },
+  { icon: LangGraphIcon, name: "LangGraph", color: "text-violet-400", rating: 85, progressColor: "bg-gradient-to-r from-violet-400 to-purple-600" },
 ];
 
-// Animation variants
+// Enhanced Animation variants with better easing
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.8,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -205,33 +222,48 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
     },
   },
 };
 
 const smoothCardHover = {
-  scale: 1.02,
-  y: -5,
+  scale: 1.03,
+  y: -8,
   transition: {
     type: "spring",
-    stiffness: 300,
-    damping: 20,
-    mass: 0.5,
+    stiffness: 400,
+    damping: 25,
+    mass: 0.8,
   },
 };
 
 const smoothScaleUp = {
-  hidden: { opacity: 0, scale: 0.95 },
+  hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.6,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
+
+// Enhanced floating animation
+const floatingAnimation = {
+  y: [0, -20, 0],
+  transition: {
+    duration: 6,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
+
+// Glassmorphism card styles
+const glassmorphismCard = "bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/20";
+const glassmorphismCardHover = "hover:bg-white/10 hover:border-white/20 hover:shadow-3xl hover:shadow-blue-500/10";
 
 const ContactForm = () => {
   const [state, handleSubmit] = useForm("myzerepa");
@@ -377,6 +409,8 @@ const FloatingTechIcons = () => {
     { icon: DiRedis, color: "#F56565" },
     { icon: SiApachekafka, color: "#9F7AEA" },
     { icon: SiRabbitmq, color: "#ED8936" },
+    { icon: FastapiIcon, color: "#14B8A6" },
+    { icon: LangGraphIcon, color: "#A78BFA" },
   ];
 
   return (
@@ -526,39 +560,51 @@ const App = () => {
 
   return (
     <div
-      className="min-h-screen bg-gray-950 text-gray-200 font-sans overflow-x-hidden antialiased"
+      className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-200 font-sans overflow-x-hidden antialiased relative"
       ref={containerRef}
     >
-      {/* Scroll Progress Bar */}
+      {/* Enhanced Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 origin-left z-50 shadow-lg"
         style={{ width: progressBarWidth }}
       />
 
-      {/* 3D Background */}
+      {/* Enhanced 3D Background */}
       <div className="fixed inset-0 -z-50">
         <Canvas camera={{ position: [0, 0, 1] }}>
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} />
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} />
           <Stars
             radius={100}
             depth={50}
-            count={3000}
+            count={4000}
             factor={4}
             saturation={0}
             fade
-            speed={0.8}
+            speed={1}
           />
         </Canvas>
       </div>
 
-      {/* Gradient Mesh Background */}
+      {/* Enhanced Gradient Mesh Background */}
       <div className="fixed inset-0 -z-40">
         <motion.div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-purple-500/10 to-transparent"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_rgba(120,119,198,0.3)_0%,_transparent_50%),radial-gradient(circle_at_80%_20%,_rgba(255,119,198,0.3)_0%,_transparent_50%),radial-gradient(circle_at_40%_40%,_rgba(120,219,255,0.3)_0%,_transparent_50%)]"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 3 }}
+        />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-pink-500/10"
+          animate={{ 
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
         />
       </div>
 
@@ -738,113 +784,134 @@ const App = () => {
       </nav>
 
       <main className="container mx-auto px-6 lg:px-20 mt-24">
-        {/* Hero Section */}
+        {/* Enhanced Hero Section */}
         <section
           id="home"
-          className="flex flex-col items-center lg:flex-row py-28 lg:py-36 gap-16 min-h-screen"
+          className="flex flex-col items-center lg:flex-row py-32 lg:py-40 gap-20 min-h-screen relative"
         >
+          {/* Enhanced Profile Image Container */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
-            className="relative w-64 h-64 lg:w-80 lg:h-80"
+            className="relative w-72 h-72 lg:w-96 lg:h-96"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-600 rounded-full opacity-20 blur-xl animate-pulse" />
+            {/* Enhanced Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-full opacity-30 blur-3xl animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 rounded-full opacity-20 blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+            
+            {/* Enhanced Rotating Border */}
             <motion.div
-              className="absolute inset-0 border-2 border-blue-500/30 rounded-full"
+              className="absolute inset-0 border-2 border-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full"
               animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
+            />
+            <motion.div
+              className="absolute inset-0 border-2 border-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full"
+              animate={{ rotate: -360 }}
               transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             />
+            
             <Tilt
               options={{
-                max: 15,
+                max: 20,
                 scale: 1.05,
                 glare: true,
-                "max-glare": 0.2,
+                "max-glare": 0.3,
               }}
               className="relative w-full h-full rounded-full z-10"
             >
-              <img
+              <motion.img
                 src={profilePic}
                 alt="Akhileswar Vathaluru"
-                className="w-full h-full rounded-full object-cover border-4 border-gray-700 shadow-xl"
+                className="w-full h-full rounded-full object-cover border-4 border-white/20 shadow-2xl"
+                animate={floatingAnimation}
               />
             </Tilt>
           </motion.div>
 
+          {/* Enhanced Content Section */}
           <motion.div
-            className="flex-1 text-center lg:text-left"
-            initial={{ opacity: 0, y: 20 }}
+            className="flex-1 text-center lg:text-left relative z-10"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ delay: 0.3, duration: 1 }}
           >
+            {/* Enhanced Badge */}
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-full mb-4 backdrop-blur-sm"
-              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/20 rounded-full mb-6 backdrop-blur-sm shadow-lg"
+              whileHover={{ scale: 1.05, y: -2 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
             >
-              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
-              <span className="text-sm font-medium text-blue-400">
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full mr-3 animate-pulse" />
+              <span className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Full-Stack Developer
               </span>
             </motion.div>
 
+            {/* Enhanced Name */}
             <motion.h1
-              className="text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              className="text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 1 }}
             >
               Akhileswar{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
                 Vathaluru
               </span>
             </motion.h1>
 
+            {/* Enhanced Description */}
             <motion.p
-              className="text-lg text-gray-400 max-w-2xl mb-8 leading-relaxed"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              className="text-xl text-gray-300 max-w-3xl mb-10 leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
             >
-              I'm Akhil — a full-stack developer proficient in Spring Boot,
-              GoLang, and React. I design and develop scalable end-to-end
-              solutions, combining robust backend architectures with seamless,
-              responsive frontends.
+              I'm Akhil — a dedicated full-stack developer with expertise in Spring Boot, GoLang, React, and FastAPI. 
+              I architect and develop scalable enterprise solutions, leveraging robust backend systems and intuitive 
+              frontend interfaces. My specialization in AI agent development enables me to create intelligent, 
+              autonomous systems that enhance user experiences and drive business innovation.
             </motion.p>
 
+            {/* Enhanced Action Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 1 }}
             >
               <motion.a
                 href="https://github.com/Akhil351/Resume/blob/master/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-blue-500/20 font-medium"
-                whileHover={{ y: -2, scale: 1.02 }}
+                className="group flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl shadow-2xl hover:shadow-blue-500/25 font-semibold text-lg transition-all duration-300"
+                whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <FiFileText /> View Resume
+                <FiFileText className="text-xl group-hover:scale-110 transition-transform" />
+                View Resume
               </motion.a>
 
-              {/* View Projects button */}
               <motion.a
                 href="https://github.com/Akhil351"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg font-medium"
-                whileHover={{ y: -2, scale: 1.02 }}
+                className="group flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm text-blue-400 hover:text-white border border-white/20 hover:border-blue-400/50 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300"
+                whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <FaGithub /> View Projects
+                <FaGithub className="text-xl group-hover:scale-110 transition-transform" />
+                View Projects
               </motion.a>
 
               <motion.a
                 href="#contact"
-                className="flex items-center justify-center gap-2 bg-transparent text-blue-400 hover:text-white border border-gray-700 hover:border-blue-400 px-6 py-3 rounded-lg font-medium"
-                whileHover={{ y: -2, scale: 1.02 }}
+                className="group flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm text-blue-400 hover:text-white border border-white/20 hover:border-blue-400/50 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300"
+                whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Contact Me
@@ -853,30 +920,32 @@ const App = () => {
           </motion.div>
         </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-20 relative">
+        {/* Enhanced Skills Section */}
+        <section id="skills" className="py-24 relative">
           <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className="text-4xl font-bold text-white mb-4"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              className="text-5xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 1 }}
             >
-              TECHNICAL EXPERTISE
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                TECHNICAL EXPERTISE
+              </span>
             </motion.h2>
             <motion.p
-              className="text-gray-500 max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 1 }}
             >
-              Technologies I've mastered to build robust, scalable applications
+              Technologies I've mastered to build robust, scalable applications with cutting-edge solutions
             </motion.p>
           </motion.div>
 
@@ -885,83 +954,98 @@ const App = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto"
           >
             {technologies.map((tech, index) => (
               <Tilt
                 key={index}
                 options={{
-                  max: 15,
+                  max: 20,
                   scale: 1.05,
                   glare: true,
-                  "max-glare": 0.1,
+                  "max-glare": 0.2,
                 }}
               >
                 <motion.div
                   variants={fadeInUp}
-                  className="flex flex-col items-center bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 p-6 rounded-xl backdrop-blur-sm transition-all duration-300 group"
+                  className={`${glassmorphismCard} ${glassmorphismCardHover} flex flex-col items-center p-8 rounded-2xl transition-all duration-500 group cursor-pointer`}
                   whileHover={smoothCardHover}
                 >
                   <motion.div
-                    className="p-4 rounded-lg bg-gray-800/50 group-hover:bg-gray-800 mb-4"
-                    whileHover={{ rotate: 10 }}
+                    className="p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 group-hover:from-white/20 group-hover:to-white/10 mb-6 transition-all duration-300"
+                    whileHover={{ rotate: 15, scale: 1.1 }}
                   >
-                    <tech.icon className={`text-3xl ${tech.color}`} />
+                    <tech.icon className={`text-4xl ${tech.color} group-hover:scale-110 transition-transform duration-300`} />
                   </motion.div>
-                  <span className="text-gray-300 font-medium">{tech.name}</span>
-                  <div className="w-full bg-gray-800 rounded-full h-1.5 mt-2">
+                  <span className="text-gray-200 font-semibold text-lg text-center group-hover:text-white transition-colors duration-300">
+                    {tech.name}
+                  </span>
+                  <div className="w-full bg-white/10 rounded-full h-2 mt-4 overflow-hidden">
                     <motion.div
-                      className={`${tech.color} h-1.5 rounded-full`}
+                      className={`${tech.progressColor} h-2 rounded-full shadow-lg`}
                       initial={{ width: 0 }}
-                      whileInView={{ width: "80%" }}
+                      whileInView={{ width: `${tech.rating}%` }}
                       transition={{
-                        delay: index * 0.1 + 0.3,
-                        duration: 1,
+                        delay: index * 0.1 + 0.5,
+                        duration: 1.5,
+                        ease: "easeOut",
                       }}
                       viewport={{ once: true }}
                     />
                   </div>
+                  <motion.span
+                    className="text-sm text-gray-400 mt-2 font-medium"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 1.5, duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    {tech.rating}%
+                  </motion.span>
                 </motion.div>
               </Tilt>
             ))}
           </motion.div>
         </section>
 
-        {/* Projects Section */}
-        <section id="projects" className="py-20">
+        {/* Enhanced Projects Section */}
+        <section id="projects" className="py-24">
           <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1 }}
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2
-              className="text-4xl font-bold text-white mb-4"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              className="text-5xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 1 }}
             >
-              PROJECT SHOWCASE
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                PROJECT SHOWCASE
+              </span>
             </motion.h2>
             <motion.p
-              className="text-gray-500 max-w-2xl mx-auto mb-4"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              className="text-gray-400 text-lg max-w-3xl mx-auto mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 1 }}
             >
-              Selected projects demonstrating my technical capabilities
+              Selected projects demonstrating my technical capabilities and innovative solutions
             </motion.p>
-            {/* Prominent View All Projects button */}
+            {/* Enhanced View All Projects button */}
             <motion.a
               href="https://github.com/Akhil351"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium bg-gray-800 hover:bg-gray-700 text-white"
-              whileHover={{ y: -2 }}
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+              whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <FaGithub /> View All Projects on GitHub
+              <FaGithub className="text-xl group-hover:scale-110 transition-transform" />
+              View All Projects on GitHub
             </motion.a>
           </motion.div>
 
@@ -970,73 +1054,76 @@ const App = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto"
           >
             {PROJECTS.map((project, index) => (
               <Tilt
                 key={index}
                 options={{
-                  max: 5,
-                  scale: 1.01,
+                  max: 8,
+                  scale: 1.02,
                   glare: true,
-                  "max-glare": 0.1,
+                  "max-glare": 0.15,
                 }}
               >
                 <motion.div
                   variants={fadeInUp}
-                  className="bg-gray-900/50 border border-gray-800/50 hover:border-blue-500/30 rounded-xl overflow-hidden backdrop-blur-sm transition-all group"
+                  className={`${glassmorphismCard} ${glassmorphismCardHover} rounded-2xl overflow-hidden transition-all duration-500 group cursor-pointer`}
                   whileHover={smoothCardHover}
                 >
-                  <div className="relative h-48 sm:h-60 md:h-72 lg:h-80 overflow-hidden">
+                  <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
                     <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-cover bg-gray-800/20 rounded-t-2xl"
                       initial={{ scale: 1 }}
                       whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.6 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent" />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-xl font-bold text-white">
-                        {project.title}
-                      </h3>
-                      <div className="flex gap-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    {/* Enhanced overlay with project links */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex gap-4">
                         <motion.a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-400 hover:text-white transition-colors"
+                          className="p-4 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
                           aria-label="GitHub"
                           title="View code on GitHub"
-                          whileHover={{ y: -3, scale: 1.2 }}
+                          whileHover={{ y: -5, scale: 1.1 }}
                         >
-                          <FaGithub className="text-lg" />
+                          <FaGithub className="text-2xl" />
                         </motion.a>
                         <motion.a
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-400 hover:text-blue-400 transition-colors"
+                          className="p-4 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
                           aria-label="Live Demo"
                           title="View live demo"
-                          whileHover={{ y: -3, scale: 1.2 }}
+                          whileHover={{ y: -5, scale: 1.1 }}
                         >
-                          <FaExternalLinkAlt className="text-lg" />
+                          <FaExternalLinkAlt className="text-2xl" />
                         </motion.a>
                       </div>
                     </div>
-                    <p className="text-gray-400 mb-5">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
+                  </div>
+                  <div className="p-8">
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-300 mb-8 leading-relaxed text-lg">{project.description}</p>
+                    <div className="flex flex-wrap gap-3">
                       {project.technologies.map((tech, index) => (
                         <motion.span
                           key={index}
-                          className="px-3 py-1 text-xs bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
-                          initial={{ scale: 0.9 }}
-                          whileInView={{ scale: 1 }}
-                          transition={{ delay: index * 0.05 }}
+                          className="px-4 py-2 text-sm bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30 rounded-full hover:border-blue-400/50 hover:text-blue-200 transition-all duration-300"
+                          initial={{ scale: 0.9, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: index * 0.05, duration: 0.3 }}
                           viewport={{ once: true }}
                         >
                           {tech}
