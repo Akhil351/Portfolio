@@ -712,8 +712,9 @@ const App = () => {
       <div className="lg:hidden fixed top-6 right-6 z-50">
         <motion.button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="p-2 rounded-full bg-gray-800/90 shadow-lg"
+          className="p-3 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/10 shadow-xl"
           whileTap={{ scale: 0.92 }}
+          whileHover={{ scale: 1.1, rotate: 90 }}
           aria-label="Open menu"
         >
           <div className="w-6 h-6 flex flex-col justify-between">
@@ -747,7 +748,7 @@ const App = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
             transition={{ type: "spring", damping: 26 }}
-            className="fixed inset-y-0 right-0 w-64 bg-gray-900/95 shadow-xl z-40 p-6 backdrop-blur-sm"
+            className="fixed inset-y-0 right-0 w-72 bg-gray-900/98 shadow-2xl z-40 p-8 backdrop-blur-xl border-l border-white/10"
             role="dialog"
             aria-modal="true"
           >
@@ -764,12 +765,12 @@ const App = () => {
                   <motion.button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`text-left text-xl font-medium ${
+                    className={`text-left text-xl font-semibold px-4 py-2 rounded-lg ${
                       activeSection === item.id
-                        ? "text-blue-400"
-                        : "text-gray-400 hover:text-white"
-                    } transition-colors`}
-                    whileHover={{ x: 5 }}
+                        ? "text-blue-400 bg-blue-500/10 border-l-4 border-blue-400"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                    } transition-all`}
+                    whileHover={{ x: 8, scale: 1.05 }}
                   >
                     {item.label}
                   </motion.button>
@@ -781,7 +782,7 @@ const App = () => {
       </AnimatePresence>
 
       {/* desktop nav */}
-      <nav className="hidden lg:flex fixed top-0 left-0 w-full z-50 bg-gray-950/78 backdrop-blur-md border-b border-gray-800/50">
+      <nav className="hidden lg:flex fixed top-0 left-0 w-full z-50 bg-gray-950/85 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20">
         <div className="container mx-auto flex items-center justify-between px-8 py-5">
           <motion.a
             href="/"
@@ -796,14 +797,15 @@ const App = () => {
             aria-label="Home"
           >
             <motion.div
-              whileHover={{ rotate: 8 }}
-              transition={{ duration: 0.26 }}
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.5, type: "spring" }}
               className="relative"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 to-purple-500/50 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <img
                 src={logo}
                 alt="Logo"
-                className="h-10 w-auto rounded-full border border-blue-500/25 shadow-sm"
+                className="h-12 w-auto rounded-full border-2 border-blue-500/30 shadow-lg shadow-blue-500/20 relative z-10"
               />
             </motion.div>
           </motion.a>
@@ -821,18 +823,19 @@ const App = () => {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative text-sm font-medium ${
+                  className={`relative text-sm font-semibold px-3 py-2 rounded-lg transition-all ${
                     activeSection === item.id
-                      ? "text-blue-400"
-                      : "text-gray-400 hover:text-white"
-                  } transition-colors`}
+                      ? "text-blue-400 bg-blue-500/10"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`}
                   whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {item.label}
                   {activeSection === item.id && (
-                    <motion.span
+                    <motion.div
                       layoutId="navIndicator"
-                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg -z-10"
                       transition={{
                         type: "spring",
                         bounce: 0.2,
@@ -845,7 +848,7 @@ const App = () => {
             </div>
 
             <motion.div
-              className="flex gap-6"
+              className="flex gap-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
@@ -854,9 +857,10 @@ const App = () => {
                 href="https://www.linkedin.com/in/v-akhileswar-a46062250/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-400 transition-colors"
+                className="p-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-gray-400 hover:text-blue-400 transition-all border border-transparent hover:border-blue-500/30"
                 aria-label="LinkedIn"
-                whileHover={{ y: -3, scale: 1.05 }}
+                whileHover={{ y: -3, scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaLinkedin className="text-xl" />
               </motion.a>
@@ -864,9 +868,10 @@ const App = () => {
                 href="https://github.com/Akhil351"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="p-2 rounded-lg bg-white/5 hover:bg-gray-700/50 text-gray-400 hover:text-white transition-all border border-transparent hover:border-gray-600/50"
                 aria-label="GitHub"
-                whileHover={{ y: -3, scale: 1.05 }}
+                whileHover={{ y: -3, scale: 1.1, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaGithub className="text-xl" />
               </motion.a>
@@ -874,9 +879,10 @@ const App = () => {
                 href="https://www.instagram.com/Akhil___351/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-pink-500 transition-colors"
+                className="p-2 rounded-lg bg-white/5 hover:bg-pink-500/20 text-gray-400 hover:text-pink-400 transition-all border border-transparent hover:border-pink-500/30"
                 aria-label="Instagram"
-                whileHover={{ y: -3, scale: 1.05 }}
+                whileHover={{ y: -3, scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaInstagram className="text-xl" />
               </motion.a>
@@ -992,12 +998,17 @@ const App = () => {
             viewport={{ once: true }}
           >
             <motion.div
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/18 to-purple-500/18 border border-white/20 rounded-full mb-6 backdrop-blur-sm shadow-lg"
-              whileHover={{ scale: 1.03 }}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 border border-white/20 rounded-full mb-6 backdrop-blur-md shadow-xl shadow-blue-500/10"
+              whileHover={{ scale: 1.05, y: -2 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full mr-3 animate-pulse" />
-              <span className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Full-Stack Developer
+              <motion.div
+                className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full mr-3"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span className="text-sm font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Backend Developer
               </span>
             </motion.div>
 
@@ -1009,9 +1020,22 @@ const App = () => {
               viewport={{ once: true }}
             >
               Akhileswar{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
+              <motion.span
+                className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent inline-block"
+                animate={{
+                  backgroundPosition: ["0%", "100%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+                style={{
+                  backgroundSize: "200%",
+                }}
+              >
                 Vathaluru
-              </span>
+              </motion.span>
             </motion.h1>
 
             <motion.p
@@ -1021,10 +1045,13 @@ const App = () => {
               transition={{ delay: 0.45, duration: 0.9 }}
               viewport={{ once: true }}
             >
-              I’m Akhil — a full-stack engineer specializing in FastAPI, Go, and
-              Spring Boot. I build high-performance microservices, architect
-              cloud-native solutions on AWS (Lambda & Serverless), and implement
-              CI/CD with CodePipeline & CodeBuild. I also design and deploy
+              I'm Akhil — a backend engineer specializing in{" "}
+              <span className="text-blue-400 font-semibold">FastAPI</span>,{" "}
+              <span className="text-blue-400 font-semibold">Go</span>, and{" "}
+              <span className="text-green-400 font-semibold">Spring Boot</span>.
+              I build high-performance microservices, architect cloud-native
+              solutions on AWS (Lambda & Serverless), and implement CI/CD
+              pipelines with CodePipeline & CodeBuild. I also design and deploy
               intelligent AI agents using LangGraph and LangChain, and develop
               blockchain solutions with Hyperledger Fabric and Go smart
               contracts.
@@ -1041,21 +1068,27 @@ const App = () => {
                 href="https://github.com/Akhil351/Resume/blob/master/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl shadow-2xl hover:shadow-blue-500/25 font-semibold text-lg transition-all duration-300"
-                whileHover={{ y: -3, scale: 1.02 }}
+                className="group relative flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl shadow-2xl hover:shadow-blue-500/40 font-semibold text-lg transition-all duration-300 overflow-hidden"
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <FiFileText className="text-xl group-hover:scale-110 transition-transform" />{" "}
-                View Resume
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                />
+                <FiFileText className="text-xl group-hover:scale-110 transition-transform relative z-10" />
+                <span className="relative z-10">View Resume</span>
               </motion.a>
 
               <motion.a
                 href="https://github.com/Akhil351"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm text-blue-400 hover:text-white border border-white/20 hover:border-blue-400/50 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300"
-                whileHover={{ y: -3, scale: 1.02 }}
+                className="group flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md text-blue-400 hover:text-white border-2 border-white/20 hover:border-blue-400/60 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-white/15"
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <FaGithub className="text-xl group-hover:scale-110 transition-transform" />{" "}
+                <FaGithub className="text-xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
                 View Projects
               </motion.a>
 
@@ -1065,8 +1098,9 @@ const App = () => {
                   e.preventDefault();
                   scrollToSection("contact");
                 }}
-                className="group flex items-center justify-center gap-3 bg-white/5 backdrop-blur-sm text-blue-400 hover:text-white border border-white/20 hover:border-blue-400/50 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300"
-                whileHover={{ y: -3, scale: 1.02 }}
+                className="group flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md text-blue-400 hover:text-white border-2 border-white/20 hover:border-purple-400/60 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-white/15"
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Contact Me
               </motion.a>
@@ -1129,23 +1163,28 @@ const App = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className={`${glassmorphismCard} ${glassmorphismCardHover} flex flex-col items-center p-8 rounded-2xl transition-all duration-500 group cursor-pointer`}
+                  className={`${glassmorphismCard} ${glassmorphismCardHover} flex flex-col items-center p-8 rounded-3xl transition-all duration-500 group cursor-pointer relative overflow-hidden`}
                   whileHover={smoothCardHover}
                 >
                   <motion.div
-                    className="p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 group-hover:from-white/20 group-hover:to-white/10 mb-6 transition-all duration-300"
-                    whileHover={{ rotate: 15, scale: 1.08 }}
+                    className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500"
+                    initial={false}
+                  />
+                  <motion.div
+                    className="p-6 rounded-2xl bg-gradient-to-br from-white/15 to-white/8 group-hover:from-white/25 group-hover:to-white/15 mb-6 transition-all duration-300 relative z-10 shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/20"
+                    whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
                   >
                     <tech.icon
-                      className={`text-4xl ${tech.color} group-hover:scale-110 transition-transform duration-300`}
+                      className={`text-5xl ${tech.color} group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg`}
                     />
                   </motion.div>
-                  <span className="text-gray-200 font-semibold text-lg text-center group-hover:text-white transition-colors duration-300">
+                  <span className="text-gray-200 font-bold text-lg text-center group-hover:text-white transition-colors duration-300 relative z-10">
                     {tech.name}
                   </span>
-                  <div className="w-full bg-white/10 rounded-full h-2 mt-4 overflow-hidden">
+                  <div className="w-full bg-white/10 rounded-full h-3 mt-4 overflow-hidden relative z-10 shadow-inner">
                     <motion.div
-                      className={`${tech.progressColor} h-2 rounded-full shadow-lg`}
+                      className={`${tech.progressColor} h-3 rounded-full shadow-lg relative overflow-hidden`}
                       initial={{ width: 0 }}
                       whileInView={{ width: `${tech.rating}%` }}
                       transition={{
@@ -1154,10 +1193,22 @@ const App = () => {
                         ease: "easeOut",
                       }}
                       viewport={{ once: true }}
-                    />
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatDelay: 1,
+                        }}
+                      />
+                    </motion.div>
                   </div>
                   <motion.span
-                    className="text-sm text-gray-400 mt-2 font-medium"
+                    className="text-sm text-gray-300 mt-2 font-bold group-hover:text-blue-400 transition-colors duration-300 relative z-10"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: index * 0.08 + 1.2, duration: 0.45 }}
@@ -1229,26 +1280,36 @@ const App = () => {
                   className={`${glassmorphismCard} ${glassmorphismCardHover} rounded-2xl overflow-hidden transition-all duration-500 group cursor-pointer`}
                   whileHover={smoothCardHover}
                 >
-                  <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
+                  <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden group/image">
                     <motion.img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover bg-gray-800/20 rounded-t-2xl"
                       initial={{ scale: 1 }}
-                      whileHover={{ scale: 1.04 }}
-                      transition={{ duration: 0.6 }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex gap-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent group-hover:from-black/80 group-hover:via-black/40 transition-all duration-500" />
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/20 group-hover:via-purple-500/20 group-hover:to-pink-500/20 transition-all duration-500"
+                      initial={false}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <motion.div
+                        className="flex gap-4"
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.1 }}
+                      >
                         <motion.a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-4 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
+                          className="p-5 bg-white/25 backdrop-blur-md rounded-full text-white hover:bg-white/40 border-2 border-white/30 hover:border-white/50 transition-all duration-300 shadow-xl"
                           aria-label="GitHub"
                           title="View code on GitHub"
-                          whileHover={{ y: -5, scale: 1.08 }}
+                          whileHover={{ y: -8, scale: 1.15, rotate: 5 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           <FaGithub className="text-2xl" />
                         </motion.a>
@@ -1256,20 +1317,21 @@ const App = () => {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-4 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
+                          className="p-5 bg-white/25 backdrop-blur-md rounded-full text-white hover:bg-white/40 border-2 border-white/30 hover:border-white/50 transition-all duration-300 shadow-xl"
                           aria-label="Live Demo"
                           title="View live demo"
-                          whileHover={{ y: -5, scale: 1.08 }}
+                          whileHover={{ y: -8, scale: 1.15, rotate: -5 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           <FaExternalLinkAlt className="text-2xl" />
                         </motion.a>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
 
-                  <div className="p-8">
+                  <div className="p-8 bg-gradient-to-b from-transparent to-gray-900/30">
                     <div className="flex justify-between items-start mb-6">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+                      <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all duration-500">
                         {project.title}
                       </h3>
                     </div>
@@ -1280,9 +1342,10 @@ const App = () => {
                       {project.technologies.map((tech, idx2) => (
                         <motion.span
                           key={idx2}
-                          className="px-4 py-2 text-sm bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30 rounded-full hover:border-blue-400/50 hover:text-blue-200 transition-all duration-300"
+                          className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-blue-500/25 via-purple-500/25 to-pink-500/25 text-blue-200 border border-blue-500/40 rounded-full hover:border-blue-400/70 hover:text-white hover:from-blue-500/40 hover:via-purple-500/40 hover:to-pink-500/40 transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg hover:shadow-blue-500/20"
                           initial={{ scale: 0.96, opacity: 0 }}
                           whileInView={{ scale: 1, opacity: 1 }}
+                          whileHover={{ scale: 1.1, y: -2 }}
                           transition={{
                             delay: idx2 * 0.04 + 0.1,
                             duration: 0.28,
@@ -1342,40 +1405,47 @@ const App = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="bg-gray-900/50 border-gray-800 hover:border-blue-500/30 p-8 rounded-xl border transition-all"
+                  className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50 hover:border-blue-500/50 p-8 rounded-2xl border-2 transition-all backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 relative overflow-hidden group"
                   whileHover={smoothCardHover}
                 >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                  <motion.div
+                    className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={false}
+                  />
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 relative z-10">
                     <div>
-                      <h3 className="text-xl font-bold text-white">
+                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">
                         {experience.role}
                       </h3>
-                      <span className="text-blue-400 font-medium">
+                      <span className="text-blue-400 font-medium flex items-center gap-2">
+                        <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
                         {experience.company}
                       </span>
                     </div>
                     <motion.span
-                      className="text-sm bg-gray-800 px-3 py-1 rounded-full"
-                      whileHover={{ scale: 1.05 }}
+                      className="text-sm bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 px-4 py-2 rounded-full font-semibold text-blue-300 hover:text-white hover:border-blue-400/50 transition-all"
+                      whileHover={{ scale: 1.1, y: -2 }}
                     >
                       {experience.year}
                     </motion.span>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
+                  <p className="text-gray-300 mb-6 leading-relaxed text-base relative z-10">
                     {experience.description}
                   </p>
 
-                  <div className="pt-4 border-t border-gray-800">
-                    <h4 className="text-sm font-medium text-gray-400 mb-3">
-                      TECHNOLOGIES USED
+                  <div className="pt-4 border-t border-gray-700/50 relative z-10">
+                    <h4 className="text-sm font-bold text-gray-300 mb-4 uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-1 h-4 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full" />
+                      Technologies Used
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {experience.technologies.map((tech, i) => (
                         <motion.span
                           key={i}
-                          className="px-3 py-1 text-xs bg-gray-800/50 text-blue-400 border border-gray-700/50 rounded-full hover:border-blue-500/30 transition-all duration-300"
-                          initial={{ scale: 0.96 }}
-                          whileInView={{ scale: 1 }}
+                          className="px-4 py-2 text-xs font-semibold bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/40 rounded-full hover:border-blue-400/60 hover:text-white hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 backdrop-blur-sm"
+                          initial={{ scale: 0.96, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          whileHover={{ scale: 1.1, y: -2 }}
                           transition={{ delay: i * 0.03 }}
                           viewport={{ once: true }}
                         >
