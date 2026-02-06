@@ -13,6 +13,7 @@ import {
   FaLinkedin,
   FaExternalLinkAlt,
   FaArrowUp,
+  FaLink,
 } from "react-icons/fa";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
@@ -24,7 +25,7 @@ import {
   SiApachekafka,
   SiRabbitmq,
 } from "react-icons/si";
-import { FiMail, FiPhone, FiMapPin, FiFileText } from "react-icons/fi";
+import { FiMail, FiPhone, FiMapPin, FiFileText, FiDatabase } from "react-icons/fi";
 import { useForm, ValidationError } from "@formspree/react";
 import { Tilt } from "react-tilt";
 import { Canvas } from "@react-three/fiber";
@@ -33,14 +34,14 @@ import { Stars } from "@react-three/drei";
 // Assets
 import profilePic from "./assets/Akhil.jpeg";
 import logo from "./assets/AK.jpg";
-import project1 from "./assets/Linklytics.avif";
-import project3 from "./assets/clearbg.png";
-import project4 from "./assets/Real Estate.avif";
-import project5 from "./assets/buget_buddy.jpeg";
-import project6 from "./assets/fitness.jpg";
+import project1 from "./assets/linklytics.png";
+import project3 from "./assets/clear_bg.png";
+import project4 from "./assets/real_estate.png";
+import project5 from "./assets/buget_buddy_ai.png";
+import project6 from "./assets/fitness_ai.png";
 import FastapiIcon from "./FastapiIcon";
 import langgraphImg from "./assets/langgraph.jpg";
-import chatbotImg from "./assets/chatbot.avif";
+import chatbotImg from "./assets/chat_bot.png";
 
 // ------------------------ helper: seeded deterministic random ------------------------
 function seededRandom(seed) {
@@ -56,20 +57,41 @@ function seededRandom(seed) {
 const EXPERIENCES = [
   {
     year: "2024 - Present",
-    role: "Associate Software Engineer",
+    role: "Backend Developer",
     company: "Ideyalabs",
-    description: `Working as a Backend Developer building scalable microservices and serverless services. I design and implement secure RESTful APIs using FastAPI and Go, deploy services to AWS Lambda with the Serverless Framework, and build resilient Spring Boot microservices where appropriate. I implemented CI/CD pipelines using AWS CodePipeline and CodeBuild (with pipeline stages and buildspecs) to automate testing and deployment. I also designed and developed chaincode (smart contracts) in Go for Hyperledger Fabric integration, led migration efforts from a Corda-based blockchain to Hyperledger Fabric, and worked on performance and interoperability improvements while maintaining Spring Boot microservices for transaction coordination.`,
+    projects: [
+      {
+        name: "APEX - Transportation Back Office System",
+        description: [
+          "Developed a FastAPI backend with domain-driven architecture for transportation operations, pricing/rating, and shipment management.",
+          "Deployed a serverless application on AWS Lambda using Serverless Framework with CI/CD pipelines via GitHub Actions.",
+          "Integrated external services (SMC3, HERE.com, AWS S3, SES) and utilized PostgreSQL with SQLAlchemy ORM.",
+        ],
+      },
+      {
+        name: "HLF - Blockchain Transaction System",
+        description: [
+          "Built RESTful APIs using Go to store blockchain transactions and manage issue, redeem, and transfer operations.",
+          "Engineered Go-based smart contracts (chaincode) for Hyperledger Fabric to enforce business logic for transaction operations.",
+          "Led migration from Corda-based blockchain system to Hyperledger Fabric, improving performance and interoperability.",
+        ],
+      },
+    ],
     technologies: [
       "FastAPI",
       "Go",
-      "Spring Boot",
       "AWS Lambda",
       "Serverless Framework",
+      "GitHub Actions",
       "PostgreSQL",
-      "MongoDB",
-      "Redis",
+      "SQLAlchemy",
+      "AWS S3",
+      "AWS SES",
       "Hyperledger Fabric",
-      "CI/CD (CodePipeline & CodeBuild)",
+      "Smart Contracts",
+      "Chaincode",
+      "SMC3",
+      "HERE.com",
     ],
   },
 ];
@@ -79,15 +101,16 @@ const CERTIFICATIONS = [
     title: "Red Hat Certified Enterprise Application Developer (EX183)",
     link: "https://rhtapps.redhat.com/verify?certId=230-171-886",
     details: [
-      "Certification: EX183 - Red Hat Certified Enterprise Application Developer",
-      "Technologies: Red Hat JBoss Enterprise Application Platform 7.0",
+      "Demonstrated expertise in building enterprise applications using Red Hat JBoss Enterprise Application Platform 7.0",
+      "Skills validated: Java EE application development, RESTful web services, CDI, JPA, and deployment on JBoss EAP",
     ],
   },
   {
     title: "Google Cloud Agentic AI Day — Hack2skill (2025) — Finalist",
     link: "https://certificate.hack2skill.com/user/aidayfinalist-1/2025H2S06AID-F01638",
     details: [
-      "Finalist — Top 700 of 57,000+. Built an AI-powered monitoring system using Vertex AI, Gemini, Next.js, and ESP32 in a 30-hour hackathon.",
+      "Achieved Finalist position — Top 700 out of 57,000+ participants in national-level AI hackathon",
+      "Built an AI-powered monitoring system using Vertex AI, Gemini, Next.js, and ESP32 hardware in 30-hour timeframe",
     ],
   },
 ];
@@ -96,15 +119,21 @@ const PROJECTS = [
   {
     title: "Chat Bot",
     image: chatbotImg,
-    description:
-      "Developed a full-stack AI chat platform using React, Tailwind CSS, FastAPI, and LangGraph with OpenAI integration. Implemented persistent chat history, multi-threaded conversations, and modular backend architecture.",
+    description: [
+      "Built a full-stack AI chat application using FastAPI, React, LangGraph, and LangChain with PostgreSQL chat history.",
+      "Connected OpenAI GPT-4 with custom tools (Tavily web search, date utilities) for real-time information retrieval.",
+      "Designed a service layer architecture with SQLAlchemy ORM for multi-threaded conversations and persistent message storage.",
+    ],
     technologies: [
       "React",
       "Tailwind CSS",
       "FastAPI",
       "LangGraph",
-      "OpenAI",
+      "LangChain",
+      "OpenAI GPT-4",
       "PostgreSQL",
+      "SQLAlchemy",
+      "Tavily",
     ],
     link: "https://github.com/Akhil351/langgraph-chatbot",
     github: "https://github.com/Akhil351/langgraph-chatbot",
@@ -112,15 +141,19 @@ const PROJECTS = [
   {
     title: "Budget Buddy",
     image: project5,
-    description:
-      "Designed a CLI-based finance assistant using LangGraph, GPT-4o, and SQLAlchemy. Enabled expense tracking, Tavily web search, and persistent memory via PostgreSQL.",
+    description: [
+      "Created a CLI finance assistant using LangGraph, LangChain, OpenAI GPT-4o with conversation memory persistence.",
+      "Built custom financial tools for income/expense tracking with date-range analytics and Tavily web search integration.",
+      "Implemented a modular architecture with PostgreSQL, SQLAlchemy ORM, and dependency injection for database management.",
+    ],
     technologies: [
       "LangGraph",
-      "GPT-4o",
+      "LangChain",
+      "OpenAI GPT-4o",
       "SQLAlchemy",
       "PostgreSQL",
       "Tavily",
-      "CLI",
+      "Python",
     ],
     link: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
     github: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
@@ -128,16 +161,20 @@ const PROJECTS = [
   {
     title: "Fitness AI Platform",
     image: project6,
-    description:
-      "Created a full-stack fitness tracking platform with AI-driven insights and analytics. Implemented user authentication and role management using Keycloak.",
+    description: [
+      "Built a microservices platform using Spring Boot, Eureka, Spring Cloud Gateway with Google Gemini AI recommendations.",
+      "Implemented an event-driven architecture with RabbitMQ messaging for asynchronous communication between services.",
+      "Configured Keycloak for OAuth2 authentication and centralized configuration server for microservice properties.",
+    ],
     technologies: [
       "Spring Boot",
       "React",
-      "Keycloak",
-      "PostgreSQL",
-      "MongoDB",
+      "Google Gemini AI",
+      "Eureka",
+      "Spring Cloud Gateway",
       "RabbitMQ",
-      "AI/ML",
+      "Keycloak",
+      "OAuth2",
     ],
     link: "https://github.com/Akhil351/fitness",
     github: "https://github.com/Akhil351/fitness",
@@ -145,16 +182,19 @@ const PROJECTS = [
   {
     title: "ClearBG",
     image: project3,
-    description:
-      "Developed an AI-powered image processing tool with real-time background removal. Integrated Clerk authentication, Razorpay payments, and a microservice-based backend architecture.",
+    description: [
+      "Developed a full-stack image background removal application using Spring Boot, React, and ClipDrop API.",
+      "Configured Clerk authentication with webhook synchronization and JWT-based API security for user management.",
+      "Incorporated Razorpay payment gateway for credit-based system and reactive Spring WebClient for AI service integration.",
+    ],
     technologies: [
       "React",
       "Spring Boot",
-      "PostgreSQL",
+      "ClipDrop API",
       "Clerk",
       "Razorpay",
-      "AI/ML",
-      "Microservices",
+      "Spring WebClient",
+      "JWT",
     ],
     link: "https://github.com/Akhil351/ClearBG",
     github: "https://github.com/Akhil351/ClearBG",
@@ -162,14 +202,18 @@ const PROJECTS = [
   {
     title: "Linklytics",
     image: project1,
-    description:
-      "Engineered a secure, scalable URL shortening platform with real-time analytics and encryption. Optimized for performance and user experience using a modern tech stack.",
+    description: [
+      "Built a URL shortener with analytics using Spring Boot, React, Redis, and PostgreSQL.",
+      "Established click event tracking with date-range filtering for monitoring URL performance metrics.",
+      "Designed RESTful APIs with JWT authentication and role-based access control for user-specific URL management.",
+    ],
     technologies: [
       "Spring Boot",
       "React",
       "PostgreSQL",
       "Redis",
       "JWT",
+      "RESTful APIs",
       "TailwindCSS",
     ],
     link: "https://akhil-amber.vercel.app/",
@@ -178,14 +222,17 @@ const PROJECTS = [
   {
     title: "Real Estate Management System",
     image: project4,
-    description:
-      "Built a blockchain-based property management system using Hyperledger Fabric and Go. Implemented smart contracts, JWT authentication, and PostgreSQL-backed ledger storage.",
+    description: [
+      "Built a blockchain property management system using Hyperledger Fabric with Go-based smart contracts (chaincode).",
+      "Applied composite key-based chaincode for user registration, property listing, and transaction recording.",
+      "Developed RESTful APIs in Go for property operations, ownership transfer, and transaction history on distributed ledger.",
+    ],
     technologies: [
       "Go",
       "Hyperledger Fabric",
-      "PostgreSQL",
-      "JWT",
-      "Docker",
+      "Smart Contracts",
+      "Chaincode",
+      "RESTful APIs",
       "Blockchain",
     ],
     link: "https://github.com/Akhil351/Real-Estate-Management-System",
@@ -225,13 +272,6 @@ const technologies = [
     progressColor: "bg-gradient-to-r from-blue-400 to-blue-600",
   },
   {
-    icon: RiReactjsLine,
-    name: "React",
-    color: "text-cyan-400",
-    rating: 92,
-    progressColor: "bg-gradient-to-r from-cyan-400 to-blue-500",
-  },
-  {
     icon: BiLogoPostgresql,
     name: "PostgreSQL",
     color: "text-blue-600",
@@ -260,13 +300,6 @@ const technologies = [
     progressColor: "bg-gradient-to-r from-purple-400 to-purple-600",
   },
   {
-    icon: SiRabbitmq,
-    name: "RabbitMQ",
-    color: "text-orange-500",
-    rating: 80,
-    progressColor: "bg-gradient-to-r from-orange-400 to-orange-600",
-  },
-  {
     icon: FastapiIcon,
     name: "FastAPI",
     color: "text-teal-400",
@@ -279,6 +312,20 @@ const technologies = [
     color: "text-violet-400",
     rating: 85,
     progressColor: "bg-gradient-to-r from-violet-400 to-purple-600",
+  },
+  {
+    icon: FaLink,
+    name: "LangChain",
+    color: "text-emerald-400",
+    rating: 88,
+    progressColor: "bg-gradient-to-r from-emerald-400 to-teal-600",
+  },
+  {
+    icon: FiDatabase,
+    name: "RAG",
+    color: "text-indigo-400",
+    rating: 85,
+    progressColor: "bg-gradient-to-r from-indigo-400 to-purple-600",
   },
 ];
 
@@ -1045,16 +1092,16 @@ const App = () => {
               transition={{ delay: 0.45, duration: 0.9 }}
               viewport={{ once: true }}
             >
-              I'm Akhil — a backend engineer specializing in{" "}
+              I'm Akhil — a backend developer at Ideyalabs specializing in{" "}
               <span className="text-blue-400 font-semibold">FastAPI</span>,{" "}
               <span className="text-blue-400 font-semibold">Go</span>, and{" "}
               <span className="text-green-400 font-semibold">Spring Boot</span>.
-              I build high-performance microservices, architect cloud-native
-              solutions on AWS (Lambda & Serverless), and implement CI/CD
-              pipelines with CodePipeline & CodeBuild. I also design and deploy
-              intelligent AI agents using LangGraph and LangChain, and develop
-              blockchain solutions with Hyperledger Fabric and Go smart
-              contracts.
+              I build domain-driven FastAPI backends deployed on AWS Lambda with
+              Serverless Framework and CI/CD pipelines via GitHub Actions. I
+              develop Go RESTful APIs and smart contracts (chaincode) for
+              Hyperledger Fabric blockchain systems. I also design and deploy
+              intelligent AI agents using LangGraph and LangChain with RAG and
+              vector search capabilities.
             </motion.p>
 
             <motion.div
@@ -1335,9 +1382,20 @@ const App = () => {
                         {project.title}
                       </h3>
                     </div>
-                    <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                      {project.description}
-                    </p>
+                    {Array.isArray(project.description) ? (
+                      <ul className="text-gray-300 mb-8 leading-relaxed text-base space-y-3">
+                        {project.description.map((point, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <span className="text-blue-400 mt-1.5">•</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-gray-300 mb-8 leading-relaxed text-lg">
+                        {project.description}
+                      </p>
+                    )}
                     <div className="flex flex-wrap gap-3">
                       {project.technologies.map((tech, idx2) => (
                         <motion.span
@@ -1429,9 +1487,29 @@ const App = () => {
                       {experience.year}
                     </motion.span>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed text-base relative z-10">
-                    {experience.description}
-                  </p>
+                  {experience.projects && experience.projects.length > 0 ? (
+                    <div className="space-y-6 mb-6 relative z-10">
+                      {experience.projects.map((project, projIdx) => (
+                        <div key={projIdx}>
+                          <h4 className="text-lg font-bold text-white mb-3">
+                            {project.name}
+                          </h4>
+                          <ul className="text-gray-300 leading-relaxed text-base space-y-2">
+                            {project.description.map((point, idx) => (
+                              <li key={idx} className="flex items-start gap-3">
+                                <span className="text-blue-400 mt-1.5">•</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-300 mb-6 leading-relaxed text-base relative z-10">
+                      {experience.description}
+                    </p>
+                  )}
 
                   <div className="pt-4 border-t border-gray-700/50 relative z-10">
                     <h4 className="text-sm font-bold text-gray-300 mb-4 uppercase tracking-wider flex items-center gap-2">
