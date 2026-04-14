@@ -28,7 +28,7 @@ function AnimatedValue({ value, color }: { value: string; color: string }) {
   return (
     <div
       ref={ref}
-      className="text-5xl font-black font-mono leading-none"
+      className="text-3xl sm:text-4xl md:text-5xl font-black font-mono leading-none"
       style={{ color, textShadow: `0 0 40px ${color}60` }}
     >
       <motion.span>{display}</motion.span>

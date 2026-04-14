@@ -28,7 +28,7 @@ export default function Footer() {
           </div>
 
           {/* Social links */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 justify-center md:justify-end">
             {[
               { href: personalInfo.github, Icon: Github, label: "GitHub", color: "hover:text-white" },
               { href: personalInfo.linkedin, Icon: Linkedin, label: "LinkedIn", color: "hover:text-cyan-400" },

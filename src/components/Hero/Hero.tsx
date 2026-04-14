@@ -93,10 +93,10 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-3 mb-8"
+            className="flex flex-wrap items-center gap-3 mb-8"
           >
-            <div className="w-8 h-px bg-cyan-400" />
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-green-400/20 bg-green-400/5">
+            <div className="w-8 h-px bg-cyan-400 flex-shrink-0" />
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-green-400/20 bg-green-400/5 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               <span className="text-green-400 font-mono text-[11px] tracking-[0.2em] uppercase">Open to Opportunities</span>
             </div>

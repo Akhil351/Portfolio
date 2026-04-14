@@ -112,8 +112,8 @@ export default function Experience() {
                   <div className="flex flex-wrap justify-between items-start gap-4 mb-5">
                     <div>
                       <h3 className="text-white font-bold text-xl mb-1.5">{exp.role}</h3>
-                      <div className="flex items-center gap-2">
-                        <Building2 size={13} className="text-cyan-400" />
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Building2 size={13} className="text-cyan-400 flex-shrink-0" />
                         <span className="text-cyan-400 font-semibold text-sm">{exp.company}</span>
                         <span className="text-gray-700">·</span>
                         <span className="text-gray-500 text-sm">{exp.location}</span>

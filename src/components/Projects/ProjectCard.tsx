@@ -126,7 +126,7 @@ export default function ProjectCard({ project, index }: Props) {
           <div className="w-2 h-2 rounded-full bg-red-500/60" />
           <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
           <div className="w-2 h-2 rounded-full bg-green-500/60" />
-          <span className="ml-2 text-gray-600 text-[9px] tracking-widest">~/projects/{project.title.toLowerCase().replace(/\s/g, "-")}</span>
+          <span className="ml-2 text-gray-600 text-[9px] tracking-widest truncate min-w-0">~/projects/{project.title.toLowerCase().replace(/\s/g, "-")}</span>
         </div>
         {/* Lines */}
         <div className="p-3 space-y-0.5">
