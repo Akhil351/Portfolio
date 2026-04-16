@@ -8,6 +8,7 @@ const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Achievements", href: "#achievements" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -24,7 +25,6 @@ export default function Navbar() {
     return unsub;
   }, [scrollY]);
 
-  /* Intersection observer for active section */
   useEffect(() => {
     const sections = navItems.map((item) => document.querySelector(item.href));
     const observer = new IntersectionObserver(
@@ -49,7 +49,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
         style={{
@@ -63,29 +62,30 @@ export default function Navbar() {
         style={{ backgroundColor: bg, borderBottom: `1px solid ${scrolled ? "rgba(0,212,255,0.08)" : "transparent"}` }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-          {/* Logo */}
           <motion.a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            className="font-mono text-white tracking-widest text-sm flex items-center gap-1.5 group"
+            aria-label="Akhileswar Reddy — Back to top"
+            className="font-mono text-white tracking-widest text-sm flex items-center gap-1.5 group focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm"
             whileHover={{ scale: 1.03 }}
           >
-            <span className="text-cyan-400 group-hover:text-white transition-colors">&lt;</span>
+            <span className="text-cyan-400 group-hover:text-white transition-colors" aria-hidden="true">&lt;</span>
             <span className="group-hover:text-cyan-400 transition-colors">AKHIL</span>
-            <span className="text-cyan-400">.</span>
+            <span className="text-cyan-400" aria-hidden="true">.</span>
             <span className="group-hover:text-cyan-400 transition-colors">DEV</span>
-            <span className="text-cyan-400 group-hover:text-white transition-colors">/&gt;</span>
+            <span className="text-cyan-400 group-hover:text-white transition-colors" aria-hidden="true">/&gt;</span>
           </motion.a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-7">
             {navItems.map((item) => {
               const isActive = activeSection === item.href;
               return (
                 <motion.button
                   key={item.label}
                   onClick={() => scrollTo(item.href)}
-                  className="relative text-sm font-mono tracking-wide transition-colors"
+                  aria-label={`Navigate to ${item.label} section`}
+                  aria-current={isActive ? "location" : undefined}
+                  className="relative text-sm font-mono tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm px-1"
                   style={{ color: isActive ? "#00d4ff" : "#6b7280" }}
                   whileHover={{ y: -1 }}
                 >
@@ -101,30 +101,33 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Hire me CTA */}
           <motion.a
             href="mailto:akhil.vathaluru@gmail.com"
-            className="hidden md:flex items-center gap-2 px-4 py-1.5 border border-cyan-400/30 text-cyan-400
-                       text-xs font-mono rounded-sm hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all"
+            aria-label="Hire Akhileswar — send email"
+            className="hidden md:flex items-center gap-2 px-4 py-1.5 border border-cyan-400/30 text-cyan-400 text-xs font-mono rounded-sm hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
             whileHover={{ scale: 1.03, boxShadow: "0 0 15px #00d4ff20" }}
             whileTap={{ scale: 0.97 }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
             Hire Me
           </motion.a>
 
-          {/* Mobile menu toggle */}
           <button
-            className="md:hidden text-gray-400 hover:text-white transition-colors"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="md:hidden text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm p-1"
             onClick={() => setOpen(!open)}
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           </button>
         </div>
 
-        {/* Mobile menu */}
         {open && (
           <motion.div
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, y: -10, height: 0 }}
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -10, height: 0 }}
@@ -134,7 +137,8 @@ export default function Navbar() {
               <button
                 key={item.label}
                 onClick={() => scrollTo(item.href)}
-                className={`text-sm font-mono text-left transition-colors ${
+                aria-current={activeSection === item.href ? "location" : undefined}
+                className={`text-sm font-mono text-left transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-1 focus:ring-offset-[#020408] rounded-sm ${
                   activeSection === item.href ? "text-cyan-400" : "text-gray-400 hover:text-white"
                 }`}
               >
@@ -143,7 +147,7 @@ export default function Navbar() {
             ))}
             <a
               href="mailto:akhil.vathaluru@gmail.com"
-              className="text-sm font-mono text-cyan-400 border-t border-gray-800 pt-4 mt-1"
+              className="text-sm font-mono text-cyan-400 border-t border-gray-800 pt-4 mt-1 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-sm"
             >
               akhil.vathaluru@gmail.com
             </a>
