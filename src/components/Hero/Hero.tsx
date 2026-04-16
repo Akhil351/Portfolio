@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Code2, Instagram, Twitter, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { Suspense, lazy, useState, useEffect } from "react";
 import { personalInfo } from "../../data/portfolio";
 
@@ -11,14 +11,6 @@ const roles = [
   "Microservices Architect",
   "Cloud Infrastructure Builder",
   "LangGraph Specialist",
-];
-
-const socialLinks = [
-  { href: personalInfo.github, Icon: Github, color: "hover:text-white", label: "GitHub profile" },
-  { href: personalInfo.linkedin, Icon: Linkedin, color: "hover:text-cyan-400", label: "LinkedIn profile" },
-  { href: personalInfo.leetcode, Icon: Code2, color: "hover:text-orange-400", label: "LeetCode profile" },
-  { href: personalInfo.instagram, Icon: Instagram, color: "hover:text-pink-400", label: "Instagram profile" },
-  { href: personalInfo.twitter, Icon: Twitter, color: "hover:text-sky-400", label: "Twitter / X profile" },
 ];
 
 function TypewriterCycler() {
@@ -172,7 +164,7 @@ export default function Hero() {
             </motion.button>
             <motion.a
               href="/resume.pdf"
-              download="Akhileswar_Reddy_Resume.pdf"
+              download="akhileswar.pdf"
               aria-label="Download Akhileswar Reddy's resume PDF"
               className="flex items-center gap-2 px-6 py-3.5 border border-gray-700 text-gray-300 text-sm font-medium rounded-sm hover:border-cyan-400/60 hover:text-white hover:bg-cyan-400/5 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
               whileHover={{ scale: 1.03, y: -2 }}
@@ -181,22 +173,6 @@ export default function Hero() {
               <Download size={16} aria-hidden="true" />
               Resume
             </motion.a>
-            <div className="flex items-center gap-3 ml-2" role="list" aria-label="Social media links">
-              {socialLinks.map(({ href, Icon, color, label }) => (
-                <motion.a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  role="listitem"
-                  className={`text-gray-600 ${color} transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm p-0.5`}
-                  whileHover={{ scale: 1.2, y: -2 }}
-                >
-                  <Icon size={18} aria-hidden="true" />
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
 
         </div>

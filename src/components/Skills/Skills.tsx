@@ -167,7 +167,7 @@ export default function Skills() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="relative py-28 bg-[#020408] overflow-hidden">
+    <section id="skills" className="relative py-16 sm:py-28 bg-[#020408] overflow-hidden">
       {/* Radial ambient */}
       <div
         className="absolute inset-0 opacity-25 pointer-events-none"

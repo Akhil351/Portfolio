@@ -9,7 +9,6 @@ const Skills = lazy(() => import("./components/Skills/Skills"));
 const Experience = lazy(() => import("./components/Experience/Experience"));
 const Projects = lazy(() => import("./components/Projects/Projects"));
 const Achievements = lazy(() => import("./components/Achievements/Achievements"));
-const Testimonials = lazy(() => import("./components/Testimonials/Testimonials"));
 const Contact = lazy(() => import("./components/Contact/Contact"));
 const Footer = lazy(() => import("./components/Footer"));
 
@@ -49,9 +48,6 @@ export default function App() {
             </Suspense>
             <Suspense fallback={<SectionFallback />}>
               <Achievements />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Testimonials />
             </Suspense>
             <Suspense fallback={<SectionFallback />}>
               <Contact />

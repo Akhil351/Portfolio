@@ -11,7 +11,7 @@ export default function Contact() {
   const [state, handleSubmit] = useForm("myzerepa");
 
   return (
-    <section id="contact" className="relative py-28 bg-[#020408] overflow-hidden">
+    <section id="contact" className="relative py-16 sm:py-28 bg-[#020408] overflow-hidden">
       <div className="absolute left-0 right-0 h-px top-0 bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
       <div
         className="absolute inset-0 opacity-15 pointer-events-none"
@@ -79,17 +79,23 @@ export default function Contact() {
             {/* Contact details */}
             <div className="space-y-3 mb-10">
               {[
-                { Icon: Mail, text: personalInfo.email, href: `mailto:${personalInfo.email}` },
-                { Icon: Phone, text: personalInfo.phone, href: null },
-                { Icon: MapPin, text: personalInfo.location, href: null },
-              ].map(({ Icon, text, href }) => (
+                { Icon: Mail, text: personalInfo.email, href: `mailto:${personalInfo.email}`, label: "Send email to Akhileswar" },
+                { Icon: Phone, text: personalInfo.phone, href: `tel:${personalInfo.phone}`, label: "Call Akhileswar" },
+                { Icon: MapPin, text: personalInfo.location, href: null, label: null },
+              ].map(({ Icon, text, href, label }) => (
                 <div key={text} className="flex items-center gap-3 text-gray-400 text-sm group">
                   <div className="w-8 h-8 rounded-sm border border-gray-800 flex items-center justify-center
                                   group-hover:border-cyan-400/30 transition-colors flex-shrink-0">
-                    <Icon size={14} className="text-cyan-400" />
+                    <Icon size={14} className="text-cyan-400" aria-hidden="true" />
                   </div>
                   {href ? (
-                    <a href={href} className="hover:text-white transition-colors">{text}</a>
+                    <a 
+                      href={href} 
+                      aria-label={label || undefined}
+                      className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm"
+                    >
+                      {text}
+                    </a>
                   ) : (
                     <span>{text}</span>
                   )}

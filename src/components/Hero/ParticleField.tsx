@@ -4,7 +4,8 @@ import * as THREE from "three";
 
 function Particles() {
   const mesh = useRef<THREE.Points>(null);
-  const count = 2500;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const count = isMobile ? 1000 : 2500;
 
   const { positions, colors } = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -25,7 +26,7 @@ function Particles() {
       col[i * 3 + 2] = c.b;
     }
     return { positions: pos, colors: col };
-  }, []);
+  }, [count]);
 
   useFrame((state) => {
     if (!mesh.current) return;

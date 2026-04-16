@@ -49,7 +49,7 @@ export default function Achievements() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="achievements" className="relative py-28 bg-[#020408] overflow-hidden">
+    <section id="achievements" className="relative py-16 sm:py-28 bg-[#020408] overflow-hidden">
       <div className="absolute left-0 right-0 h-px top-0 bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
       <div
         className="absolute inset-0 opacity-20 pointer-events-none"

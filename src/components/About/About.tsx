@@ -59,7 +59,7 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="relative py-28 bg-[#020408] overflow-hidden">
+    <section id="about" className="relative py-16 sm:py-28 bg-[#020408] overflow-hidden">
       {/* Background grid */}
       <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030810]/60 to-transparent pointer-events-none" />
@@ -137,7 +137,8 @@ export default function About() {
             >
               <div className="flex items-center gap-2 text-gray-500 text-sm">
                 <MapPin size={14} className="text-cyan-400" />
-                <span>{personalInfo.location}</span>
+                <span className="hidden sm:inline">{personalInfo.location}</span>
+                <span className="sm:hidden">Hyderabad, India</span>
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-sm">
                 <GraduationCap size={14} className="text-cyan-400" />
@@ -147,7 +148,8 @@ export default function About() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-cyan-400/70 hover:text-cyan-400 text-sm transition-colors font-mono"
+                aria-label="View GitHub profile"
+                className="flex items-center gap-2 text-cyan-400/70 hover:text-cyan-400 text-sm transition-colors font-mono focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm"
               >
                 <ExternalLink size={14} />
                 <span>github.com/Akhil351</span>
