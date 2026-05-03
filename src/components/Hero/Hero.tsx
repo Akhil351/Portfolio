@@ -50,10 +50,10 @@ function TypewriterCycler() {
 }
 
 const floatingBadges = [
-  { label: "FastAPI", color: "#00d4ff", x: "right-[8%]", y: "top-[22%]", delay: 0.3 },
-  { label: "LangGraph", color: "#ff6b35", x: "right-[3%]", y: "top-[42%]", delay: 0.6 },
-  { label: "AWS Lambda", color: "#00ff9f", x: "right-[10%]", y: "top-[62%]", delay: 0.9 },
-  { label: "PostgreSQL", color: "#ffd700", x: "right-[20%]", y: "top-[78%]", delay: 1.2 },
+  { label: "FastAPI", color: "#00d4ff", pos: "md:right-[4%] md:top-[22%] xl:right-[8%] xl:top-[22%]", delay: 0.3 },
+  { label: "LangGraph", color: "#ff6b35", pos: "md:right-[2%] md:top-[40%] xl:right-[3%] xl:top-[42%]", delay: 0.6 },
+  { label: "AWS Lambda", color: "#00ff9f", pos: "md:right-[6%] md:top-[58%] xl:right-[10%] xl:top-[62%]", delay: 0.9 },
+  { label: "PostgreSQL", color: "#ffd700", pos: "md:right-[14%] md:top-[74%] xl:right-[20%] xl:top-[78%]", delay: 1.2 },
 ];
 
 export default function Hero() {
@@ -177,11 +177,11 @@ export default function Hero() {
 
         </div>
 
-        <div className="hidden xl:block" aria-hidden="true">
+        <div className="hidden md:block" aria-hidden="true">
           {floatingBadges.map((badge, i) => (
             <motion.div
               key={badge.label}
-              className={`absolute ${badge.x} ${badge.y}`}
+              className={`absolute ${badge.pos}`}
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.8 + badge.delay, duration: 0.6 }}
