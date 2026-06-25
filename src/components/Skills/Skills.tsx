@@ -4,10 +4,12 @@ import { skills } from "../../data/portfolio";
 
 const proficiencyMap: Record<string, number> = {
   FastAPI: 95, "Spring Boot": 90, Go: 82, "Express.js": 75, Python: 95, Java: 88,
-  LangGraph: 92, LangChain: 90, "OpenAI API": 88, Tavily: 80, "Inngest Agent Kit": 75, "Google Gemini": 78,
-  "AWS Lambda": 88, "AWS CDK": 82, Docker: 80, "GitHub Actions": 85, "AWS S3": 85, "AWS Cognito": 80,
-  PostgreSQL: 90, MongoDB: 82, Redis: 75, Pinecone: 80, MySQL: 78, SQLAlchemy: 88,
-  "Spring Cloud": 85, RabbitMQ: 80, Eureka: 82, "API Gateway": 80, "Spring WebFlux": 75, OAuth2: 85,
+  LangGraph: 92, LangChain: 90, "OpenAI API": 88, Tavily: 80, Pinecone: 80, "Google Gemini": 78,
+  "AWS Lambda": 88, "AWS CDK": 82, Docker: 80, "GitHub Actions": 85, "AWS S3": 85, "AWS SES": 80,
+  PostgreSQL: 90, MongoDB: 82, Redis: 75, MySQL: 78, SQLAlchemy: 88, Pydantic: 86,
+  "Spring Data JPA": 82, Mongoose: 76,
+  "Spring Cloud": 85, RabbitMQ: 80, Eureka: 82, "API Gateway": 80, "Spring WebFlux": 75, "Spring Config": 78,
+  OAuth2: 85, JWT: 88, "AWS Cognito": 80, Clerk: 76, Pytest: 84, JUnit: 78,
   JavaScript: 82, C: 70, "C++": 72,
 };
 
