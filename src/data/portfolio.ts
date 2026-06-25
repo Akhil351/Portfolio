@@ -14,7 +14,7 @@ export const personalInfo = {
   summary: [
     "Backend engineer specializing in production-grade systems with FastAPI and Spring Boot, featuring domain-driven design, microservices architecture, and serverless AWS deployments.",
     "Expert in AI agent development using LangGraph and LangChain for conversational AI with multi-turn dialogue management, custom tool integration, and vector databases.",
-    "Proven track record designing scalable architectures including event-driven systems with RabbitMQ, RESTful APIs with OAuth2/JWT authentication, and CI/CD pipelines achieving 80%+ test coverage.",
+    "Proven track record designing scalable architectures including event-driven RabbitMQ systems, RESTful APIs with OAuth2/JWT authentication, and CI/CD pipelines with Pytest, Ruff, Mypy, and 80%+ test coverage.",
   ],
 };
 
@@ -22,31 +22,36 @@ export const skills = [
   {
     category: "Backend",
     color: "#00d4ff",
-    items: ["FastAPI", "Spring Boot", "Express.js", "REST APIs", "JWT Auth", "Microservices"],
+    items: ["FastAPI", "Spring Boot", "Express.js", "REST APIs", "Pydantic", "SQLAlchemy"],
   },
   {
     category: "AI / LLM",
     color: "#ff6b35",
-    items: ["LangGraph", "LangChain", "OpenAI API", "Tavily", "Inngest Agent Kit", "Google Gemini"],
+    items: ["LangGraph", "LangChain", "OpenAI API", "Tavily", "Pinecone", "Google Gemini"],
   },
   {
     category: "Cloud & DevOps",
     color: "#00ff9f",
-    items: ["AWS Lambda", "AWS CDK", "Docker", "GitHub Actions", "AWS S3", "AWS Cognito"],
+    items: ["AWS Lambda", "AWS CDK", "Docker", "GitHub Actions", "AWS S3", "AWS SES"],
   },
   {
     category: "Databases",
     color: "#ffd700",
-    items: ["PostgreSQL", "MongoDB", "Redis", "Pinecone", "MySQL", "SQLAlchemy"],
+    items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Spring Data JPA", "Mongoose"],
   },
   {
     category: "Microservices",
     color: "#ff4d8d",
-    items: ["Spring Cloud", "RabbitMQ", "Eureka", "API Gateway", "Spring WebFlux", "OAuth2"],
+    items: ["Spring Cloud", "RabbitMQ", "Eureka", "API Gateway", "Spring WebFlux", "Spring Config"],
+  },
+  {
+    category: "Auth & Testing",
+    color: "#a78bfa",
+    items: ["OAuth2", "JWT", "AWS Cognito", "Clerk", "Pytest", "JUnit"],
   },
   {
     category: "Languages",
-    color: "#a78bfa",
+    color: "#38bdf8",
     items: ["Python", "Go", "Java", "JavaScript", "C", "C++"],
   },
 ];
@@ -61,14 +66,15 @@ export const experiences = [
     project: "APEX – Transportation Back Office System",
     type: "full-time",
     highlights: [
-      "Architected a FastAPI backend with domain-driven design supporting multiple core domains (Clients, Pricing & Rating, Transit Times, Billing) with clean separation between API, service, and data layers.",
-      "Deployed serverless application on AWS Lambda using AWS CDK for infrastructure-as-code, with CI/CD pipelines via GitHub Actions achieving 80%+ test coverage.",
-      "Designed comprehensive RESTful APIs with JWT authentication via AWS Cognito, input validation, and structured error handling.",
-      "Engineered PostgreSQL persistence using SQLAlchemy ORM with a multi-schema architecture.",
-      "Integrated SMC3 (freight rating), HERE.com (geocoding), EIA (fuel pricing), AWS S3, and AWS SES.",
-      "Implemented Excel/CSV export generation, PDF generation for quotes, and structured JSON logging.",
+      "Developed a production-grade transportation back-office backend using FastAPI, PostgreSQL, SQLAlchemy, Pydantic, and domain-driven module architecture.",
+      "Built client workflows for account lookup, shipment creation/listing/export, pickup scheduling and rescheduling, quick quotes, freight density calculation, ZIP search, and lookup APIs.",
+      "Implemented Pricing & Rating modules for fuel prices, fuel scales, accessorial charges, rate bases, lane minimums, high-cost ZIPs, global rates, pricing rules, and volume rates.",
+      "Integrated SMC3 freight rating, HERE geocoding, EIA fuel pricing, Daylight services, Falvey insurance, AWS S3, AWS SES, and AWS Secrets Manager.",
+      "Built document workflows for bill of lading PDFs, shipping labels, blind shipment forms, pickup/shipping label emails, reusable templates, and Excel/CSV exports.",
+      "Designed secured REST APIs with AWS Cognito/JWT authentication, centralized exception handling, typed response wrappers, multi-schema persistence, and structured JSON logging.",
+      "Deployed serverless AWS Lambda infrastructure using Mangum and AWS CDK, with GitHub Actions CI/CD, Pytest, Ruff, Mypy, and 80%+ test coverage.",
     ],
-    tech: ["FastAPI", "AWS Lambda", "PostgreSQL", "AWS CDK", "SQLAlchemy", "JWT"],
+    tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "AWS Lambda", "AWS CDK", "Cognito", "Pytest"],
   },
   {
     id: 2,
@@ -93,7 +99,7 @@ export const projects = [
     title: "AI Chatbot",
     subtitle: "LangGraph + GPT-4 Powered",
     description:
-      "Full-stack AI chat application with React + Tailwind CSS frontend and FastAPI backend supporting multi-threaded conversations with PostgreSQL-backed persistent history. Integrated OpenAI GPT-4 with LangGraph for stateful conversation management.",
+      "Full-stack AI chat application with React + Tailwind CSS frontend and FastAPI backend supporting multi-threaded conversations with PostgreSQL-backed persistent history. Integrated OpenAI GPT-4 with LangGraph for stateful conversation management, custom tools, Tavily web search, and SQLAlchemy session handling.",
     tech: ["FastAPI", "LangGraph", "OpenAI GPT-4", "PostgreSQL", "React", "Tavily"],
     github: "https://github.com/Akhil351/langgraph-chatbot",
     demo: "https://github.com/Akhil351/langgraph-chatbot",
@@ -105,7 +111,7 @@ export const projects = [
     title: "Travel Agent AI",
     subtitle: "Intelligent Travel Planning",
     description:
-      "AI travel assistant using LangGraph with FastAPI backend providing intelligent flight and hotel search through natural language. Integrated Pinecone vector database for conversation context retrieval and SerpAPI-based search.",
+      "AI travel assistant using LangGraph with a FastAPI backend for natural-language flight and hotel search. Integrated Pinecone for conversation context retrieval, SerpAPI tools with structured JSON responses, PostgreSQL persistence, and LangChain tool orchestration.",
     tech: ["LangGraph", "FastAPI", "Pinecone", "PostgreSQL", "LangChain", "SerpAPI"],
     github: "https://github.com/Akhil351/Travel_Agent",
     demo: "https://github.com/Akhil351/Travel_Agent",
@@ -117,10 +123,10 @@ export const projects = [
     title: "Budget Buddy",
     subtitle: "AI Finance Assistant",
     description:
-      "AI-powered finance assistant using LangGraph and LangChain with intelligent financial tracking, income/expense analytics, real-time balance monitoring, and web search integration with persistent conversation memory.",
+      "AI-powered command-line finance assistant using LangGraph and LangChain with income/expense tracking, date-range analytics, real-time balance monitoring, web search integration, dependency injection, PostgreSQL persistence, and conversation memory.",
     tech: ["LangGraph", "LangChain", "PostgreSQL", "SQLAlchemy", "Python"],
-    github: "https://github.com/Akhil351/budget-buddy",
-    demo: "https://github.com/Akhil351/budget-buddy",
+    github: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
+    demo: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
     color: "#00ff9f",
     icon: "wallet",
   },
@@ -129,7 +135,7 @@ export const projects = [
     title: "Fitness AI Platform",
     subtitle: "Microservices + AI Recommendations",
     description:
-      "Microservices platform using Spring Boot with Eureka service discovery, Spring Cloud Gateway, and RabbitMQ for event-driven communication. AI recommendation service powered by Google Gemini with Spring WebFlux.",
+      "Microservices platform using Spring Boot with Eureka service discovery, Spring Cloud Gateway, centralized configuration, and RabbitMQ for asynchronous communication between user, activity, and AI recommendation services. Built a Gemini-powered recommendation service with Spring WebFlux, MongoDB, and OAuth2.",
     tech: ["Spring Boot", "RabbitMQ", "Google Gemini", "MongoDB", "Spring WebFlux", "OAuth2"],
     github: "https://github.com/Akhil351/fitness",
     demo: "https://github.com/Akhil351/fitness",
@@ -141,7 +147,7 @@ export const projects = [
     title: "ClearBG",
     subtitle: "AI Background Removal",
     description:
-      "Full-stack image background removal application using Spring Boot backend, React frontend, and ClipDrop API. Features Clerk authentication, webhook synchronization, JWT security, and Razorpay credit-based payments.",
+      "Full-stack image background removal application using Spring Boot, React, and ClipDrop API. Integrated Clerk authentication with webhook synchronization, JWT-based API security using custom filters, Razorpay credit payments, and reactive Spring WebClient for asynchronous AI service calls.",
     tech: ["Spring Boot", "React", "Clerk", "Razorpay", "ClipDrop API", "JWT"],
     github: "https://github.com/Akhil351/ClearBG",
     demo: "https://github.com/Akhil351/ClearBG",
