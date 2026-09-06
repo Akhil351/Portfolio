@@ -1,22 +1,17 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
   build: {
+    // Three.js is an intentionally lazy, self-contained engine chunk (~680 kB).
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'motion-vendor': ['framer-motion'],
-          'icons': ['lucide-react'],
+        manualChunks(id) {
+          if (id.includes("/node_modules/three/")) return "three-engine";
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
   },
 });

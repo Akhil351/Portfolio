@@ -1,6 +1,9 @@
 export const personalInfo = {
   name: "Vathaluru Akhileswar Reddy",
-  shortName: "Akhileswar",
+  shortName: "Akhil",
+  displayName: "Akhil Vathaluru",
+  resume: "/resume.pdf",
+  formId: "myzerepa",
   role: "Backend & AI Systems Engineer",
   tagline: "Building Scalable Backend Systems & AI Agents",
   email: "akhil.vathaluru@gmail.com",
@@ -22,27 +25,62 @@ export const skills = [
   {
     category: "Backend",
     color: "#00d4ff",
-    items: ["FastAPI", "Spring Boot", "Express.js", "REST APIs", "Pydantic", "SQLAlchemy"],
+    items: [
+      "FastAPI",
+      "Spring Boot",
+      "Express.js",
+      "REST APIs",
+      "Pydantic",
+      "SQLAlchemy",
+    ],
   },
   {
     category: "AI / LLM",
     color: "#ff6b35",
-    items: ["LangGraph", "LangChain", "OpenAI API", "Tavily", "Pinecone", "Google Gemini"],
+    items: [
+      "LangGraph",
+      "LangChain",
+      "OpenAI API",
+      "Tavily",
+      "Pinecone",
+      "Google Gemini",
+    ],
   },
   {
     category: "Cloud & DevOps",
     color: "#00ff9f",
-    items: ["AWS Lambda", "AWS CDK", "Docker", "GitHub Actions", "AWS S3", "AWS SES"],
+    items: [
+      "AWS Lambda",
+      "AWS CDK",
+      "Docker",
+      "GitHub Actions",
+      "AWS S3",
+      "AWS SES",
+    ],
   },
   {
     category: "Databases",
     color: "#ffd700",
-    items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Spring Data JPA", "Mongoose"],
+    items: [
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Redis",
+      "Spring Data JPA",
+      "Mongoose",
+    ],
   },
   {
     category: "Microservices",
     color: "#ff4d8d",
-    items: ["Spring Cloud", "RabbitMQ", "Eureka", "API Gateway", "Spring WebFlux", "Spring Config"],
+    items: [
+      "Spring Cloud",
+      "RabbitMQ",
+      "Eureka",
+      "API Gateway",
+      "Spring WebFlux",
+      "Spring Config",
+    ],
   },
   {
     category: "Auth & Testing",
@@ -74,7 +112,15 @@ export const experiences = [
       "Designed secured REST APIs with AWS Cognito/JWT authentication, centralized exception handling, typed response wrappers, multi-schema persistence, and structured JSON logging.",
       "Deployed serverless AWS Lambda infrastructure using Mangum and AWS CDK, with GitHub Actions CI/CD, Pytest, Ruff, Mypy, and 80%+ test coverage.",
     ],
-    tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "AWS Lambda", "AWS CDK", "Cognito", "Pytest"],
+    tech: [
+      "FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "AWS Lambda",
+      "AWS CDK",
+      "Cognito",
+      "Pytest",
+    ],
   },
   {
     id: 2,
@@ -93,64 +139,140 @@ export const experiences = [
   },
 ];
 
-export const projects = [
+export interface Project {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  tech: string[];
+  github: string;
+  demo: string | null;
+  color: string;
+  icon: string;
+  category: string;
+  summary: string;
+  architecture: string[];
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "AI Chatbot",
+    category: "Conversational AI",
+    summary: "Conversations that remember. Agents that act.",
+    architecture: [
+      "React interface",
+      "FastAPI",
+      "LangGraph + GPT-4",
+      "Tools + PostgreSQL",
+    ],
     subtitle: "LangGraph + GPT-4 Powered",
     description:
       "Full-stack AI chat application with React + Tailwind CSS frontend and FastAPI backend supporting multi-threaded conversations with PostgreSQL-backed persistent history. Integrated OpenAI GPT-4 with LangGraph for stateful conversation management, custom tools, Tavily web search, and SQLAlchemy session handling.",
-    tech: ["FastAPI", "LangGraph", "OpenAI GPT-4", "PostgreSQL", "React", "Tavily"],
+    tech: [
+      "FastAPI",
+      "LangGraph",
+      "OpenAI GPT-4",
+      "PostgreSQL",
+      "React",
+      "Tavily",
+    ],
     github: "https://github.com/Akhil351/langgraph-chatbot",
-    demo: "https://github.com/Akhil351/langgraph-chatbot",
+    demo: null,
     color: "#00d4ff",
     icon: "bot",
   },
   {
     id: 2,
     title: "Travel Agent AI",
+    category: "Agentic systems",
+    summary: "From a natural-language request to a smarter itinerary.",
+    architecture: [
+      "Travel request",
+      "LangGraph",
+      "SerpAPI search",
+      "Pinecone + PostgreSQL",
+    ],
     subtitle: "Intelligent Travel Planning",
     description:
       "AI travel assistant using LangGraph with a FastAPI backend for natural-language flight and hotel search. Integrated Pinecone for conversation context retrieval, SerpAPI tools with structured JSON responses, PostgreSQL persistence, and LangChain tool orchestration.",
-    tech: ["LangGraph", "FastAPI", "Pinecone", "PostgreSQL", "LangChain", "SerpAPI"],
+    tech: [
+      "LangGraph",
+      "FastAPI",
+      "Pinecone",
+      "PostgreSQL",
+      "LangChain",
+      "SerpAPI",
+    ],
     github: "https://github.com/Akhil351/Travel_Agent",
-    demo: "https://github.com/Akhil351/Travel_Agent",
+    demo: null,
     color: "#ff6b35",
     icon: "plane",
   },
   {
     id: 3,
     title: "Budget Buddy",
+    category: "AI tooling",
+    summary: "A conversational approach to everyday finances.",
+    architecture: [
+      "CLI conversation",
+      "LangGraph",
+      "Finance tools",
+      "PostgreSQL",
+    ],
     subtitle: "AI Finance Assistant",
     description:
       "AI-powered command-line finance assistant using LangGraph and LangChain with income/expense tracking, date-range analytics, real-time balance monitoring, web search integration, dependency injection, PostgreSQL persistence, and conversation memory.",
     tech: ["LangGraph", "LangChain", "PostgreSQL", "SQLAlchemy", "Python"],
     github: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
-    demo: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
+    demo: null,
     color: "#00ff9f",
     icon: "wallet",
   },
   {
     id: 4,
     title: "Fitness AI Platform",
+    category: "Distributed systems",
+    summary: "Independent services. Intelligent recommendations.",
+    architecture: [
+      "API Gateway",
+      "User + activity services",
+      "RabbitMQ",
+      "Gemini recommendations",
+    ],
     subtitle: "Microservices + AI Recommendations",
     description:
       "Microservices platform using Spring Boot with Eureka service discovery, Spring Cloud Gateway, centralized configuration, and RabbitMQ for asynchronous communication between user, activity, and AI recommendation services. Built a Gemini-powered recommendation service with Spring WebFlux, MongoDB, and OAuth2.",
-    tech: ["Spring Boot", "RabbitMQ", "Google Gemini", "MongoDB", "Spring WebFlux", "OAuth2"],
+    tech: [
+      "Spring Boot",
+      "RabbitMQ",
+      "Google Gemini",
+      "MongoDB",
+      "Spring WebFlux",
+      "OAuth2",
+    ],
     github: "https://github.com/Akhil351/fitness",
-    demo: "https://github.com/Akhil351/fitness",
+    demo: null,
     color: "#ffd700",
     icon: "activity",
   },
   {
     id: 5,
     title: "ClearBG",
+    category: "Full stack",
+    summary: "A complete workflow, from image to clean background.",
+    architecture: [
+      "React + Clerk",
+      "Spring Boot",
+      "ClipDrop API",
+      "Razorpay credits",
+    ],
     subtitle: "AI Background Removal",
     description:
       "Full-stack image background removal application using Spring Boot, React, and ClipDrop API. Integrated Clerk authentication with webhook synchronization, JWT-based API security using custom filters, Razorpay credit payments, and reactive Spring WebClient for asynchronous AI service calls.",
     tech: ["Spring Boot", "React", "Clerk", "Razorpay", "ClipDrop API", "JWT"],
     github: "https://github.com/Akhil351/ClearBG",
-    demo: "https://github.com/Akhil351/ClearBG",
+    demo: null,
     color: "#ff4d8d",
     icon: "image",
   },
@@ -162,7 +284,8 @@ export const achievements = [
     title: "LeetCode",
     value: "530+",
     label: "Problems Solved",
-    description: "Solved 530+ problems across Easy, Medium, and Hard difficulty covering arrays, trees, graphs, recursion, and dynamic programming.",
+    description:
+      "Solved 530+ problems across Easy, Medium, and Hard difficulty covering arrays, trees, graphs, recursion, and dynamic programming.",
     link: "https://leetcode.com/u/akhil2004/",
     color: "#ffd700",
     icon: "code",
@@ -172,7 +295,8 @@ export const achievements = [
     title: "Red Hat Certified",
     value: "EX183",
     label: "Enterprise Developer",
-    description: "Enterprise Application Developer — validated expertise in Java EE, RESTful services, CDI, JPA, and JBoss EAP deployment.",
+    description:
+      "Enterprise Application Developer — validated expertise in Java EE, RESTful services, CDI, JPA, and JBoss EAP deployment.",
     link: "https://rhtapps.redhat.com/verify?certId=230-171-886",
     color: "#ff6b35",
     icon: "shield",
@@ -182,7 +306,8 @@ export const achievements = [
     title: "Hackathon Finalist",
     value: "Top 700",
     label: "of 57,000+ participants",
-    description: "Google Cloud Agentic AI Day (Hack2skill, 2025) — Built an AI-powered monitoring system using Vertex AI, Gemini, Next.js, and ESP32 within 30 hours.",
+    description:
+      "Google Cloud Agentic AI Day (Hack2skill, 2025) — Built an AI-powered monitoring system using Vertex AI, Gemini, Next.js, and ESP32 within 30 hours.",
     link: "https://certificate.hack2skill.com/user/aidayfinalist-1/2025H2S06AID-F01638",
     color: "#00ff9f",
     icon: "trophy",
@@ -192,9 +317,54 @@ export const achievements = [
     title: "CGPA",
     value: "9.43",
     label: "KL University",
-    description: "Bachelor of Technology in Computer Science and Engineering at KL University, Guntur (2021–2025).",
+    description:
+      "Bachelor of Technology in Computer Science and Engineering at KL University, Guntur (2021–2025).",
     link: null,
     color: "#00d4ff",
     icon: "graduation",
   },
+];
+
+// Technologies below are also documented in the existing project descriptions and experience.
+export const engineeringStack = [
+  ...skills.map((group) =>
+    group.category === "Microservices"
+      ? {
+          ...group,
+          category: "Distributed Systems",
+          items: [...group.items, "Hyperledger Fabric"],
+        }
+      : group,
+  ),
+  {
+    category: "Frontend",
+    color: "#91a9ff",
+    items: ["React", "Tailwind CSS", "Next.js"],
+  },
+];
+
+export const navigation = [
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "skills", label: "Stack" },
+  { id: "projects", label: "Projects" },
+  { id: "achievements", label: "Recognition" },
+  { id: "contact", label: "Contact" },
+];
+
+export const education = {
+  school: "KL University",
+  location: "Guntur, India",
+  period: "2021 – 2025",
+  degree: "Bachelor of Technology",
+  field: "Computer Science & Engineering",
+  cgpa: "9.43",
+};
+
+// Preserved from the original About and Achievements sections.
+export const profileMilestones = [
+  { value: "2+", label: "Years of experience" },
+  { value: "15+", label: "AI projects built" },
+  { value: "80%+", label: "Test coverage" },
+  { value: "10+", label: "External API integrations" },
 ];
