@@ -30,15 +30,15 @@ export default function Hero() {
               ENGINEERING SYSTEMS. CREATING POSSIBILITIES.
             </p>
             <h1 id="hero-title">
-              Akhil
-              <span>
-                Vathaluru<span className="name-period">.</span>
+              {personalInfo.displayName.toUpperCase()}
+              <span className="name-period" aria-hidden="true">
+                .
               </span>
             </h1>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="hero-role">
-              Backend Engineer <span>/</span> AI Systems Engineer
+              Backend Engineer <span>•</span> AI Systems Engineer
             </p>
             <p className="hero-description">
               I build scalable backends, cloud-native applications,
@@ -53,7 +53,7 @@ export default function Hero() {
             <a
               className="button button-secondary"
               href={personalInfo.resume}
-              download="Akhil-Vathaluru-Resume.pdf"
+              download={personalInfo.resumeFilename}
             >
               <Download size={16} />
               Download resume
@@ -80,7 +80,7 @@ export default function Hero() {
           <div className="core-ambient" aria-hidden="true" />
           <div className="visual-caption">
             <span className="tiny-cross">+</span> DIGITAL SYSTEMS CORE{" "}
-            <span>AV — 01</span>
+            <span>A — 01</span>
           </div>
           <Suspense
             fallback={

@@ -52,8 +52,8 @@ export default function About() {
         <div className="about-layout">
           <Reveal className="about-editorial">
             <p className="about-lead">
-              I’m Akhil, a backend engineer who cares about what happens{" "}
-              <span>beneath the interface.</span>
+              I’m {personalInfo.displayName}, a backend engineer who cares about
+              what happens <span>beneath the interface.</span>
             </p>
             <p>
               At Ideyalabs, I build production systems with FastAPI, PostgreSQL,

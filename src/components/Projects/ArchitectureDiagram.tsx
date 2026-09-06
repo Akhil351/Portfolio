@@ -28,7 +28,7 @@ export default function ArchitectureDiagram({ project }: { project: Project }) {
       <div className="architecture-footer">
         <span className="status-dot" />
         {project.category}
-        <span>AV / 0{project.id}</span>
+        <span>A / 0{project.id}</span>
       </div>
     </div>
   );

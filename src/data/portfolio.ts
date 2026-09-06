@@ -1,8 +1,9 @@
 export const personalInfo = {
   name: "Vathaluru Akhileswar Reddy",
-  shortName: "Akhil",
-  displayName: "Akhil Vathaluru",
+  shortName: "Akhileswar",
+  displayName: "Akhileswar",
   resume: "/resume.pdf",
+  resumeFilename: "Vathaluru-Akhileswar-Reddy-Resume.pdf",
   formId: "myzerepa",
   role: "Backend & AI Systems Engineer",
   tagline: "Building Scalable Backend Systems & AI Agents",

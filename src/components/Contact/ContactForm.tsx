@@ -18,7 +18,7 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       className="contact-form"
-      aria-label="Send Akhil a message"
+      aria-label={`Send ${personalInfo.displayName} a message`}
     >
       <div className="form-intro">
         <h3>A good conversation starts here.</h3>

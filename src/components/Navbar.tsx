@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { navigation } from "../data/portfolio";
+import { navigation, personalInfo } from "../data/portfolio";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -60,13 +60,15 @@ export default function Navbar() {
         <a
           className="brand"
           href="#hero"
-          aria-label="Akhil Vathaluru, home"
+          aria-label={`${personalInfo.displayName}, home`}
           onClick={() => setOpen(false)}
         >
           <span className="brand-mark" aria-hidden="true">
-            av<span>·</span>
+            a<span>·</span>
           </span>
-          <span className="brand-name">AKHIL VATHALURU</span>
+          <span className="brand-name">
+            {personalInfo.displayName.toUpperCase()}
+          </span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.slice(0, -1).map((item) => (

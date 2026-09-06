@@ -5,9 +5,13 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-layout">
-        <a className="brand" href="#hero" aria-label="Akhil Vathaluru, home">
+        <a
+          className="brand"
+          href="#hero"
+          aria-label={`${personalInfo.displayName}, home`}
+        >
           <span className="brand-mark" aria-hidden="true">
-            av<span>·</span>
+            a<span>·</span>
           </span>
           <span>
             © {new Date().getFullYear()} {personalInfo.displayName}

@@ -22,7 +22,7 @@ export default function Experience() {
             <a
               className="text-link"
               href={personalInfo.resume}
-              download="Akhil-Vathaluru-Resume.pdf"
+              download={personalInfo.resumeFilename}
             >
               The full story, in my resume <ArrowDownRight size={17} />
             </a>

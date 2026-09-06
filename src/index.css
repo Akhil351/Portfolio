@@ -257,10 +257,6 @@ a:hover {
   letter-spacing: -6px;
   line-height: 1.03;
 }
-.hero h1 > span {
-  display: block;
-  color: #a6b9d4;
-}
 .name-period {
   color: #92c9ff;
 }
@@ -2450,5 +2446,24 @@ a:hover {
   }
   .profile-milestones > div > span {
     font-size: 10px;
+  }
+}
+
+/* Keep the corrected, single-word brand inside the existing hero columns. */
+.hero h1 {
+  font-size: clamp(48px, 5.65vw, 82px);
+  letter-spacing: -0.055em;
+}
+.hero-copy {
+  min-width: 0;
+}
+@media (max-width: 1099px) and (min-width: 761px) {
+  .hero h1 {
+    font-size: clamp(44px, 5.65vw, 62px);
+  }
+}
+@media (max-width: 760px) {
+  .hero h1 {
+    font-size: clamp(36px, 9.35vw, 68px);
   }
 }
