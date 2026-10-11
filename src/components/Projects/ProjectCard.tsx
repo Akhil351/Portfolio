@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Github, ExternalLink, Bot, Plane, Wallet, Activity, Image as ImageIcon } from "lucide-react";
+import { Github, ExternalLink, Bot, Plane, Wallet, Activity, Image as ImageIcon, Database } from "lucide-react";
 import { useRef } from "react";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -8,6 +8,7 @@ const iconMap: Record<string, React.ElementType> = {
   wallet: Wallet,
   activity: Activity,
   image: ImageIcon,
+  database: Database,
 };
 
 /* Mock terminal lines per project */
@@ -46,6 +47,13 @@ const mockLines: Record<number, string[]> = {
     "> ClipDrop API: connected",
     "> Razorpay: payment gateway UP",
     "✓ BG removal service ready",
+  ],
+  6: [
+    "$ uv run python main.py",
+    "> Router: classified request",
+    "> ETL analyst: extract / transform tools",
+    "> SQL analyst: schema context loaded",
+    "✓ Data agent response ready",
   ],
 };
 

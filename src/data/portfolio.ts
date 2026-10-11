@@ -154,6 +154,18 @@ export const projects = [
     color: "#ff4d8d",
     icon: "image",
   },
+  {
+    id: 6,
+    title: "AI Data Agent",
+    subtitle: "Multi-Agent ETL & SQL Analyst",
+    description:
+      "LLM-powered multi-agent system that routes natural-language requests to an ETL analyst or an SQL analyst. The ETL agent extracts JSON from HTTP APIs, transforms CSV, JSON, and Parquet files with LLM-generated Pandas code, and saves the results. The SQL agent inspects PostgreSQL schema context, generates SQL, passes it through an LLM safety judge, executes approved queries, and explains the answer in plain language. Built with LangGraph state graphs and Pydantic-structured outputs.",
+    tech: ["Python", "LangGraph", "LangChain", "Pydantic", "Pandas", "PostgreSQL", "SQLAlchemy"],
+    github: "https://github.com/Akhil351/Data_Agent",
+    demo: null,
+    color: "#a78bfa",
+    icon: "database",
+  },
 ];
 
 export const achievements = [
