@@ -34,21 +34,29 @@ const stats = [
   { value: 9.43, suffix: "", label: "CGPA", color: "#00ff9f" },
 ];
 
+/* Spring count-up; only mounted once the counter is in view */
+function CountUp({ value, decimals }: { value: number; decimals: number }) {
+  const motionVal = useMotionValue(0);
+  const spring = useSpring(motionVal, { stiffness: 40, damping: 18 });
+  const display = useTransform(spring, (v) => (decimals > 0 ? v.toFixed(decimals) : Math.floor(v).toString()));
+
+  useEffect(() => {
+    motionVal.set(value);
+  }, [value, motionVal]);
+
+  return <motion.span>{display}</motion.span>;
+}
+
 function AnimatedCounter({ value, suffix, color }: { value: number; suffix: string; color: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { stiffness: 40, damping: 18 });
-  const isDecimal = !Number.isInteger(value);
-  const display = useTransform(spring, (v) => (isDecimal ? v.toFixed(2) : Math.floor(v).toString()));
-
-  useEffect(() => {
-    if (inView) motionVal.set(value);
-  }, [inView, value, motionVal]);
+  const decimals = Number.isInteger(value) ? 0 : 2;
+  /* Real target value is rendered until the counter scrolls into view, so crawlers that don't scroll index e.g. "530+" instead of "0+" */
+  const targetText = decimals > 0 ? value.toFixed(decimals) : String(value);
 
   return (
     <div ref={ref} className="text-3xl md:text-4xl font-black font-mono leading-none" style={{ color }}>
-      <motion.span>{display}</motion.span>
+      {inView ? <CountUp value={value} decimals={decimals} /> : <span>{targetText}</span>}
       <span>{suffix}</span>
     </div>
   );

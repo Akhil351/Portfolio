@@ -1,52 +1,39 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { skills } from "../../data/portfolio";
 
-const proficiencyMap: Record<string, number> = {
-  FastAPI: 95, "Spring Boot": 90, Go: 82, "Express.js": 75, Python: 95, Java: 88,
-  LangGraph: 92, LangChain: 90, "OpenAI API": 88, Tavily: 80, Pinecone: 80, "Google Gemini": 78,
-  "AWS Lambda": 88, "AWS CDK": 82, Docker: 80, "GitHub Actions": 85, "AWS S3": 85, "AWS SES": 80,
-  PostgreSQL: 90, MongoDB: 82, Redis: 75, MySQL: 78, SQLAlchemy: 88, Pydantic: 86,
-  "Spring Data JPA": 82, Mongoose: 76,
-  "Spring Cloud": 85, RabbitMQ: 80, Eureka: 82, "API Gateway": 80, "Spring WebFlux": 75, "Spring Config": 78,
-  OAuth2: 85, JWT: 88, "AWS Cognito": 80, Clerk: 76, Pytest: 84, JUnit: 78,
-  JavaScript: 82, C: 70, "C++": 72,
-};
+/* "Core" = primary production stack; every other skill is "Proficient" */
+const coreSkills = new Set([
+  "FastAPI", "LangGraph", "Spring Boot", "LangChain", "PostgreSQL", "AWS Lambda", "SQLAlchemy", "Java",
+]);
 
-function SkillBar({ name, color, index }: { name: string; color: string; index: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const pct = proficiencyMap[name] ?? 75;
+function SkillBadge({ name, color, index, inView }: { name: string; color: string; index: number; inView: boolean }) {
+  const isCore = coreSkills.has(name);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 8 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group"
+    <motion.span
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ delay: index * 0.04, duration: 0.35 }}
+      className="inline-flex items-center gap-2 px-2.5 py-1 text-[11px] font-mono rounded-sm border cursor-default
+                 transition-all duration-300 hover:-translate-y-0.5 hover:[box-shadow:0_0_14px_var(--glow)]"
+      style={{
+        color: `${color}e6`,
+        borderColor: isCore ? `${color}60` : `${color}25`,
+        backgroundColor: `${color}0a`,
+        "--glow": `${color}66`,
+      } as CSSProperties}
     >
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-xs font-mono" style={{ color: `${color}cc` }}>{name}</span>
-        <motion.span
-          className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity"
-          style={{ color: `${color}80` }}
-        >
-          {pct}%
-        </motion.span>
-      </div>
-      <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full rounded-full relative overflow-hidden"
-          style={{ background: `linear-gradient(90deg, ${color}80, ${color})` }}
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${pct}%` } : {}}
-          transition={{ delay: index * 0.05 + 0.2, duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="absolute inset-0 shimmer opacity-60" />
-        </motion.div>
-      </div>
-    </motion.div>
+      <span
+        className="w-1.5 h-1.5 rounded-full shrink-0"
+        style={
+          isCore
+            ? { backgroundColor: color, boxShadow: `0 0 6px ${color}` }
+            : { border: `1px solid ${color}80` }
+        }
+      />
+      {name}
+    </motion.span>
   );
 }
 
@@ -63,7 +50,8 @@ function SkillCategory({ category, color, items, index }: {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.08, duration: 0.6 }}
       className="relative p-6 rounded-sm border border-gray-800 bg-gradient-to-b from-gray-900/40 to-transparent
-                 hover:border-gray-700 transition-all group overflow-hidden"
+                 hover:border-gray-700 hover:[box-shadow:0_0_40px_-18px_var(--accent)] transition-all duration-500 group overflow-hidden"
+      style={{ "--accent": color } as CSSProperties}
     >
       {/* Top neon line */}
       <div
@@ -93,76 +81,15 @@ function SkillCategory({ category, color, items, index }: {
         <span className="text-[10px] font-mono text-gray-600">{items.length} skills</span>
       </div>
 
-      {/* Skill bars */}
-      <div className="space-y-3.5">
+      {/* Skill badges */}
+      <div className="flex flex-wrap gap-2.5">
         {items.map((item, i) => (
-          <SkillBar key={item} name={item} color={color} index={i} />
+          <SkillBadge key={item} name={item} color={color} index={i} inView={inView} />
         ))}
       </div>
     </motion.div>
   );
 }
-
-function TopProficiencyBar({ name, level, color, index, parentInView }: {
-  name: string; level: number; color: string; index: number; parentInView: boolean;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const shouldAnimate = inView && parentInView;
-  return (
-    <div ref={ref} className="space-y-1.5">
-      <div className="flex justify-between">
-        <span className="text-xs font-mono text-gray-300">{name}</span>
-        <span className="text-[10px] font-mono" style={{ color }}>{level}%</span>
-      </div>
-      <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full rounded-full"
-          style={{ background: `linear-gradient(90deg, ${color}60, ${color})` }}
-          initial={{ width: 0 }}
-          animate={shouldAnimate ? { width: `${level}%` } : {}}
-          transition={{ delay: index * 0.06 + 0.3, duration: 1, ease: "easeOut" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function TopProficiencies({ inView }: { inView: boolean }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: 0.3 }}
-      className="mb-12 p-6 rounded-sm border border-gray-800 bg-gray-900/20"
-    >
-      <div className="text-gray-600 font-mono text-[10px] tracking-widest mb-5 uppercase">Top Proficiencies</div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4">
-        {topSkills.map((s, i) => (
-          <TopProficiencyBar
-            key={s.name}
-            name={s.name}
-            level={s.level}
-            color={s.color}
-            index={i}
-            parentInView={inView}
-          />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-const topSkills = [
-  { name: "FastAPI", level: 95, color: "#00d4ff" },
-  { name: "LangGraph", level: 92, color: "#ff6b35" },
-  { name: "Spring Boot", level: 90, color: "#ffd700" },
-  { name: "LangChain", level: 90, color: "#ff6b35" },
-  { name: "PostgreSQL", level: 90, color: "#00ff9f" },
-  { name: "AWS Lambda", level: 88, color: "#00d4ff" },
-  { name: "SQLAlchemy", level: 88, color: "#00d4ff" },
-  { name: "Java", level: 88, color: "#ffd700" },
-];
 
 export default function Skills() {
   const ref = useRef(null);
@@ -202,13 +129,28 @@ export default function Skills() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
-          className="text-gray-500 mb-12 max-w-xl text-[15px]"
+          className="text-gray-500 mb-8 max-w-xl text-[15px]"
         >
           Tools I use to architect backends, orchestrate AI agents, and ship to production.
         </motion.p>
 
-        {/* Top skills highlight */}
-        <TopProficiencies inView={inView} />
+        {/* Proficiency legend */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-12 font-mono text-[11px] text-gray-500"
+        >
+          <span className="text-gray-600 text-[10px] tracking-widest uppercase">Proficiency</span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
+            Core · primary stack
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full border border-gray-500" />
+            Proficient · hands-on
+          </span>
+        </motion.div>
 
         {/* Category grids */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

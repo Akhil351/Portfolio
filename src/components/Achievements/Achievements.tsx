@@ -10,29 +10,51 @@ const iconMap: Record<string, React.ElementType> = {
   graduation: GraduationCap,
 };
 
-function AnimatedValue({ value, color }: { value: string; color: string }) {
-  const numericPart = parseFloat(value.replace(/[^0-9.]/g, ""));
-  const suffix = value.replace(/[0-9.]/g, "");
+/* Matches plain numbers with an optional "+": "530+", "9.43", "2" */
+const NUMERIC_PATTERN = /^(\d+(?:\.\d+)?)(\+?)$/;
+
+/* Spring count-up; only mounted once the value is in view */
+function CountUp({ target, decimals }: { target: number; decimals: number }) {
   const motionVal = useMotionValue(0);
   const spring = useSpring(motionVal, { stiffness: 40, damping: 18 });
-  const display = useTransform(spring, (v) =>
-    Number.isInteger(numericPart) ? Math.floor(v).toString() : v.toFixed(2)
-  );
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const display = useTransform(spring, (v) => (decimals > 0 ? v.toFixed(decimals) : Math.floor(v).toString()));
 
   useEffect(() => {
-    if (inView) motionVal.set(numericPart);
-  }, [inView, numericPart, motionVal]);
+    motionVal.set(target);
+  }, [target, motionVal]);
+
+  return <motion.span>{display}</motion.span>;
+}
+
+function AnimatedValue({ value, color }: { value: string; color: string }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const match = value.match(NUMERIC_PATTERN);
+  const style = { color, textShadow: `0 0 40px ${color}60` };
+  const className = "text-3xl sm:text-4xl md:text-5xl font-black font-mono leading-none";
+
+  /* Non-numeric values such as "EX183" or "Top 700" are rendered as-is */
+  if (!match) {
+    return (
+      <div ref={ref} className={className} style={style}>
+        {value}
+      </div>
+    );
+  }
+
+  const [, digits, suffix] = match;
+  const decimals = digits.split(".")[1]?.length ?? 0;
 
   return (
-    <div
-      ref={ref}
-      className="text-3xl sm:text-4xl md:text-5xl font-black font-mono leading-none"
-      style={{ color, textShadow: `0 0 40px ${color}60` }}
-    >
-      <motion.span>{display}</motion.span>
-      <span>{suffix}</span>
+    <div ref={ref} className={className} style={style}>
+      {inView ? (
+        <>
+          <CountUp target={parseFloat(digits)} decimals={decimals} />
+          <span>{suffix}</span>
+        </>
+      ) : (
+        value
+      )}
     </div>
   );
 }

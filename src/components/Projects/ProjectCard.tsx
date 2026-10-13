@@ -99,6 +99,8 @@ export default function ProjectCard({ project, index }: Props) {
   };
 
   const lines = mockLines[project.id] ?? [];
+  /* Only treat demo as a live link when it's a distinct URL from the source repo */
+  const liveDemo = project.demo && project.demo !== project.github ? project.demo : null;
 
   return (
     <motion.div
@@ -176,9 +178,9 @@ export default function ProjectCard({ project, index }: Props) {
             <Icon size={20} style={{ color: project.color }} />
           </div>
           <div className="flex items-center gap-2">
-            {project.demo && (
+            {liveDemo && (
               <motion.a
-                href={project.demo}
+                href={liveDemo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-white transition-colors p-1"
@@ -220,18 +222,50 @@ export default function ProjectCard({ project, index }: Props) {
           ))}
         </div>
 
-        {/* GitHub CTA */}
-        <motion.a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-xs font-mono text-gray-600 hover:text-white group/link transition-colors"
-          whileHover={{ x: 3 }}
-        >
-          <Github size={12} />
-          <span>View Source</span>
-          <ExternalLink size={10} className="opacity-0 group-hover/link:opacity-100 transition-opacity ml-auto" />
-        </motion.a>
+        {/* Actions */}
+        <div className="flex flex-wrap items-center gap-3">
+          {liveDemo ? (
+            <>
+              <motion.a
+                href={liveDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono rounded-sm border transition-colors"
+                style={{
+                  color: project.color,
+                  borderColor: `${project.color}50`,
+                  backgroundColor: `${project.color}12`,
+                }}
+                whileHover={{ y: -2 }}
+              >
+                <ExternalLink size={12} />
+                <span>Live Demo</span>
+              </motion.a>
+              <motion.a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3 py-2 text-xs font-mono text-gray-500 hover:text-white transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                <Github size={12} />
+                <span>View Source</span>
+              </motion.a>
+            </>
+          ) : (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-mono text-gray-600 hover:text-white group/link transition-colors"
+              whileHover={{ x: 3 }}
+            >
+              <Github size={12} />
+              <span>View Source</span>
+              <ExternalLink size={10} className="opacity-0 group-hover/link:opacity-100 transition-opacity ml-auto" />
+            </motion.a>
+          )}
+        </div>
       </div>
     </motion.div>
   );

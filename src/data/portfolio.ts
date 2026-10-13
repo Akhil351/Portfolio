@@ -62,7 +62,7 @@ export const experiences = [
     role: "Backend Developer",
     company: "Ideyalabs",
     location: "Hyderabad, India",
-    period: "2025 – Present",
+    period: "Jan 2025 – Present",
     project: "APEX – Transportation Back Office System",
     type: "full-time",
     highlights: [
@@ -84,7 +84,7 @@ export const experiences = [
     role: "Backend Developer Intern",
     company: "Ideyalabs",
     location: "Hyderabad, India",
-    period: "2024 – 2025",
+    period: "Jun 2024 – Dec 2024",
     project: "HLF – Blockchain Transaction System",
     type: "internship",
     highlights: [
