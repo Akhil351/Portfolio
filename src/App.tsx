@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import { useState, lazy, Suspense } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import CustomCursor from "./components/CustomCursor";
@@ -20,7 +21,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <LoadingScreen onComplete={() => setLoaded(true)} />
       {loaded && (
         <>
@@ -58,6 +59,6 @@ export default function App() {
           </Suspense>
         </>
       )}
-    </>
+    </MotionConfig>
   );
 }

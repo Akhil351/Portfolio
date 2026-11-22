@@ -68,7 +68,7 @@ export default function Experience() {
                   >
                     <div className="w-2 h-2 rounded-full bg-cyan-400" />
                     {/* Pulse ring for current job */}
-                    {i === 0 && (
+                    {exp.current && (
                       <div className="absolute inset-0 rounded-full border border-cyan-400/40 animate-ping" />
                     )}
                   </div>
@@ -85,7 +85,7 @@ export default function Experience() {
                   >
                     {exp.type === "full-time" ? "● FULL TIME" : "● INTERNSHIP"}
                   </span>
-                  {i === 0 && (
+                  {exp.current && (
                     <span className="text-[10px] font-mono px-2.5 py-1 rounded-sm border bg-green-400/8 text-green-400 border-green-400/20 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                       CURRENT
@@ -95,7 +95,7 @@ export default function Experience() {
 
                 {/* Card */}
                 <motion.div
-                  className="group relative p-6 border border-gray-800 rounded-sm bg-gray-900/20
+                  className="group relative p-4 sm:p-6 border border-gray-800 rounded-sm bg-gray-900/20
                              hover:border-gray-600 hover:bg-gray-900/40 transition-all duration-500 overflow-hidden"
                   whileHover={{ x: 4 }}
                 >
@@ -126,7 +126,7 @@ export default function Experience() {
                   </div>
 
                   {/* Project name */}
-                  <div className="mb-5 flex items-center gap-2">
+                  <div className="mb-5 flex flex-wrap items-center gap-2">
                     <Zap size={13} className="text-yellow-400/70" />
                     <span className="text-xs font-mono text-gray-500 tracking-wide">Project: </span>
                     <span className="text-gray-200 text-sm font-semibold">{exp.project}</span>
@@ -141,7 +141,7 @@ export default function Experience() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: hi * 0.06 }}
-                        className="flex gap-3 text-gray-400 text-sm leading-relaxed group/item"
+                        className="flex gap-3 text-gray-300 text-sm sm:text-base leading-relaxed group/item"
                       >
                         <ChevronRight
                           size={14}

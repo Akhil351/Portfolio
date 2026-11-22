@@ -124,7 +124,7 @@ export default function Contact() {
                 <CheckCircle size={40} className="text-cyan-400" />
                 <p className="text-white font-bold text-lg font-mono">Message sent successfully!</p>
                 <p className="text-gray-500 text-sm font-mono text-center">
-                  Thank you — I'll respond within 24 hours.
+                  Thank you — I'll get back to you as soon as I can.
                 </p>
               </motion.div>
             ) : (
@@ -212,6 +212,8 @@ export default function Contact() {
                   />
                   <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1 font-mono" />
                 </div>
+
+                <ValidationError errors={state.errors} className="text-red-400 text-sm font-mono" />
 
                 <motion.button
                   type="submit"

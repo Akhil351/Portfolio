@@ -233,3 +233,7 @@ body {
   animation: blob-move 12s ease-in-out infinite;
   filter: blur(80px);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

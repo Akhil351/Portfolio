@@ -12,7 +12,7 @@
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:akhil.vathaluru@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Akhil351)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/u/akhil2004/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://eshwar351.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://www.akhileswar.com/)
 
 </div>
 
@@ -20,11 +20,11 @@
 
 ## 👨‍💻 About Me
 
-> *Building Scalable Backend Systems & AI Agents*
+> *Backend Developer | Python · Java · Go | AI Agents*
 
 - 🎓 **B.Tech CSE** — KL University, Guntur · **CGPA: 9.43** (2021–2025)
-- 💼 **Backend Developer** @ Ideyalabs, Hyderabad (2025 – Present)
-- 🤖 Expert in **AI agent development** with LangGraph, LangChain, and OpenAI
+- 💼 **Backend Developer** @ IdeyaLabs, Hyderabad (June 2025 – Present)
+- 🤖 Developing **AI agents** with LangGraph, LangChain, and OpenAI
 - ☁️ Experienced in **serverless AWS deployments** (Lambda, CDK, Cognito, S3, SES)
 - 🏗️ Advocate for **domain-driven design**, microservices architecture, and event-driven systems
 - 📍 Based in **Hyderabad, India**
@@ -71,32 +71,63 @@
 
 ---
 
-## 💼 Experience
+### Complete skills inventory
 
-### Backend Developer — *Ideyalabs* · Hyderabad `2025 – Present`
-
-**Project: APEX – Transportation Back Office System**
-
-- Architected a **FastAPI** backend with **domain-driven design** supporting core domains: Clients, Pricing & Rating, Transit Times, and Billing — with clean separation between API, service, and data layers
-- Deployed **serverless application on AWS Lambda** using **AWS CDK** for infrastructure-as-code, with CI/CD pipelines via **GitHub Actions** achieving **80%+ test coverage**
-- Designed comprehensive RESTful APIs with **JWT authentication via AWS Cognito**, input validation, and structured error handling
-- Engineered **PostgreSQL** persistence using **SQLAlchemy ORM** with multi-schema architecture
-- Integrated external services: **SMC3** (freight rating), **HERE.com** (geocoding), **EIA** (fuel pricing), **AWS S3**, and **AWS SES**
-- Implemented Excel/CSV export generation, PDF generation for quotes, and structured JSON logging
-
-`FastAPI` `AWS Lambda` `PostgreSQL` `AWS CDK` `SQLAlchemy` `JWT`
+- **Languages:** Python, Java, Go, JavaScript, C, C++, SQL.
+- **Backend & Frontend:** FastAPI, Spring Boot, Express.js, REST APIs, Pydantic, React, Tailwind CSS, Vite.
+- **AI & LLM:** LangGraph, LangChain, OpenAI API, Tavily, Inngest Agent Kit, Google Gemini.
+- **Microservices:** Spring Cloud, Spring Cloud Gateway, Eureka, Spring Cloud Config, RabbitMQ, Spring WebFlux.
+- **Databases & ORM:** PostgreSQL, MongoDB, MySQL, Redis, Pinecone, SQLAlchemy, Spring Data JPA, Mongoose, Hibernate.
+- **Cloud & DevOps:** AWS Lambda, API Gateway, AWS S3, AWS SES, SQS, EventBridge, Secrets Manager, AWS CDK, Docker, GitHub Actions.
+- **APEX Integrations:** SMC3, EIA, HERE, Google Maps, Falvey, NMFTA, Shiplify, Daylight, Nager.Date, Calendar Admin.
+- **Authentication & Payments:** OAuth2, JWT, RBAC, AWS Cognito, Clerk, Razorpay.
+- **Testing & Quality:** Pytest, JUnit, Mockito, Ruff, Mypy.
+- **Blockchain:** Hyperledger Fabric, Chaincode, Blockchain, Corda, Smart Contracts.
 
 ---
 
-### Backend Developer Intern — *Ideyalabs* · Hyderabad `2024 – 2025`
+## 💼 Experience
 
-**Project: HLF – Blockchain Transaction System**
+### Backend Developer — *IdeyaLabs* · Hyderabad `June 2025 – Present`
 
-- Implemented **RESTful APIs in Go** for blockchain transaction management including issue, redeem, and transfer operations
-- Engineered **Go-based smart contracts (chaincode)** for **Hyperledger Fabric** to enforce business logic across multiple workflows
-- Led migration from **Corda-based blockchain → Hyperledger Fabric**, improving performance and interoperability
+**Project: APEX — Transportation Back Office System**
 
-`Go` `Hyperledger Fabric` `Blockchain` `Smart Contracts`
+- Developed production-grade REST APIs using FastAPI, Pydantic, SQLAlchemy, and multi-schema PostgreSQL, following a domain-driven modular architecture.
+- Built backend workflows for account lookup, shipment creation, listing and export, pickup scheduling/rescheduling, quick quotes, freight rating, freight density calculations, ZIP search, shipping instructions, and lookup APIs.
+- Implemented Pricing & Rating modules including fuel prices, fuel surcharge scales, accessorial charges and schedules, rate bases, lane minimums, high-cost ZIPs, pricing rules, and global and volume rates.
+- Developed and maintained domain modules for Client Management, Customer Profiles, Billing, Claims, and Transit Times, supporting customer configuration and transportation operations.
+- Integrated external services including SMC3 freight rating, EIA fuel data, HERE and Google geocoding, Falvey insurance, Daylight services, NMFTA, and Shiplify, with AWS Secrets Manager for secrets management.
+- Developed document workflows involving bill of lading PDFs, shipping labels, blind shipment forms, billing and claims document uploads, reusable templates, and Excel/CSV exports using AWS S3 and SES, including pickup and shipping label emails.
+- Implemented role-based access control (RBAC) for backend REST APIs using AWS Cognito-issued JWTs, with centralized exception handling, typed response wrappers, and structured JSON logging.
+- Deployed the application on AWS Lambda using Mangum and AWS CDK, with GitHub Actions CI/CD and Pytest, Ruff, and Mypy. Maintained 80%+ test coverage.
+
+`Python` `FastAPI` `Pydantic` `PostgreSQL` `SQLAlchemy` `AWS Lambda` `AWS CDK` `AWS Cognito` `RBAC` `Pytest` `Ruff` `Mypy`
+
+---
+
+### Blockchain Developer — *IdeyaLabs* · Hyderabad `December 2024 – June 2025`
+
+**Project: HLF — Blockchain Transaction System**
+
+- Developed Go-based Hyperledger Fabric chaincode for asset issue, redeem, and transfer operations, including ledger-state validation and transaction processing.
+- Implemented RESTful APIs in Go for blockchain transaction submission, asset queries, and integration with enterprise systems.
+- Worked on multi-organization Hyperledger Fabric workflows, including secure transaction handling, chaincode integration, and network interoperability.
+- Migrated blockchain transaction workflows from Corda to Hyperledger Fabric, adapting transaction logic and enterprise integrations.
+
+`Go` `Hyperledger Fabric` `Chaincode` `REST APIs` `Blockchain` `Corda` `Smart Contracts`
+
+---
+
+### Java Backend Developer Intern — *IdeyaLabs* · Hyderabad `June 2024 – December 2024`
+
+**Project: Fintech Application — Java Backend Services**
+
+- Developed Spring Boot RESTful APIs for account management, payment processing, and transaction operations with secure request handling.
+- Built backend service layers and JPA/Hibernate persistence for account records, fund transfers, and financial transactions.
+- Created unit and service tests using JUnit and Mockito to validate business logic and critical financial workflows.
+- Participated in Agile sprint planning, code reviews, CI/CD activities, and collaboration with backend developers.
+
+`Java` `Spring Boot` `REST APIs` `Spring Data JPA` `Hibernate` `JUnit` `Mockito`
 
 ---
 
@@ -104,8 +135,9 @@
 
 | # | Project | Description | Tech | Links |
 |---|---------|-------------|------|-------|
-| 🤖 | **AI Chatbot** | Full-stack AI chat with FastAPI backend, React frontend, LangGraph state management, multi-threaded conversations with PostgreSQL-backed persistent history | FastAPI · LangGraph · OpenAI GPT-4 · PostgreSQL · React · Tavily | [GitHub](https://github.com/Akhil351/langgraph-chatbot) |
+| 🗃️ | **Data Agent** | LangGraph and LangChain ETL and SQL analysis: API/file extraction, Pandas transformations, CSV/JSON/Parquet exports, schema inspection, and validated SQL generation | Python · LangGraph · LangChain · Pydantic · Pandas · SQLAlchemy · PostgreSQL | [GitHub](https://github.com/Akhil351/Data_Agent) |
 | ✈️ | **Travel Agent AI** | Intelligent AI travel assistant with natural language flight & hotel search, Pinecone vector DB for context retrieval, SerpAPI integration | LangGraph · FastAPI · Pinecone · LangChain · PostgreSQL · SerpAPI | [GitHub](https://github.com/Akhil351/Travel_Agent) |
+| 🤖 | **AI Chatbot** | Full-stack AI chat with FastAPI backend, React frontend, LangGraph state management, multi-threaded conversations with PostgreSQL-backed persistent history | FastAPI · LangGraph · OpenAI GPT-4 · PostgreSQL · React · Tavily | [GitHub](https://github.com/Akhil351/langgraph-chatbot) |
 | 💰 | **Budget Buddy** | AI-powered CLI finance assistant with income/expense tracking, real-time balance monitoring, date-range analytics, and persistent conversation memory | LangGraph · LangChain · PostgreSQL · SQLAlchemy · Python | [GitHub](https://github.com/Akhil351/budget-buddy/tree/langgraph-version) |
 | 🏋️ | **Fitness AI Platform** | Microservices platform with Eureka service discovery, Spring Cloud Gateway, RabbitMQ event-driven communication, and Google Gemini AI recommendations | Spring Boot · RabbitMQ · Google Gemini · MongoDB · Spring WebFlux · OAuth2 | [GitHub](https://github.com/Akhil351/fitness) |
 | 🖼️ | **ClearBG** | Full-stack AI background removal with Clerk auth, webhook sync, JWT security, and Razorpay credit-based payment system | Spring Boot · React · Clerk · Razorpay · ClipDrop API · JWT | [GitHub](https://github.com/Akhil351/ClearBG) |
@@ -172,7 +204,7 @@ Feel free to reach out — I'm always open to interesting projects and opportuni
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/v-akhileswar-a46062250/)
 [![Email](https://img.shields.io/badge/Email-akhil.vathaluru%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:akhil.vathaluru@gmail.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-Live-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://eshwar351.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://www.akhileswar.com/)
 
 </div>
 
@@ -184,3 +216,29 @@ Feel free to reach out — I'm always open to interesting projects and opportuni
 
 
 
+
+## 📄 Resumes
+
+- [Download Resume — one page](https://github.com/Akhil351/Resume/blob/master/resume.pdf)
+- [Detailed Resume — three pages](https://github.com/Akhil351/Resume/blob/master/detailed_resume.pdf)
+
+The Hero uses local `public/resume.pdf` and `public/detailed_resume.pdf`, verified against the GitHub PDFs on November 22, 2026. Refresh these copies when the source resumes change.
+
+## Local development and validation
+
+```bash
+npm ci
+npm run dev
+npm run typecheck
+npm run lint
+npm run build
+```
+
+The existing React, TypeScript, Vite, Tailwind CSS, Framer Motion, and Three.js design is preserved. All six projects retain their original IDs for terminal previews. Repository links are shown as source links, not live demos.
+
+### Contact and sharing configuration
+
+- The contact form retains Formspree form ID `myzerepa`. Verify inbox delivery and domain settings in the Formspree dashboard; local validation does not submit a message.
+- Email: [akhil.vathaluru@gmail.com](mailto:akhil.vathaluru@gmail.com).
+- Canonical, Open Graph, structured data, robots, and sitemap URLs use `https://www.akhileswar.com/`.
+- **Social image action item:** no share image exists in the repository. Broken `og-image.jpg` references have been removed and Twitter uses a text summary. Add a real 1200 × 630 image to `public/`, then set `og:image`, `twitter:image`, and their dimensions before enabling a large-image card.

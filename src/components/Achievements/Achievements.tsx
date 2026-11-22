@@ -60,7 +60,7 @@ function AnimatedValue({ value, color }: { value: string; color: string }) {
 }
 
 const highlights = [
-  { icon: "💡", label: "AI Systems", desc: "Built 15+ production AI projects" },
+  { icon: "💡", label: "AI Systems", desc: "Built ETL, SQL, and travel AI agents" },
   { icon: "⚡", label: "Performance", desc: "80%+ test coverage on AWS Lambda" },
   { icon: "🔗", label: "Integrations", desc: "10+ external API integrations" },
   { icon: "🏗️", label: "Architecture", desc: "DDD + microservices expertise" },

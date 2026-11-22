@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -12,6 +12,7 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const reducedMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -43,7 +44,7 @@ export default function Navbar() {
   const scrollTo = (href: string) => {
     setOpen(false);
     const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    el?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
@@ -63,7 +64,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
           <motion.a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }); }}
             aria-label="Akhileswar Reddy — Back to top"
             className="font-mono text-white tracking-widest text-sm flex items-center gap-1.5 group focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm"
             whileHover={{ scale: 1.03 }}
@@ -75,7 +76,7 @@ export default function Navbar() {
             <span className="text-cyan-400 group-hover:text-white transition-colors" aria-hidden="true">/&gt;</span>
           </motion.a>
 
-          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-7">
+          <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-7">
             {navItems.map((item) => {
               const isActive = activeSection === item.href;
               return (
@@ -103,7 +104,7 @@ export default function Navbar() {
           <motion.a
             href="mailto:akhil.vathaluru@gmail.com"
             aria-label="Hire Akhileswar — send email"
-            className="hidden md:flex items-center gap-2 px-4 py-1.5 border border-cyan-400/30 text-cyan-400 text-xs font-mono rounded-sm hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
+            className="hidden lg:flex items-center gap-2 px-4 py-1.5 border border-cyan-400/30 text-cyan-400 text-xs font-mono rounded-sm hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
             whileHover={{ scale: 1.03, boxShadow: "0 0 15px #00d4ff20" }}
             whileTap={{ scale: 0.97 }}
           >
@@ -115,7 +116,7 @@ export default function Navbar() {
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="md:hidden text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm p-1"
+            className="lg:hidden text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408] rounded-sm p-1"
             onClick={() => setOpen(!open)}
           >
             {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
@@ -130,7 +131,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10, height: 0 }}
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -10, height: 0 }}
-            className="md:hidden bg-[#020408]/98 border-t border-cyan-400/08 px-6 py-5 flex flex-col gap-4"
+            className="lg:hidden bg-[#020408]/98 border-t border-cyan-400/08 px-6 py-5 flex flex-col gap-4"
           >
             {navItems.map((item) => (
               <button

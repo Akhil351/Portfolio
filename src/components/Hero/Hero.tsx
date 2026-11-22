@@ -1,24 +1,26 @@
-import { motion } from "framer-motion";
-import { Download } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Download, FileText } from "lucide-react";
 import { Suspense, lazy, useState, useEffect } from "react";
 import { personalInfo } from "../../data/portfolio";
 
 const ParticleField = lazy(() => import("./ParticleField"));
 
 const roles = [
-  "Backend Systems Engineer",
+  "Backend Developer",
+  "Python & FastAPI Developer",
+  "Java & Spring Boot Developer",
   "AI Agent Developer",
-  "Microservices Architect",
-  "Cloud Infrastructure Builder",
-  "LangGraph Specialist",
+  "Cloud & Microservices Developer",
 ];
 
 function TypewriterCycler() {
+  const reducedMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [phase, setPhase] = useState<"typing" | "pause" | "erasing">("typing");
 
   useEffect(() => {
+    if (reducedMotion) return;
     const current = roles[index];
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -39,11 +41,11 @@ function TypewriterCycler() {
       }
     }
     return () => clearTimeout(timeout);
-  }, [displayed, phase, index]);
+  }, [displayed, phase, index, reducedMotion]);
 
   return (
-    <div className="flex items-center gap-2 min-h-[28px]" aria-live="polite" aria-atomic="true">
-      <span className="text-cyan-400 font-mono text-sm tracking-wide">{displayed}</span>
+    <div className="flex items-center gap-2 min-h-[28px]" role="status" aria-live="off" aria-label={reducedMotion ? roles[0] : roles[index]}>
+      <span className="text-cyan-400 font-mono text-sm tracking-wide" aria-hidden="true">{reducedMotion ? roles[0] : displayed}</span>
       <span className="w-0.5 h-4 bg-cyan-400 cursor-blink inline-block" aria-hidden="true" />
     </div>
   );
@@ -57,8 +59,9 @@ const floatingBadges = [
 ];
 
 export default function Hero() {
+  const reducedMotion = useReducedMotion();
   const scrollToSection = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
@@ -66,7 +69,7 @@ export default function Hero() {
       <div className="scanline" aria-hidden="true" />
 
       <Suspense fallback={null}>
-        <ParticleField />
+        {!reducedMotion && <ParticleField />}
       </Suspense>
 
       <div
@@ -83,7 +86,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020408] pointer-events-none" aria-hidden="true" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#020408]/70 via-transparent to-[#020408]/30 pointer-events-none" aria-hidden="true" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-10 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-24 w-full">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -107,7 +110,7 @@ export default function Hero() {
             <div className="text-gray-500 font-mono text-sm tracking-[0.25em] mb-2 uppercase" aria-hidden="true">
               &lt; Vathaluru
             </div>
-            <h1 className="text-[clamp(3rem,8vw,5.5rem)] font-black text-white leading-[0.95] tracking-tight">
+            <h1 aria-label={personalInfo.name} className="text-[clamp(2.5rem,8vw,5.5rem)] font-black text-white leading-[0.95] tracking-tight">
               Akhileswar
               <br />
               <span className="gradient-text-cyan glow-cyan-text">Reddy</span>
@@ -141,7 +144,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.1 }}
-            className="flex flex-wrap items-center gap-4 mb-12"
+            className="flex flex-wrap items-center gap-3 mb-12"
           >
             <motion.button
               onClick={() => scrollToSection("#projects")}
@@ -163,7 +166,7 @@ export default function Hero() {
               Contact Me
             </motion.button>
             <motion.a
-              href="/resume.pdf"
+              href={personalInfo.resume}
               download="akhileswar.pdf"
               aria-label="Download Akhileswar Reddy's resume PDF"
               className="flex items-center gap-2 px-6 py-3.5 border border-gray-700 text-gray-300 text-sm font-medium rounded-sm hover:border-cyan-400/60 hover:text-white hover:bg-cyan-400/5 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
@@ -171,13 +174,25 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
             >
               <Download size={16} aria-hidden="true" />
-              Resume
+              Download Resume
+            </motion.a>
+            <motion.a
+              href={personalInfo.detailedResume}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Akhileswar Reddy's detailed three-page resume PDF"
+              className="flex items-center gap-2 px-6 py-3.5 border border-gray-700 text-gray-300 text-sm font-medium rounded-sm hover:border-cyan-400/60 hover:text-white hover:bg-cyan-400/5 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#020408]"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <FileText size={16} aria-hidden="true" />
+              Detailed Resume
             </motion.a>
           </motion.div>
 
         </div>
 
-        <div className="hidden md:block" aria-hidden="true">
+        <div className="hidden xl:block" aria-hidden="true">
           {floatingBadges.map((badge, i) => (
             <motion.div
               key={badge.label}
@@ -187,7 +202,7 @@ export default function Hero() {
               transition={{ delay: 1.8 + badge.delay, duration: 0.6 }}
             >
               <motion.div
-                animate={{ y: [0, -6, 0] }}
+                animate={reducedMotion ? {} : { y: [0, -6, 0] }}
                 transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-sm border text-xs font-mono backdrop-blur-sm"
                 style={{
@@ -214,7 +229,7 @@ export default function Hero() {
           <span className="text-gray-700 font-mono text-[9px] tracking-[0.4em] uppercase">Scroll</span>
           <motion.div
             className="w-px h-10 bg-gradient-to-b from-cyan-400/60 to-transparent"
-            animate={{ scaleY: [0, 1, 0], originY: 0 }}
+            animate={reducedMotion ? {} : { scaleY: [0, 1, 0], originY: 0 }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>

@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Vathaluru Akhileswar Reddy",
   shortName: "Akhileswar",
-  role: "Backend & AI Systems Engineer",
+  role: "Backend Developer at IdeyaLabs",
   tagline: "Building Scalable Backend Systems & AI Agents",
   email: "akhil.vathaluru@gmail.com",
   phone: "+91 8500618999",
@@ -10,6 +10,9 @@ export const personalInfo = {
   leetcode: "https://leetcode.com/u/akhil2004/",
   instagram: "https://www.instagram.com/akhil___351/",
   twitter: "https://x.com/Akhil_351",
+  portfolio: "https://www.akhileswar.com/",
+  resume: "/resume.pdf",
+  detailedResume: "/detailed_resume.pdf",
   location: "Hyderabad, India",
   summary: [
     "Backend engineer specializing in production-grade systems with FastAPI and Spring Boot, featuring domain-driven design, microservices architecture, and serverless AWS deployments.",
@@ -20,83 +23,251 @@ export const personalInfo = {
 
 export const skills = [
   {
-    category: "Backend",
-    color: "#00d4ff",
-    items: ["FastAPI", "Spring Boot", "Express.js", "REST APIs", "Pydantic", "SQLAlchemy"],
+    "category": "Languages",
+    "color": "#38bdf8",
+    "items": [
+      "Python",
+      "Java",
+      "Go",
+      "JavaScript",
+      "C",
+      "C++",
+      "SQL"
+    ]
   },
   {
-    category: "AI / LLM",
-    color: "#ff6b35",
-    items: ["LangGraph", "LangChain", "OpenAI API", "Tavily", "Pinecone", "Google Gemini"],
+    "category": "Backend & Frontend",
+    "color": "#00d4ff",
+    "items": [
+      "FastAPI",
+      "Spring Boot",
+      "Express.js",
+      "REST APIs",
+      "Pydantic",
+      "React",
+      "Tailwind CSS",
+      "Vite"
+    ]
   },
   {
-    category: "Cloud & DevOps",
-    color: "#00ff9f",
-    items: ["AWS Lambda", "AWS CDK", "Docker", "GitHub Actions", "AWS S3", "AWS SES"],
+    "category": "AI & LLM",
+    "color": "#ff6b35",
+    "items": [
+      "LangGraph",
+      "LangChain",
+      "OpenAI API",
+      "Tavily",
+      "Inngest Agent Kit",
+      "Google Gemini"
+    ]
   },
   {
-    category: "Databases",
-    color: "#ffd700",
-    items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Spring Data JPA", "Mongoose"],
+    "category": "Microservices",
+    "color": "#ff4d8d",
+    "items": [
+      "Spring Cloud",
+      "Spring Cloud Gateway",
+      "Eureka",
+      "Spring Cloud Config",
+      "RabbitMQ",
+      "Spring WebFlux"
+    ]
   },
   {
-    category: "Microservices",
-    color: "#ff4d8d",
-    items: ["Spring Cloud", "RabbitMQ", "Eureka", "API Gateway", "Spring WebFlux", "Spring Config"],
+    "category": "Databases & ORM",
+    "color": "#ffd700",
+    "items": [
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Redis",
+      "Pinecone",
+      "SQLAlchemy",
+      "Spring Data JPA",
+      "Mongoose",
+      "Hibernate"
+    ]
   },
   {
-    category: "Auth & Testing",
-    color: "#a78bfa",
-    items: ["OAuth2", "JWT", "AWS Cognito", "Clerk", "Pytest", "JUnit"],
+    "category": "Cloud & DevOps",
+    "color": "#00ff9f",
+    "items": [
+      "AWS Lambda",
+      "API Gateway",
+      "AWS S3",
+      "AWS SES",
+      "SQS",
+      "EventBridge",
+      "Secrets Manager",
+      "AWS CDK",
+      "Docker",
+      "GitHub Actions"
+    ]
   },
   {
-    category: "Languages",
-    color: "#38bdf8",
-    items: ["Python", "Go", "Java", "JavaScript", "C", "C++"],
+    "category": "APEX Integrations",
+    "color": "#38bdf8",
+    "items": [
+      "SMC3",
+      "EIA",
+      "HERE",
+      "Google Maps",
+      "Falvey",
+      "NMFTA",
+      "Shiplify",
+      "Daylight",
+      "Nager.Date",
+      "Calendar Admin"
+    ]
   },
+  {
+    "category": "Authentication & Payments",
+    "color": "#a78bfa",
+    "items": [
+      "OAuth2",
+      "JWT",
+      "RBAC",
+      "AWS Cognito",
+      "Clerk",
+      "Razorpay"
+    ]
+  },
+  {
+    "category": "Testing & Quality",
+    "color": "#ff6b35",
+    "items": [
+      "Pytest",
+      "JUnit",
+      "Mockito",
+      "Ruff",
+      "Mypy"
+    ]
+  },
+  {
+    "category": "Blockchain",
+    "color": "#00d4ff",
+    "items": [
+      "Hyperledger Fabric",
+      "Chaincode",
+      "Blockchain",
+      "Corda",
+      "Smart Contracts"
+    ]
+  }
 ];
 
 export const experiences = [
   {
-    id: 1,
-    role: "Backend Developer",
-    company: "Ideyalabs",
-    location: "Hyderabad, India",
-    period: "Jan 2025 – Present",
-    project: "APEX – Transportation Back Office System",
-    type: "full-time",
-    highlights: [
-      "Developed a production-grade transportation back-office backend using FastAPI, PostgreSQL, SQLAlchemy, Pydantic, and domain-driven module architecture.",
-      "Built client workflows for account lookup, shipment creation/listing/export, pickup scheduling and rescheduling, quick quotes, rater calculation, freight density calculation, ZIP search, instruction codes, and lookup APIs.",
-      "Implemented Pricing & Rating modules for fuel prices, fuel scales, accessorial charges/schedules, rate bases, lane minimums, high-cost ZIPs, global rates, pricing rules, and volume rates.",
-      "Integrated SMC3 freight rating, HERE geocoding, EIA fuel pricing, Daylight services, Falvey insurance, AWS S3, AWS SES, and AWS Secrets Manager.",
-      "Built document workflows for bill of lading PDFs, shipping labels, blind shipment forms, pickup/shipping label emails, reusable templates, and Excel/CSV exports.",
-      "Designed secured REST APIs with AWS Cognito/JWT authentication, centralized exception handling, typed response wrappers, multi-schema persistence, and structured JSON logging.",
-      "Developed and maintained domain-specific modules covering Client Management, Customer Profiles, Billing, Claims, and Transit Times, supporting customer configuration and transportation operations.",
-      "Integrated additional external services, including Google Geocoding, NMFTA, and Shiplify, for geocoding and transportation-related workflows.",
-      "Implemented document storage, billing document workflows, claims document uploads, PDF generation, and email notifications using AWS S3 and SES.",
-      "Deployed serverless AWS Lambda infrastructure using Mangum and AWS CDK, with GitHub Actions CI/CD, Pytest, Ruff, Mypy, and 80%+ test coverage.",
+    "id": 1,
+    "role": "Backend Developer",
+    "company": "IdeyaLabs",
+    "location": "Hyderabad, India",
+    "period": "June 2025 – Present",
+    "project": "APEX — Transportation Back Office System",
+    "type": "full-time",
+    "current": true,
+    "highlights": [
+      "Developed production-grade REST APIs using FastAPI, Pydantic, SQLAlchemy, and multi-schema PostgreSQL, following a domain-driven modular architecture.",
+      "Built backend workflows for account lookup, shipment creation, listing and export, pickup scheduling/rescheduling, quick quotes, freight rating, freight density calculations, ZIP search, shipping instructions, and lookup APIs.",
+      "Implemented Pricing & Rating modules including fuel prices, fuel surcharge scales, accessorial charges and schedules, rate bases, lane minimums, high-cost ZIPs, pricing rules, and global and volume rates.",
+      "Developed and maintained domain modules for Client Management, Customer Profiles, Billing, Claims, and Transit Times, supporting customer configuration and transportation operations.",
+      "Integrated external services including SMC3 freight rating, EIA fuel data, HERE and Google geocoding, Falvey insurance, Daylight services, NMFTA, and Shiplify, with AWS Secrets Manager for secrets management.",
+      "Developed document workflows involving bill of lading PDFs, shipping labels, blind shipment forms, billing and claims document uploads, reusable templates, and Excel/CSV exports using AWS S3 and SES, including pickup and shipping label emails.",
+      "Implemented role-based access control (RBAC) for backend REST APIs using AWS Cognito-issued JWTs, with centralized exception handling, typed response wrappers, and structured JSON logging.",
+      "Deployed the application on AWS Lambda using Mangum and AWS CDK, with GitHub Actions CI/CD and Pytest, Ruff, and Mypy. Maintained 80%+ test coverage."
     ],
-    tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "AWS Lambda", "AWS CDK", "Cognito", "Pytest"],
+    "tech": [
+      "Python",
+      "FastAPI",
+      "Pydantic",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "AWS Lambda",
+      "AWS CDK",
+      "AWS Cognito",
+      "RBAC",
+      "Pytest",
+      "Ruff",
+      "Mypy"
+    ]
   },
   {
-    id: 2,
-    role: "Backend Developer Intern",
-    company: "Ideyalabs",
-    location: "Hyderabad, India",
-    period: "Jun 2024 – Dec 2024",
-    project: "HLF – Blockchain Transaction System",
-    type: "internship",
-    highlights: [
-      "Implemented RESTful APIs in Go for blockchain transaction management including issue, redeem, and transfer operations.",
-      "Engineered Go-based smart contracts (chaincode) for Hyperledger Fabric to enforce business logic across multiple workflows.",
-      "Led migration from Corda-based blockchain to Hyperledger Fabric, improving performance and interoperability.",
+    "id": 2,
+    "role": "Blockchain Developer",
+    "company": "IdeyaLabs",
+    "location": "Hyderabad, India",
+    "period": "December 2024 – June 2025",
+    "project": "HLF — Blockchain Transaction System",
+    "type": "full-time",
+    "current": false,
+    "highlights": [
+      "Developed Go-based Hyperledger Fabric chaincode for asset issue, redeem, and transfer operations, including ledger-state validation and transaction processing.",
+      "Implemented RESTful APIs in Go for blockchain transaction submission, asset queries, and integration with enterprise systems.",
+      "Worked on multi-organization Hyperledger Fabric workflows, including secure transaction handling, chaincode integration, and network interoperability.",
+      "Migrated blockchain transaction workflows from Corda to Hyperledger Fabric, adapting transaction logic and enterprise integrations."
     ],
-    tech: ["Go", "Hyperledger Fabric", "Blockchain", "Smart Contracts"],
+    "tech": [
+      "Go",
+      "Hyperledger Fabric",
+      "Chaincode",
+      "REST APIs",
+      "Blockchain",
+      "Corda",
+      "Smart Contracts"
+    ]
   },
+  {
+    "id": 3,
+    "role": "Java Backend Developer Intern",
+    "company": "IdeyaLabs",
+    "location": "Hyderabad, India",
+    "period": "June 2024 – December 2024",
+    "project": "Fintech Application — Java Backend Services",
+    "type": "internship",
+    "current": false,
+    "highlights": [
+      "Developed Spring Boot RESTful APIs for account management, payment processing, and transaction operations with secure request handling.",
+      "Built backend service layers and JPA/Hibernate persistence for account records, fund transfers, and financial transactions.",
+      "Created unit and service tests using JUnit and Mockito to validate business logic and critical financial workflows.",
+      "Participated in Agile sprint planning, code reviews, CI/CD activities, and collaboration with backend developers."
+    ],
+    "tech": [
+      "Java",
+      "Spring Boot",
+      "REST APIs",
+      "Spring Data JPA",
+      "Hibernate",
+      "JUnit",
+      "Mockito"
+    ]
+  }
 ];
 
 export const projects = [
+  {
+    id: 6,
+    title: "Data Agent",
+    subtitle: "AI-Powered ETL & SQL Analysis Agent",
+    description:
+      "Engineered a LangGraph and LangChain data agent that routes natural-language requests to ETL and SQL analysis workflows. Built API and file extraction pipelines, Pandas-based transformations, CSV/JSON/Parquet exports, database schema inspection, and SQL generation with validation.",
+    tech: ["Python", "LangGraph", "LangChain", "Pydantic", "Pandas", "PostgreSQL", "SQLAlchemy"],
+    github: "https://github.com/Akhil351/Data_Agent",
+    demo: null,
+    color: "#a78bfa",
+    icon: "database",
+  },
+  {
+    id: 2,
+    title: "Travel Agent AI",
+    subtitle: "Intelligent AI Travel Assistant",
+    description:
+      "Developed a FastAPI and LangGraph travel assistant supporting natural-language flight and hotel searches using SerpAPI. Integrated Pinecone for context retrieval, PostgreSQL for conversation persistence, and LangChain for tool orchestration.",
+    tech: ["LangGraph", "FastAPI", "Pinecone", "PostgreSQL", "LangChain", "SerpAPI"],
+    github: "https://github.com/Akhil351/Travel_Agent",
+    demo: null,
+    color: "#ff6b35",
+    icon: "plane",
+  },
   {
     id: 1,
     title: "AI Chatbot",
@@ -105,21 +276,9 @@ export const projects = [
       "Full-stack AI chat application with React + Tailwind CSS frontend and FastAPI backend supporting multi-threaded conversations with PostgreSQL-backed persistent history. Integrated OpenAI GPT-4 with LangGraph for stateful conversation management, custom tools, Tavily web search, and SQLAlchemy session handling.",
     tech: ["FastAPI", "LangGraph", "OpenAI GPT-4", "PostgreSQL", "React", "Tavily"],
     github: "https://github.com/Akhil351/langgraph-chatbot",
-    demo: "https://github.com/Akhil351/langgraph-chatbot",
+    demo: null,
     color: "#00d4ff",
     icon: "bot",
-  },
-  {
-    id: 2,
-    title: "Travel Agent AI",
-    subtitle: "Intelligent Travel Planning",
-    description:
-      "AI travel assistant using LangGraph with a FastAPI backend for natural-language flight and hotel search. Integrated Pinecone for conversation context retrieval, SerpAPI tools with structured JSON responses, PostgreSQL persistence, and LangChain tool orchestration.",
-    tech: ["LangGraph", "FastAPI", "Pinecone", "PostgreSQL", "LangChain", "SerpAPI"],
-    github: "https://github.com/Akhil351/Travel_Agent",
-    demo: "https://github.com/Akhil351/Travel_Agent",
-    color: "#ff6b35",
-    icon: "plane",
   },
   {
     id: 3,
@@ -129,7 +288,7 @@ export const projects = [
       "AI-powered command-line finance assistant using LangGraph and LangChain with income/expense tracking, date-range analytics, real-time balance monitoring, web search integration, dependency injection, PostgreSQL persistence, and conversation memory.",
     tech: ["LangGraph", "LangChain", "PostgreSQL", "SQLAlchemy", "Python"],
     github: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
-    demo: "https://github.com/Akhil351/budget-buddy/tree/langgraph-version",
+    demo: null,
     color: "#00ff9f",
     icon: "wallet",
   },
@@ -141,7 +300,7 @@ export const projects = [
       "Microservices platform using Spring Boot with Eureka service discovery, Spring Cloud Gateway, centralized configuration, and RabbitMQ for asynchronous communication between user, activity, and AI recommendation services. Built a Gemini-powered recommendation service with Spring WebFlux, MongoDB, and OAuth2.",
     tech: ["Spring Boot", "RabbitMQ", "Google Gemini", "MongoDB", "Spring WebFlux", "OAuth2"],
     github: "https://github.com/Akhil351/fitness",
-    demo: "https://github.com/Akhil351/fitness",
+    demo: null,
     color: "#ffd700",
     icon: "activity",
   },
@@ -153,21 +312,9 @@ export const projects = [
       "Full-stack image background removal application using Spring Boot, React, and ClipDrop API. Integrated Clerk authentication with webhook synchronization, JWT-based API security using custom filters, Razorpay credit payments, and reactive Spring WebClient for asynchronous AI service calls.",
     tech: ["Spring Boot", "React", "Clerk", "Razorpay", "ClipDrop API", "JWT"],
     github: "https://github.com/Akhil351/ClearBG",
-    demo: "https://github.com/Akhil351/ClearBG",
+    demo: null,
     color: "#ff4d8d",
     icon: "image",
-  },
-  {
-    id: 6,
-    title: "AI Data Agent",
-    subtitle: "Multi-Agent ETL & SQL Analyst",
-    description:
-      "LLM-powered multi-agent system that routes natural-language requests to an ETL analyst or an SQL analyst. The ETL agent extracts JSON from HTTP APIs, transforms CSV, JSON, and Parquet files with LLM-generated Pandas code, and saves the results. The SQL agent inspects PostgreSQL schema context, generates SQL, passes it through an LLM safety judge, executes approved queries, and explains the answer in plain language. Built with LangGraph state graphs and Pydantic-structured outputs.",
-    tech: ["Python", "LangGraph", "LangChain", "Pydantic", "Pandas", "PostgreSQL", "SQLAlchemy"],
-    github: "https://github.com/Akhil351/Data_Agent",
-    demo: null,
-    color: "#a78bfa",
-    icon: "database",
   },
 ];
 
@@ -187,7 +334,7 @@ export const achievements = [
     title: "Red Hat Certified",
     value: "EX183",
     label: "Enterprise Developer",
-    description: "Enterprise Application Developer — validated expertise in Java EE, RESTful services, CDI, JPA, and JBoss EAP deployment.",
+    description: "Red Hat Certified Enterprise Application Developer (EX183) — validated expertise in Java EE, RESTful services, CDI, JPA, and JBoss EAP deployment.",
     link: "https://rhtapps.redhat.com/verify?certId=230-171-886",
     color: "#ff6b35",
     icon: "shield",
@@ -197,7 +344,7 @@ export const achievements = [
     title: "Hackathon Finalist",
     value: "Top 700",
     label: "of 57,000+ participants",
-    description: "Google Cloud Agentic AI Day (Hack2skill, 2025) — Built an AI-powered monitoring system using Vertex AI, Gemini, Next.js, and ESP32 within 30 hours.",
+    description: "Google Cloud Agentic AI Day (Hack2skill, 2025) — Built an AI-powered emergency and environmental monitoring system using Vertex AI, Gemini, Next.js, and ESP32 within 30 hours.",
     link: "https://certificate.hack2skill.com/user/aidayfinalist-1/2025H2S06AID-F01638",
     color: "#00ff9f",
     icon: "trophy",

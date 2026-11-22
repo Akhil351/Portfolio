@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { Github, ExternalLink, Bot, Plane, Wallet, Activity, Image as ImageIcon, Database } from "lucide-react";
 import { useRef } from "react";
 
@@ -75,6 +75,7 @@ interface Props {
 }
 
 export default function ProjectCard({ project, index }: Props) {
+  const reducedMotion = useReducedMotion();
   const Icon = iconMap[project.icon] || Bot;
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -88,7 +89,7 @@ export default function ProjectCard({ project, index }: Props) {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    if (!rect || reducedMotion) return;
     mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
     mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
   };
@@ -109,7 +110,7 @@ export default function ProjectCard({ project, index }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 800 }}
+      style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: "preserve-3d", perspective: 800 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-sm border border-gray-800 bg-gray-900/25 overflow-hidden
@@ -181,6 +182,7 @@ export default function ProjectCard({ project, index }: Props) {
             {liveDemo && (
               <motion.a
                 href={liveDemo}
+                aria-label={`Open ${project.title} live demo`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-white transition-colors p-1"
@@ -191,6 +193,7 @@ export default function ProjectCard({ project, index }: Props) {
             )}
             <motion.a
               href={project.github}
+              aria-label={`View ${project.title} source on GitHub`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-white transition-colors p-1"
@@ -228,6 +231,7 @@ export default function ProjectCard({ project, index }: Props) {
             <>
               <motion.a
                 href={liveDemo}
+                aria-label={`Open ${project.title} live demo`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono rounded-sm border transition-colors"
@@ -255,6 +259,7 @@ export default function ProjectCard({ project, index }: Props) {
           ) : (
             <motion.a
               href={project.github}
+              aria-label={`View ${project.title} source on GitHub`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-xs font-mono text-gray-600 hover:text-white group/link transition-colors"

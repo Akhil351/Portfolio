@@ -1,6 +1,6 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { personalInfo } from "../../data/portfolio";
+import { personalInfo, projects } from "../../data/portfolio";
 import { MapPin, GraduationCap, Briefcase, Brain, Cloud, ExternalLink } from "lucide-react";
 
 const highlights = [
@@ -15,21 +15,21 @@ const highlights = [
     icon: Brain,
     color: "#ff6b35",
     title: "AI Agent Development",
-    desc: "Expert in LangGraph and LangChain for conversational AI with multi-turn dialogue, custom tool integration, and Pinecone vector databases.",
+    desc: "AI agents using LangGraph and LangChain for conversational AI with multi-turn dialogue, custom tool integration, and Pinecone vector databases.",
     tag: "LangGraph · LangChain · OpenAI",
   },
   {
     icon: Cloud,
     color: "#00ff9f",
     title: "Microservices & Cloud",
-    desc: "Event-driven architectures with RabbitMQ, Spring Cloud microservices, RESTful APIs with OAuth2/JWT on AWS Lambda infrastructure.",
+    desc: "Event-driven architectures with RabbitMQ, Spring Cloud microservices, RESTful APIs with OAuth2/JWT and RBAC on AWS Lambda infrastructure.",
     tag: "AWS · Docker · RabbitMQ",
   },
 ];
 
 const stats = [
   { value: 2, suffix: "+", label: "Years Experience", color: "#00d4ff" },
-  { value: 15, suffix: "+", label: "AI Projects Built", color: "#ff6b35" },
+  { value: projects.length, suffix: "", label: "Featured Projects", color: "#ff6b35" },
   { value: 530, suffix: "+", label: "LeetCode Problems", color: "#ffd700" },
   { value: 9.43, suffix: "", label: "CGPA", color: "#00ff9f" },
 ];
@@ -50,13 +50,14 @@ function CountUp({ value, decimals }: { value: number; decimals: number }) {
 function AnimatedCounter({ value, suffix, color }: { value: number; suffix: string; color: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
+  const reducedMotion = useReducedMotion();
   const decimals = Number.isInteger(value) ? 0 : 2;
   /* Real target value is rendered until the counter scrolls into view, so crawlers that don't scroll index e.g. "530+" instead of "0+" */
   const targetText = decimals > 0 ? value.toFixed(decimals) : String(value);
 
   return (
     <div ref={ref} className="text-3xl md:text-4xl font-black font-mono leading-none" style={{ color }}>
-      {inView ? <CountUp value={value} decimals={decimals} /> : <span>{targetText}</span>}
+      {inView && !reducedMotion ? <CountUp value={value} decimals={decimals} /> : <span>{targetText}</span>}
       <span>{suffix}</span>
     </div>
   );
