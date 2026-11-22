@@ -1,6 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { personalInfo, projects } from "../../data/portfolio";
+import { personalInfo } from "../../data/portfolio";
 import { MapPin, GraduationCap, Briefcase, Brain, Cloud, ExternalLink } from "lucide-react";
 
 const highlights = [
@@ -29,7 +29,7 @@ const highlights = [
 
 const stats = [
   { value: 2, suffix: "+", label: "Years Experience", color: "#00d4ff" },
-  { value: projects.length, suffix: "", label: "Featured Projects", color: "#ff6b35" },
+  { value: 15, suffix: "+", label: "AI Projects", color: "#ff6b35" },
   { value: 530, suffix: "+", label: "LeetCode Problems", color: "#ffd700" },
   { value: 9.43, suffix: "", label: "CGPA", color: "#00ff9f" },
 ];

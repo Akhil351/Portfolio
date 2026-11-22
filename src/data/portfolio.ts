@@ -21,6 +21,29 @@ export const personalInfo = {
   ],
 };
 
+// Public AI application repositories reviewed on 2026-11-23.
+// Count each repository once; exclude non-AI apps and framework/tutorial collections
+// (MCP, LangChain, LangGraph, and LangGraph_FrameWork).
+export const aiProjectRepositories = [
+  "Data_Agent",
+  "Travel_Agent",
+  "fitness",
+  "ClearBG",
+  "langgraph-chatbot",
+  "budget-buddy",
+  "Ghibli",
+  "TaskAgent",
+  "AiTicketAssitant",
+  "QuizCrafter-AI",
+  "AiStudio",
+  "VoiceScribe",
+  "AiReelGenerator",
+  "ChatBot",
+  "research-assistant",
+  "resume-builder-ai",
+  "RAG",
+];
+
 export const skills = [
   {
     "category": "Languages",
